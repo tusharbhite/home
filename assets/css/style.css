@@ -391,7 +391,7 @@ body {
 .main__content.gallary,
 .about-me.gallary {
 	background-color: #a5fd21;
-	background-image: -webkit-linear-gradient(289deg, #b1b5ac 0%, #070500d7 100%);
+	background-image: -webkit-linear-gradient(289deg, #b1b5ac 0%, #070500df 100%);
 	background-image: -o-linear-gradient(289deg, #b1b5ac 0%, #070500d7 100%);
 	background-image: linear-gradient(19deg, #b1b5ac 0%, #070500d7 100%)
 }
@@ -1455,4 +1455,16 @@ body {
 
 .no-hover-underline a:hover {
 	text-decoration: none;
+}
+
+.footer-table{
+    background: black;
+}
+
+.footer-icons{
+    font-size: 40px;
+}
+
+.prev-next-btns{
+    font-size: 20px;
 }

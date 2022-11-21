@@ -11,6 +11,21 @@ $(document).ready(function() {
   });
 
   //contact shortcut
+  $('#about-btn').click(function() {
+    //$('.about').click();
+  });
+
+   //contact shortcut
+   $('.prev-next-btns').click(function() {
+    var destination = $(this).attr("dest");
+    console.log(destination);
+    var destSelector="."+destination;
+    $(destSelector).click();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  });
+
+  //Contact  shortcut
   $('#contacting').on('click', function() {
     $('#contact-page').click();
   });
