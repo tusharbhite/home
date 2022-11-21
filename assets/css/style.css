@@ -43,3 +43,27 @@
     font-size: 16px;
     line-height: 30px;
 }
+
+#mobile{
+    display: none;
+}
+/*header logos*/
+#aem-logo{
+    border-radius: 10%;
+    width: 75%;
+
+}
+
+@media (max-width: 600px)  {
+    #aem-logo{
+        width: 20%;
+    
+    }
+    #mobile{
+        display: inline;
+    }
+
+    #desktop{
+        display: none;
+    }
+}
