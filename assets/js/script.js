@@ -3,6 +3,15 @@
 // var Scrollbar = window.Scrollbar;
 $(document).ready(function() {
   onResize();
+
+  //Toggle Chevron
+  $('.menu-item-has-children').click(function() {
+    $('.menu-item-has-children li a').toggle('1000');
+    $("i", this).toggleClass("fa-chevron-down fa-chevron-right");
+  });
+  
+
+
   // Move to top
   $('[dd-move-to-top]').on('click', function() {
     // $('html, body').animate({
