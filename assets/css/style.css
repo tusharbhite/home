@@ -36,3 +36,10 @@
 .container-list ul li:hover:before {
     left: 0;
 }
+.tables-weight td {
+    font-family: "Noto Sans SC",sans-serif;
+    font-weight: 600;
+    color: #fff;
+    font-size: 16px;
+    line-height: 30px;
+}
