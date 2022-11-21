@@ -43,3 +43,8 @@
     font-size: 16px;
     line-height: 30px;
 }
+
+
+.no-hover-underline a:hover {
+    text-decoration: none;
+}
