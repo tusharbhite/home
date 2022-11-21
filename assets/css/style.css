@@ -1463,8 +1463,17 @@ body {
 
 .footer-icons{
     font-size: 40px;
+    cursor: pointer;
+
 }
 
 .prev-next-btns{
     font-size: 20px;
+    cursor: pointer;
+
+}
+
+.row .col-lg-6 .text-center{
+    cursor: pointer;
+
 }

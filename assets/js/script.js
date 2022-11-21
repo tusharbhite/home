@@ -10,12 +10,15 @@ $(document).ready(function() {
     $("i", this).toggleClass("fa-chevron-down fa-chevron-right");
   });
 
-  //contact shortcut
-  $('#about-btn').click(function() {
-    //$('.about').click();
+  //pre next shortcut
+  $('.demo-link').click(function() {
+    var destination = $(this).attr("href");
+    window.open(destination); 
+
+
   });
 
-   //contact shortcut
+   //pre next shortcut
    $('.prev-next-btns').click(function() {
     var destination = $(this).attr("dest");
     console.log(destination);
