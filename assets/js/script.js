@@ -9,6 +9,11 @@ $(document).ready(function() {
     $('.menu-item-has-children li a').toggle('1000');
     $("i", this).toggleClass("fa-chevron-down fa-chevron-right");
   });
+
+  //contact shortcut
+  $('#contacting').on('click', function() {
+    $('#contact-page').click();
+  });
   
 
 
