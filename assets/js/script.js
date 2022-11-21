@@ -14,8 +14,12 @@ $(document).ready(function() {
   $('.demo-link').click(function() {
     var destination = $(this).attr("href");
     window.open(destination); 
+  });
 
-
+   //Achievemnts links
+   $('.boxed').click(function() {
+    var destination = $(this).attr("href");
+    window.open(destination); 
   });
 
    //pre next shortcut
