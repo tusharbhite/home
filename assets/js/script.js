@@ -7,10 +7,33 @@ $(document).ready(function() {
   //form
   $("#formid").submit(function(e) {
     //alert("tried to submit");
-    $("#showError").click();
+    //$("#showError").click();
     e.preventDefault();
+    
+
+
+
+
+
 });
 
+    $('.form-btn').click(function() {
+      var name = $('#input-name').val();
+      var email= $('#input-email').val();
+      var occupation= $('#input-occupation').val();
+      var message= $('#input-message').val();
+      var readyToSubmit=false;
+   
+      if(name.length===0 || occupation.length===0 || message.length===0){
+      $("#showError").click();
+      }
+      else{
+        readyToSubmit=true;
+      }
+      if(readyToSubmit)
+      alert("Ready "+readyToSubmit);
+      
+    });
 
   //Toggle Chevron
   $('.about-me').click(function() {
