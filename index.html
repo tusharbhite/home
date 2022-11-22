@@ -1394,7 +1394,42 @@
                               </div>
                            </div>
                            <div class="clearfix"></div>
-                           <button class="form-btn"><i class="mdi mdi-send"></i>&nbsp;Send</button>
+                           <button class="form-btn" href="javascript:void(0);"><i class="mdi mdi-send"></i>&nbsp;Send</button>
+
+<div id="myNav" class="overlay">
+    <div class="overlay-content">
+      
+      <div class="container bg-gray">
+      <div class="container popup bg-light">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+        <div class="card row" >
+            <div class="card-body" style="">
+              <h4 class="card-title">OOPS..<span id="oops" class="emoji">😠</span></h4>
+              <p class="card-text">You missed some fields or entered invalid data..!</p>
+              <a href="javascript:void(0);" class="btn btn-danger" onclick="closeNav()">CLOSE</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+  <span id="showError" onclick="openNav()"></span>
+  
+  <script>
+  function openNav() {
+    document.getElementById("myNav").style.display = "block";
+  }
+  
+  function closeNav() {
+    document.getElementById("myNav").style.display = "none";
+  }
+  </script>
+
+
                         </form>
                      </div>
                      <div class="col-lg-4 text-center">

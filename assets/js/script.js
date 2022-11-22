@@ -7,6 +7,7 @@ $(document).ready(function() {
   //form
   $("#formid").submit(function(e) {
     //alert("tried to submit");
+    $("#showError").click();
     e.preventDefault();
 });
 
