@@ -4,8 +4,9 @@
 $(document).ready(function() {
   onResize();
 
+
   //Toggle Chevron
-  $('.menu-item-has-children').click(function() {
+  $('.about-me').click(function() {
     $('.menu-item-has-children li a').toggle('1000');
     $("i", this).toggleClass("fa-chevron-down fa-chevron-right");
   });
@@ -137,6 +138,20 @@ $(document).ready(function() {
       }, 1);
     }
   });
+  
+
+  $('.hamburger__menu').click();
+  $('.projects').click();
+ 
+  if( $(window).width() <= 768 ) {
+    $('.about-me').click();
+  }
+
+  $('.about-me-2').on('click', function() {
+    $('.about-me').click();
+  });
+  
+
 });
 
 // On widnow resize
