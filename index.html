@@ -1356,11 +1356,11 @@
                   <!-- Get in touch -->
                   <div class="row">
                      <div class="col-lg-8">
-                        <h3 class="block-title">Get in touch!</h3>
+                        <h3 class="block-title">Submit a Testimonials !</h3>
                         <div class="clearfix"></div>
                         <br />
                         <!-- Contact Form -->
-                        <form action="#" method="POST">
+                        <form action="#" id="formid" method="POST">
                            <div class="row">
                               <div class="col col-xs-12">
                                  <div class="form-group">
@@ -1394,10 +1394,24 @@
                               </div>
                            </div>
                            <div class="clearfix"></div>
-                           <button class="form-btn"><i class="mdi mdi-send"></i>&nbsp;Send</button>
+                           <button id="submit-form" class="form-btn"><i class="mdi mdi-send"></i>&nbsp;Send</button>
+                          <!-- <button id="clickBtn">Click Me To See PopUp</button>-->
+                           <div id="popup">
+                               <div class="popup-container">
+                                   <div class="popup">
+                                      
+                                       <h2>Custom Popup</h2>
+                                       <p>
+                                           This is a custom popup. You can just put any content behind it. Also you can apply any custom style
+                                           in this popup.
+                                       </p>
+                                       <div class="close-popup" id="closeBtn"><a href="#">X</a></div>
+                                   </div>
+                               </div>
+                           </div> 
                         </form>
                      </div>
-                     <div class="col-lg-4 text-center">
+                     <div class="col-lg-4 text-center loc-circle">
                         <!-- Location details -->
                         <h3 class="block-title">Reach us!</h3>
                         <div class="clearfix"></div>

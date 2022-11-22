@@ -4,6 +4,28 @@
 $(document).ready(function() {
   onResize();
 
+  //form submission
+  $('.submit-form').click(function() {
+   
+  });
+  
+  $('#submit-form').click(function() {
+    popup.style.display = 'block';
+    $('.loc-circle').css('z-index', -1);
+
+  });
+  $('#closeBtn').click(function() {
+    popup.style.display = 'none';
+  });
+  $('#popup').click(function() {
+    popup.style.display = 'none';
+  });
+
+  $("#formid").submit(function(e) {
+    //alert("tried to submit");
+    e.preventDefault();
+});
+
 
   //Toggle Chevron
   $('.about-me').click(function() {

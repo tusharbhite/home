@@ -1512,3 +1512,84 @@ body {
 .proj-name{
 	font-size: 23px;
 }
+
+
+/*popup code*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600&display=swap');
+
+form buttons{
+    background-color: rebeccapurple;
+    outline: none;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin: 30px;
+    border-radius: 20px;
+    box-shadow: 1px 6px 12px 0px rgb(0 0 0 / 13%);
+    cursor: pointer;
+    transition: .2s all ease-in-out;
+}
+form button:hover{
+    background-color: orange;
+}
+#popup{
+    display: none;
+}
+.popup-container{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    /*background-color: rgb(96 95 127 / 70%);*/
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.popup{
+    background-color: #ffffff;
+    padding: 20px 30px;
+    width: 100%;
+    border-radius: 15px;
+	border: 10px solid red;
+	height: 60%;
+}
+.close-popup{
+    display: flex;
+    justify-content: flex-end;
+}
+.close-popup a{
+    font-size: 1.2rem;
+    background-color: red;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    display: inline-block;
+}
+.popup > h2{
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+.popup > p{
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+	color: black;
+}
+.popup-btn{
+    display: inline-block;
+    text-decoration: none;
+    border: 2px solid rebeccapurple;
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin: 10px 0px;
+    transition: .2s all ease-in;
+}
+.popup-btn:hover{
+    background-color: rebeccapurple;
+    color: #fff;
+}
