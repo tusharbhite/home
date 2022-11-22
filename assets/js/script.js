@@ -22,6 +22,21 @@ $(document).ready(function() {
     window.open(destination); 
   });
 
+
+
+  //scroll to top
+  $(".scroll-to-top").click(function() {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+   // window.scrollTo({ top: 0, behavior: 'smooth' });
+
+   $('.scroll-content').css('transform', "translate3d(0px, 0px, 0px)");
+   $('.scrollbar-thumb').css('transform', "translate3d(0px, 0px, 0px)");
+
+  });
+
+
+
+
    //pre next shortcut
    $('.prev-next-btns').click(function() {
     var destination = $(this).attr("dest");
