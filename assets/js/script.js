@@ -3,6 +3,7 @@
 // var Scrollbar = window.Scrollbar;
 $(document).ready(function() {
   onResize();
+  getTimeStamp();
 
   //form
   $("#formid").submit(function(e) {
@@ -23,6 +24,7 @@ $(document).ready(function() {
       var occupation= $('#input-occupation').val();
       var message= $('#input-message').val();
       var readyToSubmit=false;
+      var timeStamp=getTimeStamp();
    
       if(name.length===0 || occupation.length===0 || message.length===0){
       $("#showError").click();
@@ -30,8 +32,41 @@ $(document).ready(function() {
       else{
         readyToSubmit=true;
       }
-      if(readyToSubmit)
-      alert("Ready "+readyToSubmit);
+      if(readyToSubmit){
+          $.ajax({
+            type:'POST',
+            crossDomain: true,
+            headers: {  'Access-Control-Allow-Origin': 'https://script.google.com/macros/s/AKfycbyrp92XegxY8q348CFlMyiTdo9TKiUbggYfdYUZXRvDKu3IXutwap0U4LwOFRFD9qm4/exec?action=addUser2' },
+
+            url: "https://script.google.com/macros/s/AKfycbyrp92XegxY8q348CFlMyiTdo9TKiUbggYfdYUZXRvDKu3IXutwap0U4LwOFRFD9qm4/exec?action=addUser2", 
+            data:{
+              "name": name,
+              "occupation": occupation,
+              "message": message,
+              "email": email,
+              "timeStamp" : timeStamp,
+              "localStorage" : "local data",
+              "cookies" : "cookie data",
+              "profilePic" : "picture",
+              "other1" : "other1",
+              "other2" : "other2"
+          },
+             success: function(result){
+
+
+              var data=  '{ "name": "name","occupation": "occupation","message": "message", "email": "email","timeStamp" : "timeStamp","localStorage" : "local data","cookies" : "cookie data","profilePic" : "picture","other1" : "other1","other2" : "other2"}';
+                const obj = JSON.parse(data);
+                alert("data submitted successfulle"+obj.name+"suc="+result+JSON.stringify(result));
+
+
+              },
+              error: function(result){
+                alert("some error occured"+JSON.stringify(result));
+              },
+              
+      
+         });
+      }
       
     });
 
@@ -210,4 +245,47 @@ function onResize() {
   } else {
     Scrollbar.destroyAll();
   }
+}
+
+function getTimeStamp(){
+
+  var date_format = '12'; /* FORMAT CAN BE 12 hour (12) OR 24 hour (24)*/
+ 
+ 
+var d       = new Date();
+var hour    = d.getHours();  /* Returns the hour (from 0-23) */
+var minutes     = d.getMinutes();  /* Returns the minutes (from 0-59) */
+var result  = hour;
+var ext     = '';
+ 
+if(date_format == '12'){
+    if(hour > 12){
+        ext = 'PM';
+        hour = (hour - 12);
+        result = hour;
+
+        if(hour < 10){
+            result = "0" + hour;
+        }else if(hour == 12){
+            hour = "00";
+            ext = 'AM';
+        }
+    }
+    else if(hour < 12){
+        result = ((hour < 10) ? "0" + hour : hour);
+        ext = 'AM';
+    }else if(hour == 12){
+        ext = 'PM';
+    }
+}
+ 
+if(minutes < 10){
+    minutes = "0" + minutes; 
+}
+
+ 
+result = result + ":" + minutes + ' ' + ext; 
+ 
+var timeInfo="Date="+d.getDay()+"/"+d.getMonth()+"/"+d.getFullYear()+" Time="+result+" Full Time="+d.getHours()+" : "+d.getMinutes();
+return timeInfo;
 }
