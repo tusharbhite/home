@@ -1474,7 +1474,11 @@ body {
 .prev-next-btns{
     font-size: 20px;
     cursor: pointer;
+}
 
+.pn-button{
+	border-style: solid;
+    padding: 5px;
 }
 
 .row .col-lg-6 .text-center{
