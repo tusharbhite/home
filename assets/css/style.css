@@ -1489,3 +1489,14 @@ body {
 .card-horizontal img{
     width: 250px;
 }
+
+@media only screen and (min-width: 768px) {
+	.footer-table{
+	    background: black;
+    margin-bottom: 0px;
+    position: absolute;
+    left: -20px;
+    right: 0;
+    width: 105%;
+	 }
+}
