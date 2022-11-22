@@ -4,6 +4,12 @@
 $(document).ready(function() {
   onResize();
 
+  //form
+  $("#formid").submit(function(e) {
+    //alert("tried to submit");
+    e.preventDefault();
+});
+
 
   //Toggle Chevron
   $('.about-me').click(function() {
