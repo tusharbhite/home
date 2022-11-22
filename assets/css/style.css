@@ -1459,6 +1459,10 @@ body {
 
 .footer-table{
     background: black;
+    margin-bottom: 0px;
+    position: absolute;
+    left: 0;
+    right: 0;
 }
 
 .footer-icons{
@@ -1480,4 +1484,8 @@ body {
 .light{
     cursor: pointer;
 
+}
+
+.card-horizontal img{
+    width: 250px;
 }
