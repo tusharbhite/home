@@ -11,6 +11,21 @@ $(document).ready(function() {
     $("i", this).toggleClass("fa-chevron-down fa-chevron-right");
   });
 
+   //Toggle Projects Chevron
+   $('.card-link').click(function() {
+    //$(this).toggle('1000');
+    console.log($(this).hasClass('collapsed'));
+    if($(this).hasClass('collapsed'))
+    $(this).find('i').attr('class','fa fa-chevron-up');
+    else
+    $(this).find('i').attr('class','fa fa-chevron-down');
+
+
+    //$("i", this).toggleClass("fa-chevron-down fa-chevron-up");
+  });
+
+
+
   //pre next shortcut
   $('.demo-link').click(function() {
     var destination = $(this).attr("href");
