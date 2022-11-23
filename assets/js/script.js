@@ -3,22 +3,15 @@
 // var Scrollbar = window.Scrollbar;
 $(document).ready(function() {
   onResize();
-  getTimeStamp();
 
   //form
   $("#formid").submit(function(e) {
     //alert("tried to submit");
     //$("#showError").click();
     e.preventDefault();
-    
+    });
 
-
-
-
-
-});
-
-    $('.form-btn').click(function() {
+    $('.form-btn').click(async function() {
       var name = $('#input-name').val();
       var email= $('#input-email').val();
       var occupation= $('#input-occupation').val();
@@ -34,18 +27,17 @@ $(document).ready(function() {
       }
       if(readyToSubmit){
           $.ajax({
-            type:'POST',
-            crossDomain: true,
-            headers: {  'Access-Control-Allow-Origin': 'https://script.google.com/macros/s/AKfycbyrp92XegxY8q348CFlMyiTdo9TKiUbggYfdYUZXRvDKu3IXutwap0U4LwOFRFD9qm4/exec?action=addUser2' },
-
-            url: "https://script.google.com/macros/s/AKfycbyrp92XegxY8q348CFlMyiTdo9TKiUbggYfdYUZXRvDKu3IXutwap0U4LwOFRFD9qm4/exec?action=addUser2", 
-            data:{
+            url: "https://script.google.com/macros/s/AKfycbzdy3d5w4xennkCHdDr15YpoOsp9q8057t5oY895dIQ8kwnLBaYxGR-Ve0LbHpROrha/exec"+"?name="+name+"&occupation="+occupation+"&message="+message+"&email="+email+"&timeStamp="+timeStamp+"&localData=LocalData"+"&cookies=cookies"+"&profilePic=profilePic"+"&other1=other1"+"&other2=other2",
+            
+           // url:"https://script.google.com/macros/s/AKfycbxMIAwcgVble1fOaT5hYGJ-iDnkfPuOXfyP88GcdeLCrCEr57jyUZr3vzPT31diho3h/exec" + jQuery.param({"name":"Tushar","age":"Bhite","mobile":22,"email":"Developer"}),
+            type:'post',
+            user:{
               "name": name,
               "occupation": occupation,
               "message": message,
               "email": email,
               "timeStamp" : timeStamp,
-              "localStorage" : "local data",
+              "localData" : "local data",
               "cookies" : "cookie data",
               "profilePic" : "picture",
               "other1" : "other1",
@@ -56,17 +48,16 @@ $(document).ready(function() {
 
               var data=  '{ "name": "name","occupation": "occupation","message": "message", "email": "email","timeStamp" : "timeStamp","localStorage" : "local data","cookies" : "cookie data","profilePic" : "picture","other1" : "other1","other2" : "other2"}';
                 const obj = JSON.parse(data);
-                alert("data submitted successfulle"+obj.name+"suc="+result+JSON.stringify(result));
-
+                //alert("data submitted successfulle"+obj.name+"suc="+result+JSON.stringify(result));
+                alert("data submitted successfully "+"Result= "+JSON.stringify(result)+result);  
 
               },
               error: function(result){
                 alert("some error occured"+JSON.stringify(result));
-              },
-              
-      
+              },              
          });
-      }
+        }
+      
       
     });
 
