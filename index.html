@@ -7,6 +7,7 @@
    <!doctype html>
    <html lang="en">
       <head>
+         
          <!-- Required meta tags -->
          <meta charset="UTF-8">
          <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -57,6 +58,9 @@
          <![endif]-->
       </head>
       <body>
+         <div id="loading">
+            <img id="loading-image" src="/assets/loadings/rotate-pulsating-loading-animation.webp" alt="Loading..." />
+          </div>
          <div class="content">
             <!-- Sidebar -->
             <div class="sidebar">
@@ -1557,7 +1561,7 @@
                </section>
             </main>
          </div>
-         
+
          <!-- Scripts -->
          <!-- jQuery CDN -->
          <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -1574,6 +1578,22 @@
          <!-- <script src="assets/js/smooth-scrollbar.min.js"></script> -->
          <!-- Custom scripts -->
          <script src="assets/js/script.js"></script>
+         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
+
+          <script>
+            $(window).load(function() {
+               function wait(ms){
+               var start = new Date().getTime();
+               var end = start;
+               while(end < start + ms) {
+               end = new Date().getTime();
+                }
+               }
+               wait(3000); 
+              $('#loading').hide();
+            });
+          </script>
+         
       </body>
    </html>
