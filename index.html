@@ -1356,7 +1356,7 @@
                   <!-- Get in touch -->
                   <div class="row">
                      <div class="col-lg-8">
-                        <h3 class="block-title">Get in touch!</h3>
+                        <h3 class="block-title">Submit Testimonial !</h3>
                         <div class="clearfix"></div>
                         <br />
                         <!-- Contact Form -->
@@ -1380,11 +1380,11 @@
                               <div class="col">
                                  <div class="form-group">
                                     <i class="mdi mdi-pencil"></i>
-                                    <input id="input-occupation" type="text" name="subject" class="form-input" placeholder="Enter Occupation" autocomplete="off">
+                                    <input id="input-occupation" type="text" name="subject" class="form-input" placeholder="Enter Designation" autocomplete="off">
                                  </div>
                               </div>
                            </div>
-                           <div class="clearfix"></div>
+                          <div class="clearfix"></div>
                            <div class="row">
                               <div class="col">
                                  <div class="form-group">
@@ -1396,7 +1396,7 @@
                            <div class="clearfix"></div>
                            <button class="form-btn" href="javascript:void(0);"><i class="mdi mdi-send"></i>&nbsp;Send</button>
 
-<div id="myNav" class="overlay">
+   <div id="myNav" class="overlay">
     <div class="overlay-content">
       
       <div class="container bg-gray">
@@ -1406,7 +1406,7 @@
         </div>
         <div class="card row" >
             <div class="card-body" style="">
-              <h4 class="card-title">OOPS..<span id="oops" class="emoji">😠</span></h4>
+              <h4 class="card-title">Oopsss..<span id="oops" class="emoji">😠</span></h4>
               <p class="card-text">You missed some fields or entered invalid data..!</p>
               <a href="javascript:void(0);" class="btn btn-danger" onclick="closeNav()">CLOSE</a>
             </div>
@@ -1416,21 +1416,88 @@
   
     </div>
   </div>
+
+  <div id="myNavSuccess" class="overlay">
+   <div class="overlay-content">
+     
+     <div class="container bg-gray">
+     <div class="container popup bg-light">
+       <div class="row">
+           <div class="col"></div>
+       </div>
+       <div class="card row" >
+           <div class="card-body" style="">
+             <h4 class="card-title">Yessss..<span id="oops" class="emoji">😊</span></h4>
+             <p class="card-text">You have submitted Testimonial Successfully..!</p>
+             <a href="javascript:void(0);" class="btn btn-primary" onclick="closeNav()">CLOSE</a>
+           </div>
+         </div>
+       </div>
+     </div>
+ 
+   </div>
+ </div>
   
   <span id="showError" onclick="openNav()"></span>
+  <span id="showSuccess" onclick="openSuccess()"></span>
+
   
   <script>
   function openNav() {
     document.getElementById("myNav").style.display = "block";
   }
+
+  function openSuccess() {
+    document.getElementById("myNavSuccess").style.display = "block";
+  }
   
   function closeNav() {
     document.getElementById("myNav").style.display = "none";
+    document.getElementById("myNavSuccess").style.display = "none";
   }
   </script>
 
 
                         </form>
+
+                        <form id="form">
+                           <div class="text-dark form-input">Your Prodile Picture for Testimonial</div> 
+                           <input name="file" id="uploadfile" type="file"> 
+                           <input name="filename" id="filename" type="text"><br><br>
+                           <input href="javascript:void(0);" id="submit" class="form-btn" type="submit">
+                        </form>
+                        <script>
+                           form.addEventListener('submit', e => {
+                             e.preventDefault();});
+                           /*const form = document.getElementById('form');
+                              
+                           form.addEventListener('submit', e => {
+                             e.preventDefault();
+                             var name = document.getElementById("input-name").value;
+                           var email= document.getElementById("input-email").value;
+                           var occupation= document.getElementById("input-occupation").value;
+                           var message=document.getElementById("input-message").value;
+                             const file = form.file.files[0];
+                             const fr = new FileReader();
+                             fr.readAsArrayBuffer(file);
+                             fr.onload = f => {
+                              console.log("iNLINE"+JSON.stringify([...new Int8Array(f.target.result)]));
+               
+                               // alert(file.type+JSON.parse(JSON.stringify([...new Int8Array(f.target.result)])));
+                               
+                               const url = "https://script.google.com/macros/s/AKfycbyJ4daNIgeQfBIn75g74vqOFeuM_AG4VtKlWljX6r04zkVe2bqf9Buz52Cd0OdjWozJ/exec";  // <--- Please set the URL of Web Apps.
+                               
+                               const qs = new URLSearchParams({filename: form.filename.value || file.name, mimeType: file.type, name: name, occupation: occupation, message: message, email: email});
+                               fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
+                               .then(res => res.json())
+                               .then(e => console.log(e))  // <--- You can retrieve the returned value here.
+                               .catch(err => console.log(err));
+                             }
+                           });*/
+                           </script>
+
+
+                       
                      </div>
                      <div class="col-lg-4 text-center">
                         <!-- Location details -->
@@ -1489,9 +1556,11 @@
                </section>
             </main>
          </div>
+         
          <!-- Scripts -->
          <!-- jQuery CDN -->
          <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
          <!-- jQuery Local file -->
          <!-- <script src="assets/js/jquery-3.4.1.min.js"></script> -->
          <!-- Bootstrap CDN  -->
@@ -1504,5 +1573,6 @@
          <!-- <script src="assets/js/smooth-scrollbar.min.js"></script> -->
          <!-- Custom scripts -->
          <script src="assets/js/script.js"></script>
+
       </body>
    </html>

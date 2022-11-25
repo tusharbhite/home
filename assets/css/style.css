@@ -1573,3 +1573,16 @@ body {
 	vertical-align: baseline;
 	line-height: 2;
   }
+
+  #filename{
+	display: none;
+  }
+
+  #formid .form-btn{
+	display: none;
+  }
+
+  #uploadfile{
+	background: rgba(0, 0, 0, 0.25);
+	width: 100%;
+  }

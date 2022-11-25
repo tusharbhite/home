@@ -1,6 +1,7 @@
 // Toggle menu
 // Initiate nicescroll
 // var Scrollbar = window.Scrollbar;
+
 $(document).ready(function() {
   onResize();
 
@@ -9,54 +10,48 @@ $(document).ready(function() {
     //alert("tried to submit");
     //$("#showError").click();
     e.preventDefault();
+    
     });
 
+    
     $('.form-btn').click(async function() {
+    
       var name = $('#input-name').val();
       var email= $('#input-email').val();
       var occupation= $('#input-occupation').val();
       var message= $('#input-message').val();
       var readyToSubmit=false;
       var timeStamp=getTimeStamp();
+
+
+
+     
    
-      if(name.length===0 || occupation.length===0 || message.length===0){
+      if(name.length===0 || occupation.length===0 || message.length===0 || form.file.files.length == 0){
       $("#showError").click();
       }
       else{
         readyToSubmit=true;
       }
       if(readyToSubmit){
-          $.ajax({
-            url: "https://script.google.com/macros/s/AKfycbzdy3d5w4xennkCHdDr15YpoOsp9q8057t5oY895dIQ8kwnLBaYxGR-Ve0LbHpROrha/exec"+"?name="+name+"&occupation="+occupation+"&message="+message+"&email="+email+"&timeStamp="+timeStamp+"&localData=LocalData"+"&cookies=cookies"+"&profilePic=profilePic"+"&other1=other1"+"&other2=other2",
-            
-           // url:"https://script.google.com/macros/s/AKfycbxMIAwcgVble1fOaT5hYGJ-iDnkfPuOXfyP88GcdeLCrCEr57jyUZr3vzPT31diho3h/exec" + jQuery.param({"name":"Tushar","age":"Bhite","mobile":22,"email":"Developer"}),
-            type:'post',
-            user:{
-              "name": name,
-              "occupation": occupation,
-              "message": message,
-              "email": email,
-              "timeStamp" : timeStamp,
-              "localData" : "local data",
-              "cookies" : "cookie data",
-              "profilePic" : "picture",
-              "other1" : "other1",
-              "other2" : "other2"
-          },
-             success: function(result){
+        //alert("Alert1");
 
+      //File
+      const file = form.file.files[0];
+      const fr = new FileReader();
+      fr.readAsArrayBuffer(file);
 
-              var data=  '{ "name": "name","occupation": "occupation","message": "message", "email": "email","timeStamp" : "timeStamp","localStorage" : "local data","cookies" : "cookie data","profilePic" : "picture","other1" : "other1","other2" : "other2"}';
-                const obj = JSON.parse(data);
-                //alert("data submitted successfulle"+obj.name+"suc="+result+JSON.stringify(result));
-                alert("data submitted successfully "+"Result= "+JSON.stringify(result)+result);  
+        fr.onload = f => {
+           const url = "https://script.google.com/macros/s/AKfycbyJ4daNIgeQfBIn75g74vqOFeuM_AG4VtKlWljX6r04zkVe2bqf9Buz52Cd0OdjWozJ/exec";  // <--- Please set the URL of Web Apps.
+           
+           const qs = new URLSearchParams({filename: form.filename.value || file.name, mimeType: file.type, name: name, occupation: occupation, message: message, email: email,timeStamp: timeStamp});
+           fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
+           .then(res => res.json())
+           .then(e => {console.log(e);$("#showSuccess").click();})  // <--- You can retrieve the returned value here.
+           .catch(err => console.log(err));
+         }
 
-              },
-              error: function(result){
-                alert("some error occured"+JSON.stringify(result));
-              },              
-         });
-        }
+      }
       
       
     });
@@ -75,9 +70,6 @@ $(document).ready(function() {
     $(this).find('i').attr('class','fa fa-chevron-up');
     else
     $(this).find('i').attr('class','fa fa-chevron-down');
-
-
-    //$("i", this).toggleClass("fa-chevron-down fa-chevron-up");
   });
 
 
@@ -98,12 +90,9 @@ $(document).ready(function() {
 
   //scroll to top
   $(".scroll-to-top").click(function() {
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-   // window.scrollTo({ top: 0, behavior: 'smooth' });
-
+   $("html, body").animate({ scrollTop: 0 }, "slow");
    $('.scroll-content').css('transform', "translate3d(0px, 0px, 0px)");
    $('.scrollbar-thumb').css('transform', "translate3d(0px, 0px, 0px)");
-
   });
 
 
@@ -116,7 +105,6 @@ $(document).ready(function() {
     var destSelector="."+destination;
     $(destSelector).click();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
   });
 
   //Contact  shortcut
