@@ -47,7 +47,7 @@ $(document).ready(function() {
            const qs = new URLSearchParams({filename: form.filename.value || file.name, mimeType: file.type, name: name, occupation: occupation, message: message, email: email,timeStamp: timeStamp});
            fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
            .then(res => res.json())
-           .then(e => {console.log(e);$("#showSuccess").click();})  // <--- You can retrieve the returned value here.
+           .then(e => {console.log(e); $("#showSuccess").click();  })  // <--- You can retrieve the returned value here.
            .catch(err => console.log(err));
          }
 
