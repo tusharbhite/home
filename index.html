@@ -1385,7 +1385,7 @@
                   <!-- Get in touch -->
                   <div class="row">
                      <div class="col-lg-8">
-                        <h3 class="block-title">Submit Testimonial !</h3>
+                        <h3 class="block-title">Submit a Testimonial !</h3>
                         <div class="clearfix"></div>
                         <br />
                         <!-- Contact Form -->
@@ -1490,15 +1490,29 @@
                         </form>
 
                         <form id="form">
-                           <div class="text-dark form-input"><i class="mdi mdi-image-multiple"></i>&nbsp;&nbsp;Upload Profile Picture</div> 
-                           <input name="file" id="uploadfile" type="file"  accept="image/*"> 
+                           <div class="text-dark form-input"><i class="mdi mdi-image-multiple"></i>&nbsp;&nbsp;Upload a Square Size Profile Picture &nbsp;&nbsp; <span><img id="output"/></span> 
+                           </div>
+                           <input name="file" id="uploadfile" type="file"  accept="image/*" onchange="loadFile(event)"> 
                            <input name="filename" id="filename" type="text"><br><br>
+                           
                            <input href="javascript:void(0);" id="submit" class="form-btn" type="submit">
                            <br><br><br>
                         </form>
+                        
                         <script>
-                           form.addEventListener('submit', e => {
+                            form.addEventListener('submit', e => {
                              e.preventDefault();});
+
+                        var loadFile = function(event) {
+                         var output = document.getElementById('output');
+                         output.src = URL.createObjectURL(event.target.files[0]);
+                           output.onload = function() {
+                           URL.revokeObjectURL(output.src) // free memory
+                              }
+                              };
+                        </script>
+                        <script>
+                          
                            /*const form = document.getElementById('form');
                               
                            form.addEventListener('submit', e => {

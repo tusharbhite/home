@@ -467,7 +467,8 @@ body {
 	background: url("../img/zigzag.png");
 	background-size: 60px;
 	background-repeat: repeat-x;
-	z-index: -1
+	z-index: -1;
+	animation: zigzagAnimate 2s linear infinite;
 }
 
 .underline-zigzag:hover::after {
@@ -1676,4 +1677,17 @@ body {
 	50% { transform: translateY(-50px) scale(.75);}
 	51% { transform: translateY(-50px) scale(.75);}
 	100% { transform: translateY(0px) scale(1);}
+  }
+  .fa-heart {
+	
+	animation: crescendo 1.5s alternate infinite ease-in;
+  }
+  
+  @keyframes crescendo {
+	0%   {transform: scale(.8);}
+	100% {transform: scale(1.5);}
+  }
+  #output{
+	height: 20%;
+	width: 20%;
   }
