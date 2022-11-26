@@ -215,6 +215,10 @@ $(document).ready(function() {
   $('.about-me').on('click', function() {
     if( $(window).width() <= 768 ) {
       $('.sidebar-content').slideToggle();
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $('.scroll-content').css('transform', "translate3d(0px, 0px, 0px)");
+      $('.scrollbar-thumb').css('transform', "translate3d(0px, 0px, 0px)");
+      
     }
   });
   // Nav action
