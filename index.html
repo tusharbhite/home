@@ -157,7 +157,10 @@
                      <div class="clearfix"></div>
                      <br />
                      <label class="sidebar-content-dd-info">Developed with <span><i class="fa fa-heart"></i></span>&nbsp; by <a class="a-link dark">Myself</a></label>
-                     <button class="about-me-2 enter-button btn-danger">Enter in my <i class="fa fa-globe"></i></button>
+                     <button class="flicker about-me-2 enter-button"><h3>Enter</h3></button>
+                     <br>
+                     <br>
+                 
                   </div>
                </div>
             </div>
@@ -676,44 +679,19 @@
                   <h3 class="block-title">Testimonials</h3>
                   <div class="clearfix"></div>
                   <br />
-                  <div class="row">
-                     <div class="col-md-4">
-                        <div class="card">
-                           <p class="p-content gray">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo expedita architecto quis voluptatem, voluptatum omnis minima? Cum dicta fugiat reiciendis, maiores sed.</p>
-                           <div class="testimonials-footer">
-                              <img src="assets/img/avtar/short.svg" class="profile-testimonial">
-                              <div class="testimonials-user">
-                                 <h5 class="testimonials-user-title">John Doe.</h5>
-                                 <small class="testimonials-user-post">- CEO</small>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="card">
-                           <p class="p-content gray">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo expedita architecto quis voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                           <div class="testimonials-footer">
-                              <img src="assets/img/avtar/pony.svg" class="profile-testimonial">
-                              <div class="testimonials-user">
-                                 <h5 class="testimonials-user-title">John Doe.</h5>
-                                 <small class="testimonials-user-post">- CEO</small>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="card">
-                           <p class="p-content gray">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo expedita architecto quis voluptatem, voluptatum omnis minima? Cum dicta fugiat reiciendis, maiores sed.</p>
-                           <div class="testimonials-footer">
-                              <img src="assets/img/avtar/rad.svg" class="profile-testimonial">
-                              <div class="testimonials-user">
-                                 <h5 class="testimonials-user-title">John Doe.</h5>
-                                 <small class="testimonials-user-post">- CEO</small>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
+                  <div class="row" id="testimonial">
+                     
                   </div>
+
+                  <table class="table tables-weight">
+                     <tbody>
+                         <tr class="text-light">
+                             <td  style="text-align: right;"><br/>
+                                 <span class="prev-next-btns pn-button" dest="contact"> Submit Your Testimonial..! &nbsp;<i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </span>
+                             </td>
+                         </tr>
+                     </tbody>
+                   </table> 
 
 
                   <table class="table tables-weight">
@@ -1435,7 +1413,7 @@
                         </form>
 
                         <form id="form">
-                           <div class="text-dark form-input"><i class="mdi mdi-image-multiple"></i>&nbsp;&nbsp;Upload a Square Size Profile Picture &nbsp;&nbsp; <span><img id="output"/></span> 
+                           <div class="text-dark form-input"><i class="mdi mdi-image-multiple"></i>&nbsp;&nbsp;Upload a Square Size Profile Picture  &nbsp;&nbsp; <span><img id="output"/></span> 
                            </div>
                            <input name="file" id="uploadfile" type="file"  accept="image/*" onchange="loadFile(event)"> 
                            <input name="filename" id="filename" type="text"><br><br>
@@ -1443,6 +1421,17 @@
                            <input href="javascript:void(0);" id="submit" class="form-btn" type="submit">
                            <br><br><br>
                         </form>
+
+                        <br><br><br>
+                        <table class="table tables-weight">
+                           <tbody>
+                             <tr class="text-light">
+                                 <td> <br>
+                                     <span class="prev-next-btns pn-button" dest="about"> <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;See Other Testimonials </span>
+                                 </td>                           
+                             </tr>
+                           </tbody>
+                           </table>
 
                         <div id="myNav" class="overlay">
                            <div class="overlay-content">
@@ -1663,7 +1652,7 @@
                end = new Date().getTime();
                 }
                }
-               wait(3000); 
+               wait(2000); 
               $('#loading').hide();
             });
           </script>

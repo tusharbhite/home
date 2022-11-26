@@ -11,15 +11,55 @@ $(document).ready(function() {
    // alert(response.ip+JSON.stringify(response));
 }, "json")
   onResize();
-  localStorage.setItem("lastname", "Smith");
-  localStorage.setItem("ksdk", "Smith");
+  
+  //Testimonials
 
-//localStorage.getItem("lastname");
+  var name="tush";
+  var dp="assets/profile_pic/nehru.jpg";
+  var desi="Engineer";
+  var msg="hiiiiiiiiiiiiiiiiiiiiiii";
 
-  console.log(JSON.stringify(localStorage));
-  for (var a in localStorage) {
-    console.log(a, ' = ', localStorage[a]);
- }
+  const url = "https://script.google.com/macros/s/AKfycbyJ4daNIgeQfBIn75g74vqOFeuM_AG4VtKlWljX6r04zkVe2bqf9Buz52Cd0OdjWozJ/exec";  // <--- Please set the URL of Web Apps.
+           
+           fetch(`${url}`, {method: "GET"})
+           .then(res => res.json())
+           .then(e => {
+             //console.log(e);
+             e.reverse();
+             for(let i = 0; i < e.length; i++) {
+              let obj = e[i];
+              //obj["Profile Pic"]
+              //obj.Name
+              //obj.Occupation
+              //obj.Message
+
+              $('#testimonial').append(`<div class="col-md-4">
+              <div class="card">
+                 <p class="p-content gray">"`+obj.Message+`"</p>
+                 <div class="testimonials-footer">
+                    <img src="`+obj["Profile Pic"]+`" class="profile-testimonial">
+                    <div class="testimonials-user">
+                       <h5 class="testimonials-user-title">`+obj.Name+`</h5>
+                       <small class="testimonials-user-post">-`+obj.Occupation+`</small>
+                    </div>
+                 </div>
+              </div>
+              </div>`);
+
+
+          }
+             // <--- You can retrieve the returned value here. 
+            })  
+          
+          .catch(err => {
+            console.log(err);//Error response
+            $('#loading').hide();
+            $('#ring').hide();
+            });
+        
+
+  
+
 
   //form
   $("#formid").submit(function(e) {
@@ -77,25 +117,7 @@ $(document).ready(function() {
               $('#form').hide();
               $("#showSuccess").click(); 
               $('.col-lg-8').find('h3').text("You have successfully submitted a Testimonial !");
-            
-              $('.col-lg-8').find('h3').append(`<table class="table tables-weight">
-              <tbody>
-                <tr class="text-light">
-                    <td> <br>
-                        <span class="prev-next-btns pn-button" dest="about"> <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;See Other Testimonials </span>
-                    </td>                           
-                </tr>
-              </tbody>
-              </table>`);
-              $('.col-lg-8').find('h3').on("click", ".prev-next-btns", function(event){
-              var destination = $(this).attr("dest");
-              console.log("c "+destination);
-              console.log(destination);
-              var destSelector="."+destination;
-              $(destSelector).click();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              });
-
+              localStorage.setItem("submittedResponse", "yes");
             })  
           
           .catch(err => {
