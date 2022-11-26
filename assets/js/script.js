@@ -3,7 +3,23 @@
 // var Scrollbar = window.Scrollbar;
 
 $(document).ready(function() {
+
+  $('#ring').hide();
+
+
+  $.get("https://ipinfo.io", function(response) {
+   // alert(response.ip+JSON.stringify(response));
+}, "json")
   onResize();
+  localStorage.setItem("lastname", "Smith");
+  localStorage.setItem("ksdk", "Smith");
+
+//localStorage.getItem("lastname");
+
+  console.log(JSON.stringify(localStorage));
+  for (var a in localStorage) {
+    console.log(a, ' = ', localStorage[a]);
+ }
 
   //form
   $("#formid").submit(function(e) {
@@ -35,6 +51,12 @@ $(document).ready(function() {
       }
       if(readyToSubmit){
         //alert("Alert1");
+        $('#loading').empty();
+        $('#loading').append(`<h4 id="yellow-text">Sending Your Response..</h4><div class="ring"><span></span></div>`);
+        $('#loading').show();
+        $('#ring').show();
+
+
 
       //File
       const file = form.file.files[0];
@@ -47,8 +69,41 @@ $(document).ready(function() {
            const qs = new URLSearchParams({filename: form.filename.value || file.name, mimeType: file.type, name: name, occupation: occupation, message: message, email: email,timeStamp: timeStamp});
            fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
            .then(res => res.json())
-           .then(e => {console.log(e); $("#showSuccess").click();  })  // <--- You can retrieve the returned value here.
-           .catch(err => console.log(err));
+           .then(e => {
+             //console.log(e);// <--- You can retrieve the returned value here. 
+              $('#loading').hide();
+              $('#ring').hide();
+              $('#formid').hide();
+              $('#form').hide();
+              $("#showSuccess").click(); 
+              $('.col-lg-8').find('h3').text("You have successfully submitted a Testimonial !");
+            
+              $('.col-lg-8').find('h3').append(`<table class="table tables-weight">
+              <tbody>
+                <tr class="text-light">
+                    <td> <br>
+                        <span class="prev-next-btns pn-button" dest="about"> <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;See Other Testimonials </span>
+                    </td>                           
+                </tr>
+              </tbody>
+              </table>`);
+              $('.col-lg-8').find('h3').on("click", ".prev-next-btns", function(event){
+              var destination = $(this).attr("dest");
+              console.log("c "+destination);
+              console.log(destination);
+              var destSelector="."+destination;
+              $(destSelector).click();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              });
+
+            })  
+          
+          .catch(err => {
+            console.log(err);//Error response
+            $('#loading').hide();
+            $('#ring').hide();
+            $("#showServerError").click();
+            });
          }
 
       }
@@ -101,6 +156,7 @@ $(document).ready(function() {
    //pre next shortcut
    $('.prev-next-btns').click(function() {
     var destination = $(this).attr("dest");
+    console.log("c "+destination);
     console.log(destination);
     var destSelector="."+destination;
     $(destSelector).click();
