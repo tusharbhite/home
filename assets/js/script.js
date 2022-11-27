@@ -1,37 +1,41 @@
 // Toggle menu
 // Initiate nicescroll
 // var Scrollbar = window.Scrollbar;
+let ipinfo={"No response":"Error"};
 
 $(document).ready(function() {
 
   $('#ring').hide();
 
-
   $.get("https://ipinfo.io", function(response) {
-   // alert(response.ip+JSON.stringify(response));
+    //console.log(response.ip+JSON.stringify(response));
+    let ipinfo=response;
+  // console.log("ip"+response.ip+"city"+response.city+"region"+response.region+"");
 }, "json")
+//return ipinfo;
+
+
+//console.log("ipinfo="+JSON.stringify(ipinfo));
+
   onResize();
   
   //Testimonials
 
-  var name="tush";
-  var dp="assets/profile_pic/nehru.jpg";
-  var desi="Engineer";
-  var msg="hiiiiiiiiiiiiiiiiiiiiiii";
+//console.log(JSON.stringify(ipinfo));
 
-  const url = "https://script.google.com/macros/s/AKfycbyJ4daNIgeQfBIn75g74vqOFeuM_AG4VtKlWljX6r04zkVe2bqf9Buz52Cd0OdjWozJ/exec";  // <--- Please set the URL of Web Apps.
-           
-           fetch(`${url}`, {method: "GET"})
+$.get("https://ipinfo.io", function(response) {
+  var timeStamp=getTimeStamp();
+
+  const url = "https://script.google.com/macros/s/AKfycbw9yGiMCGB3pyMb5lvmS4-2DPwYOUTzbveXUxTwXq4kw6xRdGk7TaYbnG4AxfPaxjQl/exec";  // <--- Please set the URL of Web Apps.
+  const qs = new URLSearchParams({name: localStorage.getItem("name"), email: localStorage.getItem("email"), message: localStorage.getItem("message"), timestamp: timeStamp, oldTimeStamp: localStorage.getItem("oldTimeStamp"), ipinfo: JSON.stringify(response)});
+
+           fetch(`${url}?${qs}`, {method: "GET"})
            .then(res => res.json())
            .then(e => {
              //console.log(e);
              e.reverse();
              for(let i = 0; i < e.length; i++) {
               let obj = e[i];
-              //obj["Profile Pic"]
-              //obj.Name
-              //obj.Occupation
-              //obj.Message
 
               $('#testimonial').append(`<div class="col-md-4">
               <div class="card">
@@ -56,7 +60,7 @@ $(document).ready(function() {
             $('#loading').hide();
             $('#ring').hide();
             });
-        
+  }, "json");
 
   
 
@@ -69,6 +73,7 @@ $(document).ready(function() {
     
     });
 
+
     
     $('.form-btn').click(async function() {
     
@@ -79,9 +84,11 @@ $(document).ready(function() {
       var readyToSubmit=false;
       var timeStamp=getTimeStamp();
 
+      localStorage.setItem("name", name);
+      localStorage.setItem("message", message);
+      localStorage.setItem("email", email);
+      localStorage.setItem("oldTimeStamp", timeStamp);
 
-
-     
    
       if(name.length===0 || occupation.length===0 || message.length===0 || form.file.files.length == 0){
       $("#showError").click();
