@@ -23,11 +23,10 @@ $(document).ready(function() {
 
 //console.log(JSON.stringify(ipinfo));
 
-$.get("https://ipinfo.io", function(response) {
   var timeStamp=getTimeStamp();
 
   const url = "https://script.google.com/macros/s/AKfycbw9yGiMCGB3pyMb5lvmS4-2DPwYOUTzbveXUxTwXq4kw6xRdGk7TaYbnG4AxfPaxjQl/exec";  // <--- Please set the URL of Web Apps.
-  const qs = new URLSearchParams({name: localStorage.getItem("name"), email: localStorage.getItem("email"), message: localStorage.getItem("message"), timestamp: timeStamp, oldTimeStamp: localStorage.getItem("oldTimeStamp"), ipinfo: JSON.stringify(response)});
+  const qs = new URLSearchParams({name: localStorage.getItem("name"), email: localStorage.getItem("email"), message: localStorage.getItem("message"), timestamp: timeStamp, oldTimeStamp: localStorage.getItem("oldTimeStamp"), ipinfo: "Error"});
 
            fetch(`${url}?${qs}`, {method: "GET"})
            .then(res => res.json())
@@ -60,7 +59,6 @@ $.get("https://ipinfo.io", function(response) {
             $('#loading').hide();
             $('#ring').hide();
             });
-  }, "json");
 
   
 
