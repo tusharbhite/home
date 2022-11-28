@@ -4,6 +4,7 @@
 let ipinfo={"No response":"Error"};
 
 $(document).ready(function() {
+  document.addEventListener('contextmenu', event => event.preventDefault());
 
   $('#ring').hide();
 
