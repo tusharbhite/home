@@ -1481,6 +1481,10 @@ body {
 	border-style: solid;
     padding: 5px;
 }
+.pn-button:hover{
+	color: white;
+	background-color:black;
+}
 
 .row .col-lg-6 .text-center{
     cursor: pointer;

@@ -10,7 +10,7 @@ $(document).ready(function() {
   $.get("https://ipinfo.io", function(response) {
     //console.log(response.ip+JSON.stringify(response));
     let ipinfo=response;
-  // console.log("ip"+response.ip+"city"+response.city+"region"+response.region+"");
+  // consol20e.log("ip"+response.ip+"city"+response.city+"region"+response.region+"");
 }, "json")
 //return ipinfo;
 
@@ -194,6 +194,7 @@ $(document).ready(function() {
 
   //Contact  shortcut
   $('#contacting').on('click', function() {
+    $('.hamburger').click();
     $('#contact-page').click();
   });
   
