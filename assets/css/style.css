@@ -1480,10 +1480,13 @@ body {
 .pn-button{
 	border-style: solid;
     padding: 5px;
+	border-radius: 5px;
+	
 }
 .pn-button:hover{
-	color: white;
-	background-color:black;
+background-color: #505050; 
+border: 0px;
+border-radius: 5px;
 }
 
 .row .col-lg-6 .text-center{
