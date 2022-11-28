@@ -76,7 +76,7 @@ body {
 .about-me {
 	position: fixed;
 	display: inline-block;
-	padding: 10px;
+	padding: 1px;
 	background-color: #cc2b5e;
 	background-image: -webkit-linear-gradient(55deg, #cc2b5e, #753a88);
 	background-image: -o-linear-gradient(55deg, #cc2b5e, #753a88);
@@ -1610,10 +1610,7 @@ body {
 	#loading-image {
 	}
   }
-  @media only screen and (min-width: 992px) {
-	#loading-image {
-	}
-  }
+
 
   #loading {
 	--animation-duration: 2s;
@@ -1812,3 +1809,20 @@ body {
 	-webkit-user-select: none;
 	-ms-user-select: none;
  }
+ .trb-icon{
+	width: 65%;
+	height: 65%;
+	border: 1px solid white;
+ }
+ .icon-logo-c {
+	width: 20%;
+ }
+
+ @media only screen and (min-width: 992px) {
+	.icon-logo-c{
+		display: none;
+	}
+	.about-me{
+		padding: 0px !important;
+	}
+  }
