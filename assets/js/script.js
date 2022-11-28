@@ -4,7 +4,7 @@
 let ipinfo={"No response":"Error"};
 $(document).ready(function() {
   document.addEventListener('contextmenu', event => event.preventDefault());
-  console.log("host"+window.location.hostname.indexOf("tushar"));
+  console.log("host"+window.location.href.indexOf("tushar"));
 
   $('#ring').hide();
 
@@ -25,7 +25,7 @@ $(document).ready(function() {
 //console.log(JSON.stringify(ipinfo));
 
   var timeStamp=getTimeStamp();
-      if(window.location.hostname.indexOf("tushar")!=-1){
+      if(window.location.href.indexOf("tushar")!=-1){
   const url = "https://script.google.com/macros/s/AKfycbw9yGiMCGB3pyMb5lvmS4-2DPwYOUTzbveXUxTwXq4kw6xRdGk7TaYbnG4AxfPaxjQl/exec";  // <--- Please set the URL of Web Apps.
   const qs = new URLSearchParams({name: localStorage.getItem("name"), email: localStorage.getItem("email"), message: localStorage.getItem("message"), timestamp: timeStamp, oldTimeStamp: localStorage.getItem("oldTimeStamp"), ipinfo: "Error"});
 
