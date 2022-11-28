@@ -187,6 +187,7 @@ $(document).ready(function() {
     console.log("c "+destination);
     console.log(destination);
     var destSelector="."+destination;
+    $('.hamburger').click();
     $(destSelector).click();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
