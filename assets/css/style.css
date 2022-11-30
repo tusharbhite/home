@@ -1866,5 +1866,10 @@ border-radius: 5px;
 			padding: 0rem !important;
 		}
 	  }
-
+#accordion span[dest="achievements"]{
+	font-size: 28px;
+}
 	
+.card-link{
+	margin-bottom: -17px;
+}
