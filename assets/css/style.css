@@ -1854,3 +1854,17 @@ border-radius: 5px;
 	.card-horizontal:first-child{
 		text-align: center;
 	}
+
+	@media only screen and (max-width: 600px) {
+		#accordion .card{
+			position: relative;
+			width: 98vw;
+			left: calc(-49vw + 50%);
+		}
+
+		#accordion .card-body{
+			padding: 0rem !important;
+		}
+	  }
+
+	
