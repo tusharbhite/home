@@ -1865,6 +1865,11 @@ border-radius: 5px;
 		#accordion .card-body{
 			padding: 0rem !important;
 		}
+		.proj-name{
+			font-size: 17px;
+		}
+
+
 	  }
 #accordion span[dest="achievements"]{
 	font-size: 28px;
