@@ -1878,3 +1878,14 @@ border-radius: 5px;
 .card-link{
 	margin-bottom: -17px;
 }
+
+.list-group button{
+	text-align: justify;
+}
+
+.list-group-item{
+	text-align: justify;
+}
+.p-content{
+	text-align: justify;
+}
