@@ -68,13 +68,21 @@
     // A $( document ).ready() block.
     $( document ).ready(function() {
         $( "td" ).click(function() {
-        //alert( "clicked on "+$(this).attr('x')+""+$(this).attr('y') );
+        //console.log( "clicked on "+$(this).attr('x')+""+$(this).attr('y') );
         if($(this).text()==""){
         $(this).css("background", "green");
         $(this).text("X");
         var board=getBoard();
         playBotsMove(board);
-        checkWinner();
+        var result=checkWinner();
+        if(result!=""){
+            if(result=="X"){
+              alert("You Won");  
+            }
+            else if (result=="O"){
+                alert("You Lost");
+            }
+        };
         }   
         });
             function getBoard(){
@@ -127,21 +135,25 @@
             function checkWinner(){
                 var board=getBoard();
                 if((board[0][0]==board[1][1])&&(board[1][1]==board[2][2]) && board[2][2]!=""){
-                    alert("Winner is "+board[0][0]+"at diagonal 00-11-22" );
+                    console.log("Winner is "+board[0][0]+"at diagonal 00-11-22" );
                     resetBoard();
+                    return board[0][0];
                 }
                 if((board[0][2]==board[1][1]) && (board[1][1]==board[2][0]) && board[2][0]!=""){
-                    alert("Winner is "+board[0][2]+"at diagonal 02-11-20");
+                    console.log("Winner is "+board[0][2]+"at diagonal 02-11-20");
                     resetBoard();
+                    return board[1][1];
                 }
                 for(var i = 0; i < 3; i++) {
                        if((board[i][0]==board[i][1])&&(board[i][1]==board[i][2]) && board[i][0]!=""){
-                        alert("Winner is "+board[i][1] +"at row "+i+0+i+1+i+2);
+                        console.log("Winner is "+board[i][1] +"at row "+i+0+i+1+i+2);
                         resetBoard();
+                        return board[i][0];
                        }
                        if((board[0][i]==board[1][i])&&(board[1][i]==board[2][i]) && board[2][i]!=""){
-                        alert("Winner is "+board[0][i] +"at col "+0+i+1+i+2+i);
+                        console.log("Winner is "+board[0][i] +"at col "+0+i+1+i+2+i);
                         resetBoard();
+                        return board[0][i];
                        }
                 }
 
@@ -153,6 +165,10 @@
                      $(this).css({'background-color': "rgb(111, 255, 0, 0.446)" });
                      //console.log("length="+board.length);
                 });
+            }
+
+            function smartMove(){
+
             }
     });
 
