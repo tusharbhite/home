@@ -19,19 +19,30 @@
 
     td{
     font-size:100px;
-    border: 10px solid black !important;
+    border: 10px solid black ;
     }
     tr{
-        height: 150px;
+        height: 200px;
     }
     table{
-        width: 50% !important;
+        width: 100% !important;
         background: rgba(111, 255, 0, 0.446);
     }
+    .table {
+        border-collapse: collapse !important;
+        border-style: hidden !important;
+    }
+
+    td[x] {
+        border-collapse: collapse;
+        border: 10px solid black !important;
+    }
+    
 
     @media only screen and (max-width: 600px) {
         td{
-    font-size:50px;
+    font-size:70px;
+    font-weight: bold;
     border: 5px solid black !important;
     }
     tr{
@@ -142,6 +153,9 @@
 
     </script>
     <body>
+        <div class="container">
+            <h1 class="text-center">Tic Tac Toe</h1>
+        </div>
         <!--<h1 class="text-center">TIC TAC TOE<h1>-->
 
             <div class="container">
