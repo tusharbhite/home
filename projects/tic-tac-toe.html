@@ -1,0 +1,159 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+    </head>
+    <style>
+
+    td{
+    font-size:100px;
+    border: 10px solid black !important;
+    }
+    tr{
+        height: 150px;
+    }
+    table{
+        width: 50% !important;
+        background: rgba(111, 255, 0, 0.446);
+    }
+
+    @media only screen and (max-width: 600px) {
+        td{
+    font-size:50px;
+    border: 5px solid black !important;
+    }
+    tr{
+        height: 125px;
+    }
+    table{
+        width: 100% !important;
+        background: rgba(111, 255, 0, 0.446);
+    }
+    }
+    </style>
+    <script>
+            
+
+    // A $( document ).ready() block.
+    $( document ).ready(function() {
+        $( "td" ).click(function() {
+        //alert( "clicked on "+$(this).attr('x')+""+$(this).attr('y') );
+        $(this).css("background", "red");
+        $(this).text("X");
+        //$('td[x=2][y=2]').text("O");
+
+        // alert($(this).text());
+        var board=getBoard();
+
+        playBotsMove(board);
+        checkWinner();
+            
+        });
+            function getBoard(){
+                    var board=[];
+                    var boardRow=[];
+                $("tr td").each(function( index ) {
+            
+                    console.log(index+"= reading"+($( this ).attr('x')+""+$( this ).attr('y')));
+                    boardRow.push($( this ).text());
+                    if(index==2 || index==5 || index==8){
+                        board.push(boardRow);
+                        boardRow=[];
+                    }
+                    //console.log("length="+board.length);
+
+                    
+                    
+                });
+               /* for(var i = 0; i < board[i].length; i++) {
+                        for(var z = 0; z < board.length; z++) {
+                            console.log(i+","+z+"="+board[i][z]);
+                        }
+                }*/
+                return board; 
+            }
+
+            function playBotsMove(board){
+                marked=false;
+                for(var i = 0; i < 3; i++) {
+                        for(var z = 0; z < board.length; z++) {
+                            console.log(i+","+z+"=chceking "+board[i][z]);
+                            if(board[i][z]=='' || board[i][z]==undefined){
+                                console.log("marking"+i+","+z);
+                                var selector='td[x='+i+'][y='+z+']';
+                                $(selector).text("O");
+                                marked=true;
+                                break;
+                            }
+                            
+                        }
+                        if(marked==true){
+                            break;
+                        }
+                }
+            }
+
+            function checkWinner(){
+                var board=getBoard();
+                if((board[0][0]==board[1][1])&&(board[1][1]==board[2][2]) && board[2][2]!=""){
+                    console.log("Winner is "+board[0][0]+"at diagonal 00-11-22" );
+                }
+                if((board[0][2]==board[1][1]) && (board[1][1]==board[2][0]) && board[2][0]!=""){
+                    console.log("Winner is "+board[0][2]+"at diagonal 02-11-20");
+                }
+                for(var i = 0; i < 3; i++) {
+                       if((board[i][0]==board[i][1])&&(board[i][1]==board[i][2]) && board[i][0]!=""){
+                        console.log("Winner is "+board[i][1] +"at row "+i+0+i+1+i+2);
+                       }
+                       if((board[0][i]==board[1][i])&&(board[1][i]==board[2][i]) && board[2][i]!=""){
+                        console.log("Winner is "+board[0][i] +"at col "+0+i+1+i+2+i);
+                       }
+                }
+
+            }
+    });
+
+
+
+
+    </script>
+    <body>
+        <!--<h1 class="text-center">TIC TAC TOE<h1>-->
+
+            <div class="container">
+                <table style="  table-layout: fixed;" class="table table-bordered .th-lg-1">
+            
+                <tbody class="text-center">
+                    <tr>
+                    <td x="0" y="0" ></td>
+                    <td x="0" y="1" ></td>
+                    <td x="0" y="2" ></td>
+                    </tr>
+                    <tr>
+                    <td x="1" y="0" ></td>
+                    <td x="1" y="1" ></td>
+                    <td x="1" y="2" ></td>
+                    </tr>
+                    <tr>
+                    <td x="2" y="0" ></td>
+                    <td x="2" y="1" ></td>
+                    <td x="2" y="2" ></td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            
+    </body>
+    </html>
