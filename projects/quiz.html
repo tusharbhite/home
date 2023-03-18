@@ -132,11 +132,63 @@ body{
              console.log(e);
              e.reverse();
              //for(let i = 0; i < e.length; i++) {
-              let obj = e[0];
-              console.log("id="+obj.id);
+                var question_no=0;
 
+              let obj = e[question_no];
+
+              addQuestion(e[question_no]);
+
+              
+
+                $( ".btn-next" ).click(function() {
+                addQuestion(e[++question_no],question_no);
+                });
+
+                $( ".btn-prev" ).click(function() {
+                addQuestion(e[--question_no],question_no);
+                });
+
+                $( ".btn-submit" ).click(function() {
+                    $(".full").empty();
+                    $('.full').append(`<h1>Thank you, your response successfully Submitted</h1>`);
+
+
+                });
+
+
+             // }
+             // <--- You can retrieve the returned value here. 
+            })  
+          
+          .catch(err => {
+            console.log(err);//Error response
+          
+            });
+        
+    
+    });
+
+    function addQuestion(obj,qnum){
+        $("#quiz-template").empty();
+       if (qnum==0 || qnum==undefined || qnum==NaN) qnum=1;
+       else qnum++;
+        console.log("QNUM="+qnum);
+       if(qnum==1){
+        $(".btn-prev").prop('disabled',true);
+       }
+       else $(".btn-prev").removeAttr('disabled');
+
+       if(qnum==10)
+       {
+        $(".btn-next").prop('disabled',true);
+        $(".btn-submit").show();
+       }
+       //else $(".btn-next").prop('disabled',true);
+
+
+        console.log("id="+obj.id);
               $('#quiz-template').append(`
-              <div class="py-2 h5"><b>Q. `+obj.question+`</b></div>
+              <div class="py-2 h5"><b>Q. `+(qnum)+". " +obj.question+`</b></div>
                 <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
                 <label class="options">`+obj.answers.answer_a+`
                 <input type="radio" name="radio">
@@ -155,22 +207,8 @@ body{
                 <span class="checkmark"></span>
                 </label>
               </div>
-
-
               `);
-
-
-             // }
-             // <--- You can retrieve the returned value here. 
-            })  
-          
-          .catch(err => {
-            console.log(err);//Error response
-          
-            });
-        
-    
-    });
+    }
 </script>
 <body>
    <!--
@@ -182,16 +220,19 @@ body{
    --> 
    <h1 class="text-center text-white" style="color: white !important">Quiz</h1>
    <br><br>
-   <div class="container mt-sm-5 my-1">
+   <div class="full container mt-sm-5 my-1">
     <div id="quiz-template" class="question ml-sm-5 pl-sm-5 pt-2">
         
     </div>
     <div class="d-flex align-items-center pt-3">
         <div id="prev">
-            <button class="btn btn-primary">Previous</button>
+            <button class="btn-prev btn btn-primary">Previous</button>
         </div>
         <div class="ml-auto mr-sm-5">
-            <button class="btn btn-success">Next</button>
+            <button class="btn-next btn btn-success">Next</button>
+        </div>
+        <div class="ml-auto mr-sm-5">
+            <button class="btn-submit btn btn-success" style="background: red; display: none;">Submit</button>
         </div>
     </div>
 </div>
