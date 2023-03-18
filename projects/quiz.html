@@ -122,15 +122,6 @@ body{
 
 
     $( document ).ready(function() {
-        const mySlideV = new SlideV()
-
-        const next = document.querySelector('.next')
-        const prev = document.querySelector('.prev')
-
-        next.addEventListener('click', () => { mySlideV.next() })
-        prev.addEventListener('click', () => { mySlideV.prev() })
-
-
 
         const url = "https://quizapi.io/api/v1/questions";  // <--- Please set the URL of Web Apps.
         const qs = new URLSearchParams({apiKey: "kBPOTFIk7YiIrxaQVdlwQ1VPLbya9eGfS30I8zSE", category: "linux", limit: 10});
@@ -140,25 +131,36 @@ body{
            .then(e => {
              console.log(e);
              e.reverse();
-             for(let i = 0; i < e.length; i++) {
-              let obj = e[i];
+             //for(let i = 0; i < e.length; i++) {
+              let obj = e[0];
               console.log("id="+obj.id);
 
-              $('#testimonial').append(`<div class="col-md-4">
-              <div class="card">
-                 <p class="p-content gray">"`+obj.Message+`"</p>
-                 <div class="testimonials-footer">
-                    <img src="`+obj["Profile Pic"]+`" class="profile-testimonial">
-                    <div class="testimonials-user">
-                       <h5 class="testimonials-user-title">`+obj.Name+`</h5>
-                       <small class="testimonials-user-post">-`+obj.Occupation+`</small>
-                    </div>
-                 </div>
+              $('#quiz-template').append(`
+              <div class="py-2 h5"><b>Q. `+obj.question+`</b></div>
+                <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                <label class="options">`+obj.answers.answer_a+`
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+                </label>
+                <label class="options">`+obj.answers.answer_b+`
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+                </label>
+                <label class="options">`+obj.answers.answer_c+`
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+                </label>
+                <label class="options">`+obj.answers.answer_d+`
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+                </label>
               </div>
-              </div>`);
 
 
-              }
+              `);
+
+
+             // }
              // <--- You can retrieve the returned value here. 
             })  
           
@@ -181,26 +183,8 @@ body{
    <h1 class="text-center text-white" style="color: white !important">Quiz</h1>
    <br><br>
    <div class="container mt-sm-5 my-1">
-    <div class="question ml-sm-5 pl-sm-5 pt-2">
-        <div class="py-2 h5"><b>Q. which option best describes your job role?</b></div>
-        <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-            <label class="options">Small Business Owner or Employee
-                <input type="radio" name="radio">
-                <span class="checkmark"></span>
-            </label>
-            <label class="options">Nonprofit Owner or Employee
-                <input type="radio" name="radio">
-                <span class="checkmark"></span>
-            </label>
-            <label class="options">Journalist or Activist
-                <input type="radio" name="radio">
-                <span class="checkmark"></span>
-            </label>
-            <label class="options">Other
-                <input type="radio" name="radio">
-                <span class="checkmark"></span>
-            </label>
-        </div>
+    <div id="quiz-template" class="question ml-sm-5 pl-sm-5 pt-2">
+        
     </div>
     <div class="d-flex align-items-center pt-3">
         <div id="prev">
