@@ -17,6 +17,17 @@
     
 </head>
 <style>
+
+.textareaElement {
+  width: 300px;
+  min-height: 17px;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
     .block {
   display: block;
   width: 100%;
@@ -56,6 +67,21 @@
 <script>
 
     $(document).ready(function() {
+
+
+function addLineBreaks(string) {
+  const bulletPoints = string.match(/(^|\n)\s*(?:([1-9]|1[0-9]|20)\.\s)/g);
+  
+  if (bulletPoints) {
+    bulletPoints.forEach((bullet) => {
+      string = string.replace(bullet, `<br/>${bullet}`);
+    });
+  }
+  
+  return string;
+}
+
+
     
         $('#send-btn').click(function() {
           //   $("#chat-gpt-output").text("");
@@ -120,9 +146,12 @@
                     if (s == "") s = "No response";
     //                txtOutput.value += "Chat GPT: " + s;
                      console.log("Ajac chatgpt response==== "+s);
+                     s = addLineBreaks(s);
                      $("#chat-gpt-output").append("<b>You:  </b>"+question+"<br/>");
                        $("#chat-gpt-output").append("<b>Chat-GPT:  </b>"+s+"<br/>");
                      $("#chat-gpt-output").append("<br/>");
+                     $('html,body').animate({scrollTop: document.body.scrollHeight},"fast");
+
     
               }    
        });
@@ -169,6 +198,7 @@
             <label class="control-label col-sm-2" for="email">Your Message:</label>
             <div class="col-sm-10">
               <textarea type="email" class="form-control" id="chat-gpt-input" placeholder="Enter Message" name="email"></textarea>
+             <!-- <div class="textareaElement container-fluid" contenteditable></div> -->
             </div>
           </div>
 
