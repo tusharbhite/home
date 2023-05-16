@@ -276,6 +276,11 @@ $('#send-btn').on('click', function(e) {
     max-width: 620px !important;
   }
 
+  .btns-below{
+    font-size: 50px;
+    color: gray;
+  }
+
 }
 
 
@@ -295,7 +300,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 98vh;
+  height: 90vh;
 }
 
 .msger {
@@ -465,8 +470,10 @@ body {
       <div class="form-horizontal" action="/action_page.php">
         
 
-        <button id="clear-btn">Clear Chat</button>
-        <button id="theme-toggle" onclick="myFunction()">Dark Mode</button>
+        <button class="btns-below" id="clear-btn">Clear Chat</button> &nbsp;&nbsp;
+        <button class="btns-below" id="theme-toggle" onclick="myFunction()">Dark Mode</button> &nbsp;&nbsp;
+        <button class="btns-below"  onclick="myFunction()">Log Out</button>
+
         
       </div>
     </div>
