@@ -142,7 +142,7 @@ $('#send-btn').on('click', function(e) {
             `+question+`
           </div>
         </div>
-</div>`);
+</div><br/>`);
 
             //alert(question);
             vaer="75WblDVXB8";
@@ -222,7 +222,7 @@ $('#send-btn').on('click', function(e) {
           <div class="msg-text">
 `+s+`          </div>
         </div>
-</div>`);
+</div><br/>`);
 
                      $("#chat-gpt-output").append("<br/>");
                      $('html,body').animate({scrollTop: document.body.scrollHeight},"fast");
@@ -447,14 +447,15 @@ body {
   
           <div class="msg-text">
 
-Hello Tushar , How can I help You ☺  </div>
+          Hello Tushar , How can I help You ☺  </div>
         </div>
-</div>
+      </div>
+      <br/>
       
     </main>
   
     <form class="msger-inputarea">
-      <textarea data-autosize-input='{ "space": 40 }' type="text" id="chat-gpt-input" class="msger-input" placeholder="Enter your message..."></textarea>
+      <textarea rows="1" data-autosize-input='{ "space": 40 }' type="text" id="chat-gpt-input" class="msger-input" placeholder="Enter your message..."></textarea>
       <button type="submit" id="send-btn" class="msger-send-btn">Send</button>
     </form>
 
