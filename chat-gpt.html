@@ -17,26 +17,23 @@
     
 </head>
 <style>
-    
-    body {
+  
 
-  background-color: black;
-
-}
     
-    h1{color:white}
-    #chat-gpt-output {color: white}
+   .dark-mode {
+  background-color: black; }
+  .dark-mode #msg{
+    color:white;
+  }
+    
+    .dark-mode h1{color:white}
+    .dark-mode #chat-gpt-output {color: white}
     
     button:active, 
 
- button:focus 
-
- {
-
-     border:2px solid red; /* here configure as your needs */
-
+ .dark-mode button:focus {
+     border:2px solid red;
      color:#00c;
-
   }
 
 .textareaElement {
@@ -86,8 +83,15 @@
 </style>
 
 <script>
+       function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
 
     $(document).ready(function() {
+
+ 
+
 
 
 function addLineBreaks(string) {
@@ -184,6 +188,13 @@ function addLineBreaks(string) {
         $("#chat-gpt-input").val("");
 
     });
+
+    $('#theme-toggle').click(function() {
+        if($("#theme-toggle").text()=="Dark Mode")
+        $("#theme-toggle").text("Light Mode");
+        else $("#theme-toggle").text("Dark Mode");
+
+    });
     
     });
     
@@ -216,7 +227,7 @@ function addLineBreaks(string) {
     <div class="container">
         <div class="form-horizontal" action="/action_page.php">
           <div class="form-group">
-            <label class="control-label col-sm-2" for="email">Your Message:</label>
+            <label id="msg" class="control-label col-sm-2" for="email">Your Message:</label>
             <div class="col-sm-10">
               <textarea type="email" class="form-control" id="chat-gpt-input" placeholder="Enter Message" name="email"></textarea>
              <!-- <div class="textareaElement container-fluid" contenteditable></div> -->
@@ -225,6 +236,7 @@ function addLineBreaks(string) {
 
           <button id="send-btn">Send</button> 
           <button id="clear-btn">Clear Chat</button>
+          <button id="theme-toggle" onclick="myFunction()">Dark Mode</button>
           
         </div>
     </div>
@@ -239,6 +251,8 @@ function addLineBreaks(string) {
 
         
    
-    
+
 </body>
+
+
 </html>

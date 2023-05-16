@@ -1,0 +1,443 @@
+<html>
+  
+<head>
+  <meta charset="UTF-8">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Latest compiled and minified CSS -->
+  
+</head>
+
+<script>
+
+  /*
+const msgerForm = get(".msger-inputarea");
+const msgerInput = get(".msger-input");
+const msgerChat = get(".msger-chat");
+
+const BOT_MSGS = [
+  "Hi, how are you?",
+  "Ohh... I can't understand what you trying to say. Sorry!",
+  "I like to play games... But I don't know how to play!",
+  "Sorry if my answers are not relevant. :))",
+  "I feel sleepy! :("
+];
+
+// Icons made by Freepik from www.flaticon.com
+const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
+const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
+const BOT_NAME = "BOT";
+const PERSON_NAME = "Sajad";
+
+msgerForm.addEventListener("submit", event => {
+  event.preventDefault();
+
+  const msgText = msgerInput.value;
+  if (!msgText) return;
+
+  appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+  msgerInput.value = "";
+
+  botResponse();
+});
+
+function appendMessage(name, img, side, text) {
+  //   Simple solution for small apps
+  const msgHTML = `
+    <div class="msg ${side}-msg">
+      <div class="msg-img" style="background-image: url(${img})"></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">${name}</div>
+          <div class="msg-info-time">${formatDate(new Date())}</div>
+        </div>
+
+        <div class="msg-text">${text}</div>
+      </div>
+    </div>
+  `;
+
+  msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+  msgerChat.scrollTop += 500;
+}
+
+function botResponse() {
+  const r = random(0, BOT_MSGS.length - 1);
+  const msgText = BOT_MSGS[r];
+  const delay = msgText.split(" ").length * 100;
+
+  setTimeout(() => {
+    appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+  }, delay);
+}
+
+// Utils
+function get(selector, root = document) {
+  return root.querySelector(selector);
+}
+
+function formatDate(date) {
+  const h = "0" + date.getHours();
+  const m = "0" + date.getMinutes();
+
+  return `${h.slice(-2)}:${m.slice(-2)}`;
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+*/
+/////////############ CHAT GPT SCRIPT STARTS HERE ##############////////////
+
+
+function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
+
+    $(document).ready(function() {
+
+ 
+
+
+
+function addLineBreaks(string) {
+  const bulletPoints = string.match(/(^|\n)\s*(?:([1-9]|1[0-9]|20)\.\s)/g);
+  
+  if (bulletPoints) {
+    bulletPoints.forEach((bullet) => {
+      string = string.replace(bullet, `<br/>${bullet}`);
+    });
+  }
+  
+  return string;
+}
+
+
+$('#send-btn').on('click', function(e) {
+          e.preventDefault();
+          //   $("#chat-gpt-output").text("");
+            var question=$('#chat-gpt-input').val();
+            $(".msger-chat").append(`<div class="msg right-msg">
+        <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"></div>
+  
+        <div class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">Tushar</div>
+            <div class="msg-info-time">12:46</div>
+          </div>
+		  
+          <div class="msg-text">
+            `+question+`
+          </div>
+        </div>
+</div>`);
+
+            //alert(question);
+            vaer="75WblDVXB8";
+
+       var Jsondata= "{\n  \"model\": \"text-davinci-003\",\n  \"prompt\": \"What is your age\",\n  \"max_tokens\": 4000,\n  \"temperature\": 1.0\n}"
+    
+       let data = {
+          model : "",
+          prompt  : question,
+          max_tokens     : 50,
+          temperature  : 1.0
+        };
+    
+         varer="veHngecT3BlbkFJ1tDpu";
+
+         varwe="kuhdgr65fhf";
+
+
+         data.model="text-davinci-003";
+        data.prompt=question;
+        data.max_tokens=4000;
+        data.temperature=1.0;
+    
+        console.log(JSON.stringify(data));
+    
+        var1="Nf9WitFm5G3b6";
+
+        var45="Ndfdgff9WitFm5G3fd5675676b6";
+
+
+
+         str="sk-"+var1+varer+vaer+"DUDk3";
+    const settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "https://api.openai.com/v1/completions",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+"sk-"+var1+varer+vaer+"DUDk3"
+      },
+      "processData": false,
+      //"data": "{\n  \"model\": \"text-davinci-003\",\n  \"prompt\": \"What is your age\",\n  \"max_tokens\": 4000,\n  \"temperature\": 1.0\n}"
+        "data": JSON.stringify(data)
+    };
+    
+      $.ajax(settings).done(function (response) {
+        console.log(JSON.stringify(response.choices[0]));
+        var oJson=response;
+              if (oJson.choices && oJson.choices[0].text) {
+                    var s = oJson.choices[0].text;
+    
+    
+                        var a = s.split("?\n");
+                        if (a.length == 2) {
+                            s = a[1];
+                        }
+    
+                    if (s == "") s = "No response";
+    //                txtOutput.value += "Chat GPT: " + s;
+                     console.log("Ajac chatgpt response==== "+s);
+                     s = addLineBreaks(s);
+                   //  $("#chat-gpt-output").append("<b>You:  </b>"+question+"<br/>");
+                     
+
+
+                      // $("#chat-gpt-output").append("<b>Chat-GPT:  </b>"+s+"<br/>");
+                       $(".msger-chat").append(`<div class="msg left-msg">
+        <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
+  
+        <div class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">Chat GPT</div>
+            <div class="msg-info-time">12:45</div>
+          </div>
+  
+          <div class="msg-text">
+`+s+`          </div>
+        </div>
+</div>`);
+
+                     $("#chat-gpt-output").append("<br/>");
+                     $('html,body').animate({scrollTop: document.body.scrollHeight},"fast");
+
+    
+              }    
+       });
+    
+      });      
+
+      $('#clear-btn').click(function() {
+        $(".msger-chat").text("");
+        $("#chat-gpt-input").val("");
+
+    });
+
+    $('#theme-toggle').click(function() {
+        if($("#theme-toggle").text()=="Dark Mode")
+        $("#theme-toggle").text("Light Mode");
+        else $("#theme-toggle").text("Dark Mode");
+
+    });
+    
+    });
+  
+
+
+</script>
+
+<style>
+:root {
+  --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --msger-bg: #fff;
+  --border: 2px solid #ddd;
+  --left-msg-bg: #ececec;
+  --right-msg-bg: #579ffb;
+}
+
+
+
+
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.msger {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 867px;
+  margin: 25px 10px;
+  height: calc(100% - 50px);
+  border: var(--border);
+  border-radius: 5px;
+  background: var(--msger-bg);
+  box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
+}
+
+.msger-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: var(--border);
+  background: #eee;
+  color: #666;
+}
+
+.msger-chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+.msger-chat::-webkit-scrollbar {
+  width: 6px;
+}
+.msger-chat::-webkit-scrollbar-track {
+  background: #ddd;
+}
+.msger-chat::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+}
+.msg {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+.msg:last-of-type {
+  margin: 0;
+}
+.msg-img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  background: #ddd;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+}
+.msg-bubble {
+  max-width: 450px;
+  padding: 15px;
+  border-radius: 15px;
+  background: var(--left-msg-bg);
+}
+.msg-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.msg-info-name {
+  margin-right: 10px;
+  font-weight: bold;
+}
+.msg-info-time {
+  font-size: 0.85em;
+}
+
+.left-msg .msg-bubble {
+  border-bottom-left-radius: 0;
+}
+
+.right-msg {
+  flex-direction: row-reverse;
+}
+.right-msg .msg-bubble {
+  background: var(--right-msg-bg);
+  color: #fff;
+  border-bottom-right-radius: 0;
+}
+.right-msg .msg-img {
+  margin: 0 0 0 10px;
+}
+
+.msger-inputarea {
+  display: flex;
+  padding: 10px;
+  border-top: var(--border);
+  background: #eee;
+}
+.msger-inputarea * {
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 1em;
+}
+.msger-input {
+  flex: 1;
+  background: #ddd;
+}
+.msger-send-btn {
+  margin-left: 10px;
+  background: rgb(0, 196, 65);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.23s;
+}
+.msger-send-btn:hover {
+  background: rgb(0, 180, 50);
+}
+
+.msger-chat {
+  background-color: #fcfcfe;
+  
+}
+
+
+</style>
+
+<section class="msger">
+    <header class="msger-header">
+      <div class="msger-header-title">
+        <i class="fas fa-comment-alt"></i> Chat GPT AI Chat Bot
+      </div>
+      <div class="msger-header-options">
+        <span><i class="fas fa-cog"></i></span>
+      </div>
+    </header>
+  
+    <main class="msger-chat">
+      <div class="msg left-msg">
+        <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
+  
+        <div class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">Chat GPT</div>
+            <div class="msg-info-time">12:45</div>
+          </div>
+  
+          <div class="msg-text">
+
+Hi Dear , How can I help You ☺  </div>
+        </div>
+</div>
+      
+    </main>
+  
+    <form class="msger-inputarea">
+      <input type="text" id="chat-gpt-input" class="msger-input" placeholder="Enter your message...">
+      <button type="submit" id="send-btn" class="msger-send-btn">Send</button>
+    </form>
+
+    
+
+    <div class="container">
+      <div class="form-horizontal" action="/action_page.php">
+        
+
+        <button id="clear-btn">Clear Chat</button>
+        <button id="theme-toggle" onclick="myFunction()">Dark Mode</button>
+        
+      </div>
+    </div>
+
+
+
+    
+
+  </section>
+
+  </html>
