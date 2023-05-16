@@ -98,6 +98,16 @@ function myFunction() {
 
     $(document).ready(function() {
 
+
+
+      $('textarea').on('keydown', function(e){
+    if(e.which == 13) {e.preventDefault();}
+}).on('input', function(){
+    $(this).height(1);
+    var totalHeight = $(this).prop('scrollHeight') - parseInt($(this).css('padding-top')) - parseInt($(this).css('padding-bottom'));
+    $(this).height(totalHeight);
+});
+
  
 
 
@@ -444,7 +454,7 @@ Hello Tushar , How can I help You ☺  </div>
     </main>
   
     <form class="msger-inputarea">
-      <input type="text" id="chat-gpt-input" class="msger-input" placeholder="Enter your message...">
+      <textarea data-autosize-input='{ "space": 40 }' type="text" id="chat-gpt-input" class="msger-input" placeholder="Enter your message..."></textarea>
       <button type="submit" id="send-btn" class="msger-send-btn">Send</button>
     </form>
 
