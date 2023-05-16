@@ -278,6 +278,10 @@ $('#send-btn').on('click', function(e) {
 </script>
 
 <style>
+  .msger-header-title{
+    font-weight: bolder;
+    color: black;
+  }
 
 @media only screen and (max-width: 1080px) {
     .msg-bubble {
@@ -306,7 +310,44 @@ $('#send-btn').on('click', function(e) {
     color: gray;
   }
 
+  .msger{
+    max-width: 100% !important;
+  }
+
 }
+
+
+.dark-mode *{
+    background-color: black !important;
+    color: white;
+  }
+ .dark-mode{
+  background-color: black;
+ }
+ 
+ .dark-mode #send-btn{
+  background: rgb(0, 196, 65) !important;
+
+ }
+
+.dark-mode .left-msg *{
+ background-color: rgb(92, 92, 92) !important;
+}  
+
+.dark-mode .right-msg *{
+  /*background-color: rgb(9, 110, 0) !important;*/
+  background-color: #579ffb !important;
+} 
+
+.dark-mode .msger-input {
+    background-color: rgb(92, 92, 92) !important;
+}
+
+.dark-mode ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color:  white !important;
+  opacity: 1; /* Firefox */
+}
+
 
 
 :root {
