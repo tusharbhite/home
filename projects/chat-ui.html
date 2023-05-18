@@ -257,7 +257,7 @@ $('#send-btn').on('click', function(e) {
                        $(".msger-chat").append(`<div class="msg left-msg">
         <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
   
-        <div class="msg-bubble">
+        <div class="msg-bubble msg-io">
           <div class="msg-info">
             <div class="msg-info-name">Chat GPT</div>
             <div class="msg-info-time">`+ formatAMPM(new Date)+`</div>
@@ -269,10 +269,17 @@ $('#send-btn').on('click', function(e) {
 </div><br/>`);
 
 $(".typing-animation").remove();
+$('main').scrollTop($('main')[0].scrollHeight);
+
 
 
                      $("#chat-gpt-output").append("<br/>");
                      $('html,body').animate({scrollTop: document.body.scrollHeight},"fast");
+                     $('.msg-io').mouseover(function() {
+                        $(this).removeClass("msg-io");
+                        //if( $(this).attr('class')=="" );
+                        //alert("trying to removve css");
+                        });
 
     
               }    
@@ -303,6 +310,10 @@ $(".typing-animation").remove();
   .msger-header-title{
     font-weight: bolder;
     color: black;
+  }
+
+  .msg-io{
+    border: 3px solid greenyellow;
   }
 
 @media only screen and (max-width: 1080px) {
