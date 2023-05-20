@@ -96,6 +96,9 @@ function myFunction() {
    element.classList.toggle("dark-mode");
 }
 
+  
+
+
 function formatAMPM(date) {
   var hours = date.getHours();
   var minutes = date.getMinutes();
@@ -183,6 +186,8 @@ $('#send-btn').on('click', function(e) {
           </div>
         </div>
 </div><br/>`);
+
+$('main').scrollTop($('main')[0].scrollHeight);
 
           $(".msger-chat").append(`<div class="typing-animation msg left-msg">
         <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
@@ -308,12 +313,41 @@ $('main').scrollTop($('main')[0].scrollHeight);
 
     });
 
+    
+
+
+
     $('#theme-toggle').click(function() {
-        if($("#theme-toggle").text()=="Dark Mode")
-        $("#theme-toggle").text("Light Mode");
-        else $("#theme-toggle").text("Dark Mode");
+        if($("#theme-toggle").text()=="Dark Mode"){
+          $("#theme-toggle").text("Light Mode");
+          localStorage.setItem("theme", "Light Mode");
+        }
+        else if($("#theme-toggle").text()=="Light Mode"){
+          $("#theme-toggle").text("Dark Mode");
+          localStorage.setItem("theme", "Dark Mode");
+        }
 
     });
+
+    if(localStorage.getItem("theme")=="" || localStorage.getItem("theme")==undefined || localStorage.getItem("theme")==null){
+  localStorage.setItem("theme", "Light Mode");
+}
+
+if(localStorage.getItem("theme")=="Dark Mode"){
+  $('body').removeClass("light-mode");
+  $('body').addClass("dark-mode");
+  }
+
+  if(localStorage.getItem("theme")=="Light Mode"){
+  $('body').removeClass("dark-mode");
+  $('body').addClass("light-mode");
+  }
+
+
+
+  
+
+
     
     });
   
