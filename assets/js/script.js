@@ -1,12 +1,16 @@
+
+
 // Toggle menu
 // Initiate nicescroll
 // var Scrollbar = window.Scrollbar;
 let ipinfo={"No response":"Error"};
 $(document).ready(function() {
+  if (window.location.href.indexOf("github") !== -1)
   document.addEventListener('contextmenu', event => event.preventDefault());
 
   $('#ring').hide();
-
+  
+  if (window.location.href.indexOf("github") !== -1)
   $.get("https://ipinfo.io", function(response) {
     //console.log(response.ip+JSON.stringify(response));
     let ipinfo=response;
@@ -31,7 +35,7 @@ $(document).ready(function() {
            fetch(`${url}?${qs}`, {method: "GET"})
            .then(res => res.json())
            .then(e => {
-             //console.log(e);
+             console.log(e);
              e.reverse();
              for(let i = 0; i < e.length; i++) {
               let obj = e[i];
