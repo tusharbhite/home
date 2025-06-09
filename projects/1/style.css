@@ -1,0 +1,366 @@
+/* Basic Reset & Box-Sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #4CAF50; /* Green */
+    --primary-dark: #388E3C; /* Darker Green */
+    --accent-color: #FFC107; /* Amber */
+    --text-color-dark: #212121;
+    --text-color-light: #FAFAFA;
+    --background-color: #F5F5F5;
+    --card-background: #FFFFFF;
+    --border-color: #E0E0E0;
+    --error-color: #D32F2F; /* Red */
+    --success-color: #4CAF50; /* Green */
+
+    --header-height: 56px; /* Typical Android app bar height */
+    --bottom-nav-height: 56px; /* Typical Android bottom nav height */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
+    min-height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent body scroll, app-container will handle */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+#app-container {
+    width: 100%;
+    max-width: 420px; /* Typical mobile width constraint */
+    height: 100vh; /* Full height of the viewport */
+    background-color: var(--card-background);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    position: relative; /* For absolute positioning of screens */
+    overflow: hidden; /* Hide overflowing screens */
+}
+
+/* Screen Transitions */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    transform: translateX(100%); /* Start off-screen to the right */
+    opacity: 0;
+    z-index: 1; /* Default z-index */
+}
+
+.screen.active {
+    transform: translateX(0); /* Slide in */
+    opacity: 1;
+    z-index: 2; /* Bring active screen to front */
+}
+
+/* Main App specific layout */
+#main-app {
+    padding-bottom: var(--bottom-nav-height); /* Make space for bottom nav */
+}
+
+#main-app.screen {
+    justify-content: space-between; /* Push content to top, nav to bottom */
+}
+
+
+/* Header */
+.header {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--header-height);
+    flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.header h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+/* Content Area */
+.content {
+    flex-grow: 1; /* Take up remaining space */
+    padding: 1rem;
+    overflow-y: auto; /* Enable scrolling for content if it overflows */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    display: flex; /* Use flex to manage sub-screens */
+    flex-direction: column;
+    position: relative; /* For absolute positioning of sub-screens */
+}
+
+/* Sub-screen transitions within main app */
+.sub-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1rem; /* Adjust padding as needed inside sub-screens */
+    background-color: var(--background-color);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    overflow-y: auto; /* Allow content inside sub-screen to scroll */
+}
+
+.sub-screen.active-sub-screen {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Forms and Inputs */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0; /* Add vertical padding for forms */
+}
+
+.input-group {
+    margin-bottom: 0.5rem; /* Space between input groups */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--text-color-dark);
+    font-weight: 500;
+}
+
+.input-group input[type="text"],
+.input-group input[type="password"],
+.input-group input[type="tel"],
+.input-group input[type="number"],
+.input-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--text-color-dark);
+    background-color: var(--card-background);
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2); /* Primary color shadow */
+}
+
+/* Buttons */
+.btn {
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    text-transform: uppercase;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.secondary-btn:hover {
+    background-color: rgba(76, 175, 80, 0.08); /* Light primary tint */
+}
+
+/* Messages */
+.message {
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.success-message {
+    background-color: rgba(76, 175, 80, 0.1); /* Light green background */
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+.error-message {
+    background-color: rgba(211, 47, 47, 0.1); /* Light red background */
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
+
+/* Card Style for displaying details */
+.card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.card h4 {
+    margin-bottom: 0.8rem;
+    color: var(--primary-dark);
+    font-weight: 500;
+}
+
+.card p {
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--text-color-dark);
+}
+
+.card p strong {
+    color: var(--text-color-dark);
+}
+
+/* Hidden Utility Class */
+.hidden {
+    display: none !important;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--card-background);
+    border-top: 1px solid var(--border-color);
+    height: var(--bottom-nav-height);
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10; /* Ensure it's above other content */
+}
+
+.bottom-nav .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    color: var(--text-color-dark);
+    font-size: 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.bottom-nav .nav-item i.material-icons {
+    font-size: 24px;
+    margin-bottom: 4px;
+    color: #757575; /* Default icon color */
+    transition: color 0.2s ease;
+}
+
+.bottom-nav .nav-item.active-nav {
+    color: var(--primary-color);
+}
+
+.bottom-nav .nav-item.active-nav i.material-icons {
+    color: var(--primary-color);
+}
+
+.bottom-nav .nav-item:hover {
+    color: var(--primary-dark);
+}
+
+.bottom-nav .nav-item:hover i.material-icons {
+    color: var(--primary-dark);
+}
+
+/* Coupon List Styling */
+#coupon-list-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.coupon-item {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    padding: 1rem;
+    border-left: 5px solid; /* Dynamic border color based on status */
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.coupon-item.status-Active {
+    border-color: var(--primary-color);
+}
+
+.coupon-item.status-Redeemed {
+    border-color: #607D8B; /* Blue Grey */
+    opacity: 0.8;
+}
+
+.coupon-item.status-Expired {
+    border-color: var(--error-color);
+    opacity: 0.6;
+}
+
+.coupon-item h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color-dark);
+    margin-bottom: 0.5rem;
+}
+
+.coupon-item p {
+    font-size: 0.85rem;
+    color: #616161;
+}
+
+.coupon-item p strong {
+    color: var(--text-color-dark);
+}
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.search-bar input,
+.search-bar select {
+    flex: 1;
+}

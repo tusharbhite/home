@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shopkeeper Loyalty App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+
+    <div id="app-container">
+
+        <div id="login-screen" class="screen active">
+            <div class="header">
+                <h2 data-i18n="login_title">Shopkeeper Login</h2>
+            </div>
+            <div class="content">
+                <form id="login-form">
+                    <div class="input-group">
+                        <label for="username" data-i18n="username_label">Username</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password" data-i18n="password_label">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit" class="btn primary-btn" data-i18n="login_btn">Login</button>
+                    <button type="button" class="btn secondary-btn" id="forgot-password-btn" data-i18n="forgot_password_btn">Forgot Password?</button>
+                    <p id="login-error" class="error-message"></p>
+                </form>
+            </div>
+        </div>
+
+        <div id="main-app" class="screen">
+            <div class="header">
+                <h2 id="current-screen-title"></h2>
+            </div>
+
+            <div class="content">
+                <div id="allocate-coupon-screen" class="sub-screen active-sub-screen">
+                    <h3 data-i18n="allocate_coupon_title">Allocate New Coupon</h3>
+                    <form id="allocate-coupon-form">
+                        <div class="input-group">
+                            <label for="customer-name" data-i18n="customer_name_label">Customer Name</label>
+                            <input type="text" id="customer-name" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="customer-phone" data-i18n="customer_phone_label">Customer Phone Number</label>
+                            <input type="tel" id="customer-phone" pattern="[0-9]{10}" maxlength="10" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="purchase-amount" data-i18n="purchase_amount_label">Purchase Amount (Rs.)</label>
+                            <input type="number" id="purchase-amount" min="0" step="1" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="coupon-value" data-i18n="coupon_value_label">Coupon Value (Rs.)</label>
+                            <input type="number" id="coupon-value" min="0" step="1" required>
+                        </div>
+                        <button type="submit" class="btn primary-btn" data-i18n="issue_coupon_btn">Issue Coupon</button>
+                        <p id="allocate-coupon-message" class="message"></p>
+                    </form>
+                </div>
+
+                <div id="validate-coupon-screen" class="sub-screen">
+                    <h3 data-i18n="validate_coupon_title">Validate Coupon</h3>
+                    <form id="validate-coupon-form">
+                        <div class="input-group">
+                            <label for="coupon-code-input" data-i18n="coupon_code_label">Coupon Code</label>
+                            <input type="text" id="coupon-code-input" required>
+                        </div>
+                        <button type="button" class="btn primary-btn" id="search-coupon-btn" data-i18n="search_coupon_btn">Search Coupon</button>
+                        <p id="validate-coupon-message" class="error-message"></p>
+
+                        <div id="coupon-details-display" class="card hidden">
+                            <h4 data-i18n="coupon_details_heading">Coupon Details:</h4>
+                            <p><strong data-i18n="customer_name_display">Customer Name:</strong> <span id="display-customer-name"></span></p>
+                            <p><strong data-i18n="customer_phone_display">Customer Phone:</strong> <span id="display-customer-phone"></span></p>
+                            <p><strong data-i18n="coupon_value_display">Coupon Value:</strong> Rs. <span id="display-coupon-value"></span></p>
+                            <p><strong data-i18n="issue_date_display">Issue Date:</strong> <span id="display-issue-date"></span></p>
+                            <p><strong data-i18n="expiry_date_display">Expiry Date:</strong> <span id="display-expiry-date"></span></p>
+                            <p><strong data-i18n="status_display">Status:</strong> <span id="display-coupon-status"></span></p>
+                            <div id="redemption-section" class="hidden">
+                                <div class="input-group">
+                                    <label for="new-purchase-amount" data-i18n="new_purchase_amount_label">New Purchase Amount (Rs.)</label>
+                                    <input type="number" id="new-purchase-amount" min="0" step="1" required>
+                                </div>
+                                <button type="button" class="btn primary-btn" id="redeem-coupon-btn" data-i18n="redeem_coupon_btn">Redeem Coupon</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="config-screen" class="sub-screen">
+                    <h3 data-i18n="settings_title">Shopkeeper Settings</h3>
+                    <form id="config-form">
+                        <div class="input-group">
+                            <label for="default-coupon-value" data-i18n="default_coupon_value_label">Default Coupon Value (Rs.)</label>
+                            <input type="number" id="default-coupon-value" min="0" step="1" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="min-purchase-issuance" data-i18n="min_purchase_issuance_label">Min. Purchase for Coupon Issuance (Rs.)</label>
+                            <input type="number" id="min-purchase-issuance" min="0" step="1" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="min-purchase-redemption" data-i18n="min_purchase_redemption_label">Min. Purchase for Coupon Redemption (Rs.)</label>
+                            <input type="number" id="min-purchase-redemption" min="0" step="1" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="coupon-validity-days" data-i18n="coupon_validity_days_label">Coupon Validity Period (Days)</label>
+                            <input type="number" id="coupon-validity-days" min="1" step="1" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="language-select" data-i18n="language_label">Language</label>
+                            <select id="language-select">
+                                <option value="en" data-i18n="lang_en">English</option>
+                                <option value="mr" data-i18n="lang_mr">मराठी</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn primary-btn" data-i18n="save_settings_btn">Save Settings</button>
+                        <p id="config-message" class="message"></p>
+                    </form>
+                </div>
+
+                <div id="coupon-list-screen" class="sub-screen">
+                    <h3 data-i18n="coupon_list_title">Customer & Coupon List</h3>
+                    <div class="input-group search-bar">
+                        <input type="text" id="coupon-list-search" placeholder="Search by customer name or phone..." data-i18n-placeholder="search_placeholder">
+                        <select id="coupon-status-filter">
+                            <option value="all" data-i18n="all_statuses">All Statuses</option>
+                            <option value="Active" data-i18n="status_active">Active</option>
+                            <option value="Redeemed" data-i18n="status_redeemed">Redeemed</option>
+                            <option value="Expired" data-i18n="status_expired">Expired</option>
+                        </select>
+                    </div>
+
+                    <div id="coupon-list-container">
+                        <p id="no-coupons-message" class="hidden" data-i18n="no_coupons_found">No coupons found.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <button class="nav-item active-nav" data-screen="allocate-coupon-screen">
+                    <i class="material-icons">add_shopping_cart</i>
+                    <span data-i18n="nav_allocate">Allocate</span>
+                </button>
+                <button class="nav-item" data-screen="validate-coupon-screen">
+                    <i class="material-icons">qr_code_scanner</i>
+                    <span data-i18n="nav_validate">Validate</span>
+                </button>
+                <button class="nav-item" data-screen="config-screen">
+                    <i class="material-icons">settings</i>
+                    <span data-i18n="nav_settings">Settings</span>
+                </button>
+                <button class="nav-item" data-screen="coupon-list-screen">
+                    <i class="material-icons">list_alt</i>
+                    <span data-i18n="nav_coupons">Coupons</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

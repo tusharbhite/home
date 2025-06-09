@@ -1,0 +1,6 @@
+{
+  "defaultCouponValue": 100,
+  "minPurchaseForIssuance": 1000,
+  "minPurchaseForRedemption": 1000,
+  "couponValidityDays": 30
+}
