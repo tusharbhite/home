@@ -1,0 +1,95 @@
+/*{"c":"2015-06-03T13:34:16Z","s":"prod-origin-d24f0939","v":"d9a1f2"}*/
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * adobe-clean:
+ *   - http://typekit.com/eulas/000000000000000000014f50
+ *   - http://typekit.com/eulas/000000000000000000014f4f
+ *   - http://typekit.com/eulas/000000000000000000014f51
+ * adobe-clean-condensed:
+ *   - http://typekit.com/eulas/000000000000000000014fbd
+ *   - http://typekit.com/eulas/000000000000000000014fbf
+ * adobe-clean-condensed-n4:
+ *   - http://typekit.com/eulas/000000000000000000014fbd
+ * adobe-clean-condensed-n7:
+ *   - http://typekit.com/eulas/000000000000000000014fbf
+ * adobe-clean-i4:
+ *   - http://typekit.com/eulas/000000000000000000014f50
+ * adobe-clean-n3:
+ *   - http://typekit.com/eulas/000000000000000000014f4d
+ * adobe-clean-n4:
+ *   - http://typekit.com/eulas/000000000000000000014f4f
+ * adobe-clean-n7:
+ *   - http://typekit.com/eulas/000000000000000000014f51
+ *
+ * (c) 2009-2015 Adobe Systems Incorporated. All Rights Reserved.
+ */
+
+@font-face {
+font-family:"adobe-clean";
+src:url(../../ruf7eed/f/LzziTJjdEo_luPJEUIQWVi4PQE7g3WYyFlJfmkALWf9ffFfpgsM-eMI6MK6f5Mt.eot?3bb2a6e53c9684ffdc9a9bf51c5b2a621190870d5c463695d5239f20081364910bfd7d5f8cbbb867016bdc2e30db2dbacde60c92b51543deb639b5f98f030aee30b1f177b4ce780724956c4a76a15daa61cd53edbb10ed42b695349adc346f9591c4d42429854c3a7e291d65f7bb3abe787b89f68de195758b48f93d50e98327042288770afbb924);
+font-style:italic;font-weight:400;
+}
+
+@font-face {
+font-family:"adobe-clean";
+src:url(../../ruf7eed/f/DRPMUrDz4jcVGPbzBPybIfvwxUc-jsIlKEYGsm8ZU49ffwrpgsM-eMI6MK6f5Mb.eot?3bb2a6e53c9684ffdc9a9bf51c5b2a621190870d5c463695d5239f20081364910bfd7d5f8cbbb867016bdc2e30db2dbacde60c92b51543deb639b5f98f030aee30b1f177b4c6502d8a21bbb8ac76fc0233c9b592f1d83b5eb5496f4626fb65de81e67dd7433b7babf4227036807fe9f840587bae4c864863bf1867ac2d6fc353d8b060a305175d9f);
+font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"adobe-clean";
+src:url(../../ruf7eed/f/dheCDMRIaTdZJcTU111aW8oz0E7JfqRG27UVHH-QgmvffFepgsM-eMI6MK6f5MS.eot?3bb2a6e53c9684ffdc9a9bf51c5b2a621190870d5c463695d5239f20081364910bfd7d5f8cbbb867016bdc2e30db2dbacde60c92b51543deb639b5f98f030aee30b1f177b4e66a18e999110778d67ec54867d3c96491a85f2d436400879b39e0b559ea24c6de3a3d58216acf74724a48af3b853ca8dbd3858c296656570a4f4eb75a3afd58b5c0bd);
+font-style:normal;font-weight:700;
+}
+
+@font-face {
+font-family:"adobe-clean-condensed";
+src:url(../../ruf7eed/f/8idVwZ23qMMf9YOu0Pj0A6tztLPqJ1a2u3mfXhAKTpwffOhLgsM-eMI6MK6g5Msfb2iRZeFKF2sKZQsyFhsK526aFhZcjQmRw2M3FhJtZebtFRmKwh4KjDwtwD6DwAZ8wcmywQSaZRjkwR9ajQqU5QI.eot?3bb2a6e53c9684ffdc9a98f41e5b2a62e5aa32ea395d977a52ef7ddb8a5f43211192962eb78ddff94bcf28ef5cfc589bc9e948f4b50b97823c0e47a9b709e6139594c26cf3d9b250d0256f5b7e6b40b2182bd200547cae1336b795e5c12b74c745d415599cf6e9c18f7cb4d9497e336fec50c6447511203970e51c535d2ef13e45a780eb002008853cab659ba69de8f3821653164e1e15cb2ab6894e5c6b712c4afca513083b42914b94db57a7a8b5f8417defffa209fb5fdf4f7b9a9e6e14cb5f838e90692a52d93c575464bbb87464feeb399ee4dcd7b557efd667372b96c6);
+font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"adobe-clean-condensed";
+src:url(../../ruf7eed/f/XbPznYvm6YttR3UdbB0O4utbo__Ti-dBmcpxJUMfOYbffOrLgsM-eMI6MK6g5Mifb2iRZeFKF2sKZQsyFhsK526aFhZcjQmRw2M3FhJtZebtFRmKwh4KjDwtwD6DwAZ8wcmywQSaZRjkwR9ajQqU5QI.eot?3bb2a6e53c9684ffdc9a98f41e5b2a62e5aa32ea395d977a52ef7ddb8a5f43211192962eb78ddff94bcf28ef5cfc589bc9e948f4b50b97823c0e47a9b709e6139594c26cf3b9b964d8177d37ec1877c2a06cee8028c31a355829eda692a1c07022d9344913c5596f09c1851fb024b97bdae7a3154f3c5490b8d73c2792bd57f7e94183840750d56a95f39fef7325dafbce64debb605b3a27413562111ebd097d44214f7d21013ff8851ff90b6317f701e52d20829915c46962f87f8b2a6cd6d858fb6031328868bc09884e71cd700ce631e64aed0274eb1ec114a93ed64d5336);
+font-style:normal;font-weight:700;
+}
+
+@font-face {
+font-family:"adobe-clean-i4";
+src:url(../../ruf7eed/f/LzziTJjdEo_luPJEUIQWVi4PQE7g3WYyFlJfmkALWf9ffFfpgsM-eMI6MK6f5Mt.eot?3bb2a6e53c9684ffdc9a9bf51c5b2a621190870d5c463695d5239f20081364910bfd7d5f8cbbb867016bdc2e30db2dbacde60c92b51543deb639b5f98f030aee30b1f177b4ce780724956c4a76a15daa61cd53edbb10ed42b695349adc346f9591c4d42429854c3a7e291d65f7bb3abe787b89f68de195758b48f93d50e98327042288770afbb924);
+font-style:italic;font-weight:400;
+}
+
+@font-face {
+font-family:"adobe-clean-n3";
+src:url(../../ruf7eed/f/wgB2J3xlQyc6hwcs_paMJT_Odc_PXAn_MMV25IjnQEXffwhpgsM-eMI6MK6f5Mw.eot?3bb2a6e53c9684ffdc9a9bf51c5b2a621190870d5c463695d5239f20081364910bfd7d5f8cbbb867016bdc2e30db2dbacde60c92b51543deb639b5f98f030aee30b1f177b4f5653f579ec9d87f47767826b4014812273bbb9445878da1c5fea38e2105c0b904ccd5bc221739aa039bd81a12651657bd2429aa558901f7a70f60ff6f9253c493afcb);
+font-style:normal;font-weight:300;
+}
+
+@font-face {
+font-family:"adobe-clean-n4";
+src:url(../../ruf7eed/f/DRPMUrDz4jcVGPbzBPybIfvwxUc-jsIlKEYGsm8ZU49ffwrpgsM-eMI6MK6f5Mb.eot?3bb2a6e53c9684ffdc9a9bf51c5b2a621190870d5c463695d5239f20081364910bfd7d5f8cbbb867016bdc2e30db2dbacde60c92b51543deb639b5f98f030aee30b1f177b4c6502d8a21bbb8ac76fc0233c9b592f1d83b5eb5496f4626fb65de81e67dd7433b7babf4227036807fe9f840587bae4c864863bf1867ac2d6fc353d8b060a305175d9f);
+font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"adobe-clean-n7";
+src:url(../../ruf7eed/f/dheCDMRIaTdZJcTU111aW8oz0E7JfqRG27UVHH-QgmvffFepgsM-eMI6MK6f5MS.eot?3bb2a6e53c9684ffdc9a9bf51c5b2a621190870d5c463695d5239f20081364910bfd7d5f8cbbb867016bdc2e30db2dbacde60c92b51543deb639b5f98f030aee30b1f177b4e66a18e999110778d67ec54867d3c96491a85f2d436400879b39e0b559ea24c6de3a3d58216acf74724a48af3b853ca8dbd3858c296656570a4f4eb75a3afd58b5c0bd);
+font-style:normal;font-weight:700;
+}
+
+@font-face {
+font-family:"adobe-clean-condensed-n4";
+src:url(../../ruf7eed/f/vo8Et4FHS_tcRu35yc99oANpVUkfHj-U22kVj9YmwZJffOhLgsM-eMI6MK6g5Mb.eot?3bb2a6e53c9684ffdc9a9bf51c5b2a621190870d5c463695d5239f20081364910bfd7d5f8cbbb867016bdc2e30db2dbacde60c92b51543deb639b5f98f030aee30b1f177b4f46d457331de7b53b061ce89beade0053cd7b15e4ccd266145f965973c07abe07f0c13c01cd5dfbe86225ad39e78d276463405bdefc4b08fdb3cfa86bdb307516acd41);
+font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"adobe-clean-condensed-n7";
+src:url(../../ruf7eed/f/PuCverHGkzxmK-giMalYTrjc3UlT65JvmG4zRTWGbHCffOrLgsM-eMI6MK6g5MS.eot?3bb2a6e53c9684ffdc9a9bf51c5b2a621190870d5c463695d5239f20081364910bfd7d5f8cbbb867016bdc2e30db2dbacde60c92b51543deb639b5f98f030aee30b1f177b4d2773e1d56424d1d80ce8283b28d2e46a70b7d5e3b3940a50caeee20d631d6336ae336608279da42a5af8e5df4b32cc1105b5783a115691c83e0e5ccda87fa63fa7c3b);
+font-style:normal;font-weight:700;
+}
