@@ -1,0 +1,313 @@
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2012 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.hide {
+    display: none !important; /* csslint allow: important */
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2013 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.card.foundation-collection-container.mode-selection {
+    background: url(foundation/css/resources/selmode_bg.png);
+}
+
+.foundation-layout-card {
+    position: relative;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2013 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/* @coral */
+.foundation-layout-dialog {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #eee;
+}
+
+.foundation-layout-dialog-header {
+    display: flex;
+    padding: 0.4375rem 0.9375rem;
+    border-bottom: 0.0625rem solid #d7d7d7;
+    min-height: 2.375rem;
+}
+
+.foundation-layout-dialog-header-title {
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    line-height: 2.375rem;
+}
+
+.foundation-layout-dialog-header-actions {
+    display: flex;
+}
+
+.foundation-layout-dialog-header-actions-item {
+    margin-left: 0.5rem;
+}
+
+.foundation-layout-dialog-header-actions-item.coral-MinimalButton {
+    padding: 0 0.9375rem;
+}
+
+.foundation-layout-dialog-header-actions-item.coral-MinimalButton .coral-Icon {
+    line-height: 2.25rem;
+}
+
+.foundation-layout-dialog-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+
+.foundation-layout-dialog ~ .foundation-ui-notification {
+    top: 3.25rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2012 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/* @deprecated Please use .foundation-layout-mode2 */
+
+.foundation-layout-mode > :not(:first-child) {
+    display: none;
+}
+
+.foundation-layout-mode > :not(:first-child).show {
+    display: block;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2012 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-layout-mode2-item:not(.foundation-layout-mode2-item-active) {
+    display: none;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2012 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-layout-inline {
+    display: flex;
+    align-items: flex-start;
+}
+
+/* This is the fastest and easiest technique without doing scripting */
+.foundation-layout-inline[data-foundation-layout*=\22gap\22\:true] > * { /* csslint allow: universal-selector, regex-selectors */
+    margin-right: 1.5rem;
+}
+
+.foundation-layout-inline[data-foundation-layout*=\22gap\22\:true] > *:last-child { /* csslint allow: universal-selector, regex-selectors */
+    margin-right: 0;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2013 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/*
+    @deprecated It contains Coral1 classes; No usage so far.
+*/
+.foundation-layout-profile {
+    display: flex;
+    padding: 0.9375rem;
+}
+
+.foundation-layout-profile .grid {
+    padding: 0;
+    width: 14.9375rem;
+}
+
+.foundation-layout-profile .tabs {
+    flex: 1;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2012 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/* @deprecated .foundation-form.mode-default and .foundation-form.mode-edit; please use foundation-layout-form instead. */
+
+.foundation-form.mode-default .foundation-field-edit {
+    display: none !important; /* csslint allow: important */
+}
+
+.foundation-form.mode-edit .foundation-field-readonly {
+    display: none !important; /* csslint allow: important */
+}
+
+.foundation-form.mode-default .foundation-field-hide-in-default {
+    display: none !important; /* csslint allow: important */
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/*
+  Modal dialogs with wait cursors (for instance, foundation-ui.waitTicker)
+*/
+.coral-Modal .coral-Wait {
+    margin-right: 0.5rem;
+}
+
+.coral-TabPanel--graniteNoPadding > .coral-TabPanel-content {
+    padding: 0;
+}
+
+.coral-TabPanel-pane--granitePadding {
+    padding: 0.9375rem;
+}
+
+/**
+  @coral It makes sense to migrate to CoralUI.
+*/
+.granite-coral-CollapsibleBadge {
+    position: absolute;
+    top: 0.4375rem;
+    right: 0.9375rem;
+    display: inline-block;
+    border: 0.0625rem solid rgb(215, 215, 215);
+    padding: 0 0.5rem;
+    border-radius: 0.1875rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    background: rgb(225, 225, 225);
+}
+
+.granite-coral-CollapsibleBadge:empty {
+    display: none;
+}
+
+.coral-Collapsible--block .granite-coral-CollapsibleBadge {
+    top: 0.75rem;
+}
+
+/** @coral: CUI-1818, handles issue where tooltips would overflow the content */
+coral-tooltip[placement="left"] {
+    max-width: 18.75rem !important; /* csslint allow: important */
+}
+

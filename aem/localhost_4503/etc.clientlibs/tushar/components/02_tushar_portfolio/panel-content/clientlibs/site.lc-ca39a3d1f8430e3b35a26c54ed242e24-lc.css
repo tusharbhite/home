@@ -1,0 +1,220 @@
+/*List CSS*/
+
+.coral3-SelectList {
+    -webkit-text-size-adjust: 100%;
+    font-family: adobe-clean, Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: .8125rem;
+    line-height: 1.0625rem;
+    color: #323232;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    overflow-y: auto;
+    display: block;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: .0625rem solid #d0d0d0;
+    background-color: #fff;
+}
+
+.coral3-SelectList-item {
+    -webkit-text-size-adjust: 100%;
+    font-family: adobe-clean, Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: .8125rem;
+    color: #323232;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    display: block;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+    padding: .75rem .625rem;
+    min-height: 1.125rem;
+    line-height: 1.125rem;
+}
+
+coral-selectlist {
+    border: .0625rem solid #d0d0d0;
+}
+
+
+/*Time Line CSS*/
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700|Oswald:400,300,700);
+#timeline-content {
+    background: #252827;
+    font-size: 16px;
+    background-color: transparent;
+    font-family: adobe-clean, 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Trebuchet MS', 'Lucida Grande', sans-serif;
+}
+
+#timeline-content strong {
+    font-weight: 600;
+}
+
+#timeline-content h1 {
+    letter-spacing: 1.5px;
+    color: #6e6e6e;
+    font-weight: 100;
+    font-size: 2.4em;
+}
+
+#timeline-content {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.timeline {
+    border-left: 4px solid #6e6e6e;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.8);
+    margin: 50px auto;
+    letter-spacing: 0.5px;
+    position: relative;
+    line-height: 1.4em;
+    font-size: 1.03em;
+    /* padding: 50px; */
+    list-style: none;
+    text-align: left;
+    font-weight: 100;
+    max-width: 60%;
+}
+
+.timeline h1,
+.timeline h2,
+.timeline h3 {
+    letter-spacing: 1.5px;
+    font-weight: 100;
+    font-size: 1.4em;
+}
+
+.timeline .event {
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    /* padding-bottom: 25px;
+    margin-bottom: 50px; */
+    position: relative;
+}
+
+.timeline .event:last-of-type {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border: none;
+}
+
+.timeline .event:before,
+.timeline .event:after {
+    position: absolute;
+    display: block;
+    top: 0;
+}
+
+.timeline .event:before {
+    left: -217.5px;
+    color: #6e6e6e;
+    content: attr(data-date);
+    text-align: right;
+    font-weight: 100;
+    font-size: 0.9em;
+    min-width: 120px;
+}
+
+.timeline .event:nth-of-type(1):after {
+    /* First item styles */
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: -48.85px;
+    height: 10px;
+    width: 10px;
+    border: 2px solid gray;
+    /* Hollow circle outline */
+    border-radius: 50%;
+    /* Makes it circular */
+    background-color: white;
+    /* Hollow center */
+    top: -1px;
+}
+
+.timeline .event:nth-of-type(n+2):after {
+    /* Second and beyond */
+    /* box-shadow: 0 0 0 4px gray; */
+    left: -56.85px;
+    /* background: #313534; */
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><circle cx='8' cy='8' r='7' stroke='gray' stroke-width='2' fill='white'/><path d='M4 8l2 2l4 -4' stroke='gray' stroke-width='2' fill='none'/></svg>") no-repeat center center;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    content: "";
+    /* top: 5px; */
+}
+
+#timeline-content ul {
+    color: #6e6e6e;
+}
+
+@media screen and (max-width: 450px) {
+    .timeline .event:before {
+        /* left: -217.5px;
+        color: #6e6e6e;
+        content: attr(data-date);
+        text-align: right;
+        font-weight: 100;
+        font-size: 0.9em;
+        min-width: 120px; */
+        display: none;
+    }
+}
+
+
+/*Herpo*/
+
+.image-container {
+    width: 100%;
+    /* or set a fixed width like 400px */
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    /* This keeps the image proportional */
+    display: block;
+    /* Removes extra space below the image */
+}
+
+.photo-card-container {
+    text-align: center;
+}
+
+.my-photo {
+    width: inherit !important;
+}
+
+.globalnav-navigator-backbutton {
+    margin-top: 0px ! important;
+}
+
+.sticky-element {
+    position: sticky;
+    top: 0;
+    /* Distance from the top when it becomes sticky */
+    z-index: 999;
+    /* Ensure it's above other content */
+    background-color: whitesmoke;
+    /* Optional for visibility */
+    padding: 10px;
+    transform: translateY(-20px);
+}
+
+.granite-title {
+    padding: 0 20px !important;
+}
+
+.granite-title:hover {
+    cursor: pointer;
+    /* Displays as a hand */
+}

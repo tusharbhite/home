@@ -1,0 +1,244 @@
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+/* @deprecated */
+
+.granite-endor-DesktopOnly {
+    position: absolute;
+    top: 50%;
+    right: 0.9375rem;
+    display: none;
+    margin-top: -1.4rem;
+}
+
+.coral-ColumnView-item:hover .granite-endor-DesktopOnly {
+    display: block;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2013 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+/* @deprecated */
+
+/**
+ * @deprecated .endor-Panel-title; Please use .granite-endor-Title.
+ */
+.granite-endor-Title, .endor-Panel-title {
+    position: relative;
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.05);
+    padding-left: 0.9375rem;
+    height: 3.1875rem;
+    line-height: 3.1875rem;
+    font-size: 1rem;
+}
+
+/**
+ * @deprecated .endor-Panel-close; Please use .granite-endor-Title-close.
+ */
+.granite-endor-Title-close, .endor-Panel-close {
+    position: absolute;
+    top: 50%;
+    right: 0.25rem;
+    margin-top: -1.0625rem;
+    min-width: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.endor-Panel-content--graniteEndorTitleHeight {
+    top: 3.25rem;
+}
+
+/*************************************
+  .coral-Form--graniteEndorInnerRail
+*************************************/
+.coral-Form--graniteEndorInnerRail .coral-Form-fieldwrapper {
+    position: relative;
+    display: block;
+    margin: 0.625rem 0.9375rem;
+}
+
+.coral-Form--graniteEndorInnerRail .coral-Form-field.coral-Slider {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.coral-Form--graniteEndorInnerRail .coral-Form-field.coral-Textfield,
+.coral-Form--graniteEndorInnerRail .coral-Form-field.coral-PathBrowser,
+.coral-Form--graniteEndorInnerRail .coral-Form-field.coral-Autocomplete,
+.coral-Form--graniteEndorInnerRail .coral-Form-field.coral-Slider,
+/* DecoratedTextfield has slightly different pattern due to a bad decision in the server implementation. */
+.coral-Form--graniteEndorInnerRail .coral-DecoratedTextfield {
+    display: block;
+    width: 100%;
+}
+
+.coral-Form--graniteEndorInnerRail .coral-Form-field.coral-InputGroup {
+    display: table;
+    width: 100%;
+}
+
+.coral-Form--graniteEndorInnerRail .coral-Collapsible-content {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.coral-Form--graniteEndorInnerRail .coral-Form-fieldwrapper.coral-Form-fieldwrapper--singleline {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/* @deprecated */
+
+/* TODO @coral It makes sense to migrate `.coral-Button--graniteActionBar` to CoralUI as `.coral3-Button--iconBar`. */
+.coral-Button--graniteActionBar {
+    min-width: 0;
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+}
+
+.granite-endor-ActionBar-item-hidden {
+    visibility: hidden;
+}
+
+.coral-Button--graniteActionBar > .coral-Icon {
+    font-size: 1.125rem; /* $icon-small-size */
+}
+
+.coral-Button--graniteActionBar > span,
+.coral-FileUpload-trigger.coral-Button--graniteActionBar > label {
+    font-size: 0.8125rem; /* 13*$px; */
+}
+
+.coral-Button--graniteActionBar > .coral-Icon + span:not(:empty),
+.coral-FileUpload-trigger.coral-Button--graniteActionBar > .coral-Icon + label:not(:empty) {
+    margin-left: 0.5rem; /* 8*$px; */
+}
+
+.coral-Button--graniteActionBar:not(:disabled):not(.is-disabled):not(.is-selected),
+.coral-FileUpload-trigger.coral-Button--graniteActionBar.is-focused:not(:disabled):not(.is-disabled) {
+    color: rgb(150, 150, 150);
+}
+
+.coral-Button--graniteActionBar:not(:disabled):not(.is-disabled):not(.is-selected):hover {
+    color: rgb(75, 75, 75);
+}
+
+.coral-Button--graniteActionBar:not(:disabled):not(.is-disabled):not(.is-selected):active {
+    color: rgb(50, 110, 200);
+}
+
+.coral-Button--graniteActionBar:not(:disabled):not(.is-disabled):not(.is-selected) > .coral-Icon {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.coral-Button--graniteActionBar:not(:disabled):not(.is-disabled):not(.is-selected):hover > .coral-Icon {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.coral-Button--graniteActionBar:not(:disabled):not(.is-disabled):not(.is-selected):active > .coral-Icon {
+    color: rgb(50, 110, 200);
+}
+
+.endor-ActionBar-graniteMorePopup .coral-Button--graniteActionBar,
+.endor-ActionBar .coral-Popover .coral-Button--graniteActionBar {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+
+/* Special feature when endor-Crumbs is used as the item: the crumbs is assumed as the only item. */
+.endor-ActionBar-left:only-child {
+    float: none;
+}
+
+.endor-ActionBar-item.endor-Crumbs {
+    float: none;
+    overflow: hidden; /* create bfc */
+}
+
+.endor-ActionBar-item.endor-Crumbs:first-child {
+    padding-left: 1.325rem;
+}
+
+.endor-ActionBar-item.endor-Crumbs .endor-Crumbs-item,
+.endor-ActionBar-item.endor-Crumbs .endor-Crumbs-item:after {
+    height: 2.375rem;
+    line-height: 2.375rem;
+    color: rgb(60, 60, 60);
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+/* @deprecated */
+
+.endor-BreadcrumbBar ~ .foundation-ui-notification {
+    top: 5.4375rem;
+}
+
+.endor-BreadcrumbBar.is-closed ~ .foundation-ui-notification {
+    top: 2.75rem;
+}
+

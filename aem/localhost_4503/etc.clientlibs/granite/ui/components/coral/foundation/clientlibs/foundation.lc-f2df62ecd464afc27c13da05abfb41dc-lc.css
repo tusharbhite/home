@@ -1,0 +1,2295 @@
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2012 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+/**
+ * @see http://www.whatwg.org/specs/web-apps/current-work/multipage/rendering.html#hidden-elements
+ */
+[hidden] { /* csslint allow: unqualified-attributes */
+    display: none !important; /* csslint allow: important */
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2013 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-ui-mask {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100000;
+    background-color: rgba(60, 60, 60, 0.4); /* @coral */
+}
+
+.foundation-ui-notification {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin: 0;
+    transform: translate(-50%, 0);
+    z-index: 100000;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2012 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-content > :not(.foundation-content-current):not(.foundation-ui-mask) {
+    display: none;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-collection-action-hidden {
+    display: none !important; /* csslint allow: important */
+}
+
+.foundation-collection-quickactions {
+    /* By default quickactions are hidden. The layout is the one who show them accordingly. */
+    display: none;
+}
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2019 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-collection-loading-title-wrapper {
+    display: none;
+
+    height: 3rem;
+    position: absolute;
+    bottom: 1rem;
+    text-align: center;
+    z-index: 100;
+}
+
+.granite-collection-loading-title {
+    display: block;
+    position: fixed;
+    width: 100%;
+}
+
+
+.granite-collection-loading-container {
+    display: inline-block;
+    padding: 0.875rem 1rem;
+    border: .0625rem solid rgb(230, 230, 230); /** @cloudui */
+    border-radius: 0.25rem;
+    background-color: white;
+}
+
+
+.granite-collection-loading-wait {
+    vertical-align: middle;
+    margin-right: .5rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-editable-control {
+    cursor: pointer;
+}
+
+.foundation-editable-control:empty {
+    min-height: 1rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2012 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-mode-switcher-item:not(.foundation-mode-switcher-item-active) {
+    display: none;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+foundation-autocomplete {
+    position: relative;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 12.5rem;
+}
+
+foundation-autocomplete > [foundation-autocomplete-button] { /* csslint allow: unqualified-attributes */
+    order: -1;
+    flex: none;
+
+    margin-right: -0.0625rem;
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+foundation-autocomplete > [foundation-autocomplete-button]:active, /* csslint allow: unqualified-attributes */
+foundation-autocomplete > [foundation-autocomplete-button]:focus { /* csslint allow: unqualified-attributes */
+    z-index: 2;
+}
+
+.foundation-autocomplete-inputgroupwrapper {
+    flex: 1 1 auto;
+}
+
+.foundation-autocomplete-inputgroupwrapper .coral-InputGroup {
+    width: 100%;
+}
+
+foundation-autocomplete:not([pickersrc]) .foundation-autocomplete-inputgroupwrapper .coral-InputGroup-button:last-child,
+foundation-autocomplete[pickersrc=""] .foundation-autocomplete-inputgroupwrapper .coral-InputGroup-button:last-child {
+    display: none;
+}
+
+/*
+    Use class so that it is more specific. It is unfortunate that a Coral widget is setting margin by default so we have
+    to use class to select the taglist, instead of the element name.
+*/
+foundation-autocomplete > .foundation-autocomplete-taglist {
+    /* Need !important as `Coral.commons.addResizeListener` will use element.style.position = relative. */
+    position: absolute !important; /* csslint allow: important */
+    top: 0;
+    left: 0.0625rem;
+    z-index: 1;
+    margin: 0 0.3125rem 0 0.625rem;
+}
+
+
+/* Single Selection Mode */
+
+foundation-autocomplete:not([multiple]) > coral-taglist {
+    display: none;
+}
+
+
+/* Block Value Display Mode */
+
+foundation-autocomplete[valuedisplaymode=block] > coral-taglist {
+    position: static !important; /* csslint allow: important */
+    top: auto;
+    left: auto;
+    z-index: auto;
+    flex: 1 1 100%;
+    margin: 0.3125rem 0 0;
+}
+
+foundation-autocomplete[valuedisplaymode=block] > coral-taglist:empty {
+    margin-top: 0;
+    margin-right: 0;
+}
+
+foundation-autocomplete[valuedisplaymode=block] > coral-taglist > coral-tag {
+    /* When it is block, the tag needs to be multiline.
+
+       It is unfortunate that Coral decided to implement multiline at each tag, instead of at tag list level. That means
+       when there is a change of valuedisplaymode, we need imperative JS code to loop the tags and change each one of
+       them, where implementing using CSS is declarative, thus simpler.
+
+       @coral
+     */
+    height: auto;
+    white-space: normal;
+}
+
+
+/* Omnisearch Variant */
+
+foundation-autocomplete[variant=omnisearch] {
+    display: flex;
+    width: auto;
+}
+
+foundation-autocomplete[variant=omnisearch] > [foundation-autocomplete-button] { /* csslint allow: unqualified-attributes */
+    /* The button is a square quiet button where we want to only count the width of the actual icon so that it is aligned visually.
+       However, the button has padding+border for focus ring.
+       So we use negative margin here to shift the button to the left, without shifting or modifying the width of the autocomplete.
+
+       Square button has 8+1px, so shift 9px.
+     */
+    margin-left: -0.5625rem;
+
+    /* Target gap is 16px; square button has 8+1px; quiet textfield has 1px transparent border; 16 - 9 - 1 = 6. */
+    margin-right: 0.375rem;
+
+    border-radius: 0.25rem;
+}
+
+foundation-autocomplete[variant=omnisearch] .foundation-autocomplete-inputgroupwrapper .coral-InputGroup-input {
+    border-color: transparent;
+    height: 3.25rem;
+    line-height: 1.5rem;
+    font-size: 1.375rem;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+foundation-autocomplete[variant=omnisearch] .foundation-autocomplete-inputgroupwrapper .coral-InputGroup-input:hover,
+foundation-autocomplete[variant=omnisearch] .foundation-autocomplete-inputgroupwrapper .coral-InputGroup-input:focus {
+    border-color: transparent;
+}
+
+foundation-autocomplete[variant=omnisearch] .foundation-autocomplete-inputgroupwrapper button {
+    height: 3.25rem;
+}
+
+foundation-autocomplete[variant=omnisearch] > coral-taglist {
+    top: 0.4375rem;
+    left: 0.0625rem;
+    margin: 0 0.3125rem 0 0;
+}
+
+
+/* Forms */
+
+.coral-Form--vertical foundation-autocomplete.coral-Form-field { /* csslint allow: overqualified-elements */
+    display: flex;
+    width: auto;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-picker-buttonlist {
+    overflow-y: auto;
+
+    /* @coral */
+    border: 0.0625rem solid #d0d0d0;
+    border-top-width: 0;
+    border-radius: 0 0 0.25rem 0.25rem;
+
+    /*
+      Show max 5 items, where each is 2.5rem high.
+      Since for pagination it is assumed that the limit is at least 10, showing max 5 items will allow the buttonlist to be scrollable.
+      Otherwise, the scroll event will not be triggered.
+    */
+    max-height: 12.5rem;
+
+    background: #fff;
+}
+
+.foundation-picker-buttonlist.is-above {
+    /* @coral */
+    border-top-width: 0.0625rem;
+    border-bottom-width: 0;
+    border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.foundation-picker-buttonlist-loader {
+    position: relative;
+    height: 2.5rem; /* @coral */
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2015 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-layout-masonry coral-masonry-item {
+    -webkit-touch-callout: none;
+    /* So far the text selection context menu only happens in iOS, hence -webkit only. */
+    -webkit-user-select: none; /* csslint allow: compatible-vendor-prefixes */
+}
+
+.foundation-layout-masonry coral-card.foundation-collection-navigator { /* csslint allow: overqualified-elements */
+    cursor: pointer;
+}
+
+.foundation-layout-masonry-cardwrapper {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.foundation-layout-masonry-empty {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.foundation-layout-masonry coral-masonry-item.foundation-collection-item.is-lazyLoaded,
+.foundation-layout-masonry coral-masonry-item.foundation-collection-item.is-pending {
+    height: 17rem;
+    border-radius: 0.25rem;
+    background-color: rgb(233, 233, 233);
+}
+
+.foundation-layout-masonry[data-granite-collection-is-loading="true"] + .granite-collection-loading-title-wrapper {
+    display: block;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-layout-table .foundation-collection-item.foundation-collection-navigator {
+    cursor: pointer;
+}
+
+.foundation-layout-table-cellwrapper {
+    text-decoration: none;
+    color: inherit;
+}
+
+.foundation-layout-table-cellwrapper:hover {
+    text-decoration: underline;
+}
+
+th[is="coral-table-headercell"][alignment="left"],
+td[is="coral-table-cell"][alignment="left"] {
+    text-align: left;
+}
+
+th[is="coral-table-headercell"][alignment="center"],
+td[is="coral-table-cell"][alignment="center"] {
+    text-align: center;
+}
+
+th[is="coral-table-headercell"][alignment="right"],
+td[is="coral-table-cell"][alignment="right"] {
+    text-align: right;
+}
+
+.foundation-layout-table .granite-collection-loading-container {
+    padding: 0.125rem 0.25rem;
+}
+
+.foundation-layout-table[data-granite-collection-is-loading="true"] .granite-collection-loading-title-wrapper {
+    display: block;
+}
+
+.foundation-layout-table .granite-collection-loading-title {
+    display: none;
+}
+
+.foundation-layout-table[data-granite-collection-is-loading="true"] .granite-collection-loading-title {
+    text-align: center;
+    display: block;
+    bottom: 1rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-layout-columnview coral-columnview-item-content .foundation-collection-item-title,
+.foundation-layout-columnview coral-columnview-item-content .foundation-layout-util-subtletext {
+    line-height: 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.foundation-layout-columnview coral-columnview-item-content .foundation-collection-item-title:only-child {
+    line-height: inherit;
+}
+
+.foundation-layout-columnview coral-columnview-preview.foundation-layout-columnview-preview-maximized {
+    max-width: calc(100% - 15.625rem - (2 * .125rem));
+}
+
+.foundation-layout-columnview coral-columnview-column.foundation-layout-columnview-isloading {
+    position: relative;
+}
+
+.foundation-layout-columnview-item-placeholder coral-columnview-item-thumbnail {
+    background-color: #eee;
+    margin: .1rem;
+    height: 2.9rem;
+    width: 2.9rem;
+}
+
+.foundation-layout-columnview-item-placeholder coral-columnview-item-content {
+    background-color: #eee;
+    padding: .5rem;
+    width: 60%;
+    margin-top: 1rem;
+    display: inline-block;
+    height: 0;
+    margin-left: .625rem;
+}
+
+.foundation-layout-columnview.foundation-layout-columnview-isloading + .granite-collection-loading-title-wrapper,
+.foundation-layout-columnview coral-columnview-column.foundation-layout-columnview-isloading .granite-collection-loading-title-wrapper {
+    display: block;
+}
+
+.foundation-layout-columnview-isloading .granite-collection-loading-title {
+    left: 2rem;
+    right: 0;
+
+    display: block;
+    position: absolute;
+    bottom: 1rem;
+    text-align: center;
+    z-index: 100;
+}
+
+.foundation-layout-columnview .foundation-collection-item {
+    will-change: transform;
+}
+
+.foundation-layout-columnview .foundation-collection-item.is-lazyLoaded {
+    will-change: transform, contents;
+}
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+.foundation-layout-wizard2 {
+    height: 100%;
+}
+
+.foundation-layout-wizard2-header {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 0.4375rem 1rem 0;
+    border-bottom: 0.0625rem solid #e1e1e1;
+    height: 3.25rem;
+    background-color: #fafafa;
+}
+
+@media only screen and (max-width: 424px) {
+    .foundation-layout-wizard2-header {
+        flex-direction: column;
+        height: 10rem !important;
+        align-items: stretch !important;
+    }
+}
+
+.foundation-layout-wizard2-title {
+    order: 1;
+    flex: 1 0 0%; /* csslint allow: zero-units */
+    margin: 0 1rem 0 0;
+    line-height: 2.375rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.foundation-layout-wizard2-steplist {
+    order: 2;
+}
+
+.foundation-layout-wizard2-steplist coral-step:not(.is-selected, .is-complete) coral-step-label {
+    color: #707070 !important;
+}
+
+@media only screen and (max-width: 424px) {
+    .foundation-layout-wizard2-steplist {
+        padding-top: 0px;
+        padding-bottom: 18px;
+    }
+}
+
+.foundation-layout-wizard2-controls {
+    order: 3;
+    flex: 1 0 0%; /* csslint allow: zero-units */
+    display: flex;
+    margin: 0 0 0 1rem;
+    justify-content: flex-end;
+}
+
+coral-steplist.foundation-layout-wizard2-steplist coral-step:only-child {
+    display: none;
+}
+
+.foundation-layout-wizard2-contents {
+    position: relative;
+    /* Always overrule the actual widget's height. */
+    height: calc(100% - 3.25rem) !important; /* csslint allow: important */
+    overflow: auto;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2015 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/**
+ * The layout for panel pattern, where the content/body area is maximized.
+ * By default the panel has 100% height.
+ *
+ * It has two possible scenarios:
+ *
+ * Note that the Header and Footer are optional.
+ *
+ * A. Header - Body - Footer
+ *
+ * <div class="foundation-layout-panel">
+ *   <div class="foundation-layout-panel-header">Header Content</div>
+     <div class="foundation-layout-panel-body">Body Content</div>
+ *   <div class="foundation-layout-panel-footer">Footer Content</div>
+ * </div>
+ *
+ * B. Header - Body (Rail - Content) - Footer
+ *
+ * <div class="foundation-layout-panel">
+ *   <div class="foundation-layout-panel-header">Header Content</div>
+ *   <div class="foundation-layout-panel-body">
+ *     <div class="foundation-layout-panel-rail">Rail Content</div>
+ *     <div class="foundation-layout-panel-content">Content</div>
+ *   </div>
+ *   <div class="foundation-layout-panel-footer">Footer Content</div>
+ * </div>
+ */
+.foundation-layout-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/**
+ * `.foundation-layout-panel-bodywrapper` is no longer needed and maintained for compatibility.
+ *
+ * For example:
+ *
+ * ```html
+ * <div class="foundation-layout-panel">
+ *   <div class="foundation-layout-panel-header">Header Content</div>
+ *   <div class="foundation-layout-panel-bodywrapper">
+ *     <div class="foundation-layout-panel-body">...</div>
+ *   </div>
+ *   <div class="foundation-layout-panel-footer">Footer Content</div>
+ * </div>
+ * ```
+ */
+.foundation-layout-panel-bodywrapper {
+    flex: 1;
+    display: flex;
+    overflow: auto;
+}
+
+.foundation-layout-panel-body {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+}
+
+.foundation-layout-panel-content {
+    overflow: auto;
+    position: relative;
+    height: 100%;
+}
+
+.foundation-layout-panel-rail {
+    float: left;
+    overflow: auto;
+    position: relative;
+    box-sizing: border-box;
+    margin-left: -15.625rem;
+    width: 15.625rem;
+    height: 100%;
+    transition: margin-left .5s ease 0,visibility 0s linear .5s;
+    visibility: hidden;
+}
+
+.foundation-layout-panel-rail.foundation-layout-panel-rail-active {
+    margin-left: 0;
+    transition-delay: 0s;
+    visibility: visible;
+}
+
+.foundation-container-resizable {
+    position: relative;
+
+    /* FIXME Using `overflow=visible` breaks the spec of `.foundation-layout-panel-rail`
+       where its children can be arbitrary multiple elements.
+       Using `overflow=visible` assumes that there is only one child, which maintains its own height and scrollability. */
+    overflow: visible;
+}
+
+.foundation-container-resizable.foundation-layout-panel-rail-active .foundation-container-resizable-handle {
+    display: block;
+    position: absolute;
+    right: -0.3125rem;
+    top: 0;
+    content: '';
+    width: 0.625rem;
+    height: 100%;
+    z-index: 1;
+    cursor: col-resize;
+}
+
+.foundation-container-resizable.foundation-layout-panel-rail-active.is-dragging .foundation-container-resizable-handle:after {
+    background-color: #4b4b4b;
+}
+
+.foundation-container-resizable.foundation-layout-panel-rail-active.is-dragging .foundation-container-resizable-handle-drag {
+    border: 0.125rem solid #4b4b4b;
+}
+
+.foundation-container-resizable-handle:after {
+    content: '';
+    display: block;
+    position: relative;
+    width: 0.125rem;
+    height: 100%;
+    right: -0.25rem;
+    background-color: #e1e1e1;
+}
+
+.foundation-container-resizable-handle:hover:after {
+    background-color: #cacaca;
+}
+
+.foundation-container-resizable-handle-drag {
+    width: 0.375rem;
+    height: 1.125rem;
+    border: 0.125rem solid #e1e1e1;
+    position: absolute;
+    border-radius: 0.1875rem;
+    bottom: 50%;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2013 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+.foundation-layout-form.foundation-layout-form-mode-default .foundation-field-edit {
+    display: none !important; /* csslint allow: important */
+}
+
+.foundation-layout-form.foundation-layout-form-mode-default .foundation-field-hide-in-default {
+    display: none !important; /* csslint allow: important */
+}
+
+.foundation-layout-form.foundation-layout-form-mode-edit .foundation-field-readonly {
+    display: none !important; /* csslint allow: important */
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2012 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-layout-inline2 {
+    display: flex;
+    align-items: flex-start;
+}
+
+.foundation-layout-inline2.foundation-layout-inline2-gap > .foundation-layout-inline2-item {
+    margin-right: 0.625rem;
+}
+
+.foundation-layout-inline2.foundation-layout-inline2-gap > .foundation-layout-inline2-item:last-child {
+    margin-right: 0;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2013 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/**
+    Indicates the layout root element.
+
+    Examples:
+    <div class="foundation-layout-thumbnail">
+        <div class="foundation-layout-thumbnail-image grid">
+            <article class="card-page"></article>
+        </div>
+    </div>
+ */
+.foundation-layout-thumbnail {
+    padding: 1rem;
+}
+
+.foundation-layout-thumbnail:not(.foundation-layout-thumbnail-quiet) {
+    background-color: #FFF;
+    box-shadow: 0 0.09375rem 0.09375rem rgba(0, 0, 0, 0.25);
+}
+
+/**
+    Indicates the thumbnail element.
+ */
+.foundation-layout-thumbnail-image {
+    display: block;
+    margin: 0 auto;
+    width: 20rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/*
+foundation-layout-actionfield is a layout to display a field and its action button next to it.
+The action is put to the edge and the field will expand to the remaining space.
+
+Example:
+
+<form class="foundation-layout-actionfield">
+    <div class="foundation-layout-actionfield-field"></div>
+    <button type="submit" class="foundation-layout-actionfield-action">OK</button>
+</form>
+*/
+
+.foundation-layout-actionfield {
+    display: flex;
+}
+
+.foundation-layout-actionfield-field {
+    flex: 1;
+    margin-right: 0.5rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/**
+    A layout for media object: https://github.com/stubbornella/oocss/wiki/Content
+
+    Examples:
+    <div class="foundation-layout-media">
+	    <img class="foundation-layout-media-img">
+	    <div class="foundation-layout-media-bd"></div>
+    </div>
+ */
+.foundation-layout-media {
+    display: flex;
+    align-items: flex-start;
+}
+
+.foundation-layout-media-img {
+	margin-right: 0.625rem;
+	height: 2rem;
+	width: 2rem;
+}
+
+.foundation-layout-media-bd {
+    flex: 1;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/**
+    Alternative media layout, with the ability to set vertical alignment.
+    MUST have no whitespace between child elements of .foundation-layout-flexmedia
+
+    Examples:
+
+    <div class="foundation-layout-flexmedia">
+       <img class="foundation-layout-flexmedia-img">
+       <div class="foundation-layout-flexmedia-bd"></div>
+    </div>
+
+    // foundation-layout-flexmedia-middle: Vertically center elements relative to each other
+    <div class="foundation-layout-flexmedia foundation-layout-flexmedia-middle">
+       <img class="foundation-layout-flexmedia-img">
+       <div class="foundation-layout-flexmedia-bd"></div>
+    </div>
+
+    // foundation-layout-flexmedia-bottom: Vertically bottom elements relative to each other
+    <div class="foundation-layout-flexmedia foundation-layout-flexmedia-bottom">
+       <img class="foundation-layout-flexmedia-img">
+       <div class="foundation-layout-flexmedia-bd"></div>
+    </div>
+
+    // foundation-layout-flexmedia-bd-singleline: Restrict description to single line (ellipsis applied on overflow)
+    <div class="foundation-layout-flexmedia foundation-layout-flexmedia-bottom">
+       <img class="foundation-layout-flexmedia-img">
+       <div class="foundation-layout-flexmedia-bd foundation-layout-flexmedia-bd-singleline"></div>
+    </div>
+
+    <div class="foundation-layout-flexmedia foundation-layout-flexmedia-bottom">
+       <img class="foundation-layout-flexmedia-img">
+       <div class="foundation-layout-flexmedia-bd">
+          <span class="foundation-layout-flexmedia-bd-singleline">Clark Kent</span>
+          <span class="foundation-layout-flexmedia-bd-singleline">clark.kent@superman.ct</span>
+       </div>
+    </div>
+ */
+.foundation-layout-flexmedia {
+    display: flex;
+    align-items: flex-start;
+}
+
+.foundation-layout-flexmedia.foundation-layout-flexmedia-middle {
+    align-items: center;
+}
+
+.foundation-layout-flexmedia.foundation-layout-flexmedia-bottom {
+    align-items: flex-end;
+}
+
+.foundation-layout-flexmedia-img {
+    margin-right: 0.625rem;
+    height: 2rem;
+    width: 2rem;
+}
+
+.foundation-layout-flexmedia-bd {
+    overflow: hidden;
+    flex: 1;
+}
+
+.foundation-layout-flexmedia-bd-singleline {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2013 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/**
+    Add vertical margin (top and bottom) to the container.
+    The margin size is 1rem;
+ */
+.foundation-layout-util-vmargin {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+/**
+    Set the min-width to zero.
+ */
+.foundation-layout-util-nominwidth {
+    min-width: 0;
+}
+
+/**
+    Set the width to 18.75rem (300px using 16px base).
+    This width value is good for use case to make sure that the element is not larger than smartphone width e.g. 320px.
+ */
+.foundation-layout-util-width300 {
+    width: 18.75rem;
+}
+
+/*
+    Set the max-height = 80vh and overflow = auto.
+    This is mainly used to restrict the overlay component for not exceeding viewport.
+ */
+.foundation-layout-util-maxheight80vh {
+    overflow: auto;
+    max-height: 80vh;
+}
+
+/**
+    Expand the element to fill available content.
+    This is done by using absolute positioning.
+ */
+.foundation-layout-util-maximized {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 1px;
+    overflow-y: auto;
+}
+
+/**
+    Expand the element to fill available content.
+    This is done by using 100% width and height.
+ */
+.foundation-layout-util-maximized-alt {
+	width: 100%;
+	height: 100%;
+}
+
+/**
+    Expand the element to fill available content and establish overflow context.
+    This is done by using 100% height and overflow = auto.
+ */
+.foundation-layout-util-maximized-container {
+    height: 100%;
+    overflow: auto;
+    position: relative;
+}
+
+/**
+    Indicates that normally unbreakable words may be broken at
+    arbitrary points if there are no otherwise acceptable
+    break points in the line.
+    This is done by using `word-wrap: break-word`.
+ */
+.foundation-layout-util-breakword {
+    word-wrap: break-word;
+}
+
+/**
+    Sets text to faded (mid-gray).
+    @coral Text Style: Body - Secondary
+ */
+.foundation-layout-util-subtletext {
+    color: #6e6e6e;
+}
+
+.foundation-layout-columnview coral-columnview-item.is-navigated .foundation-layout-util-subtletext {
+    color: #676767;
+}
+
+.foundation-layout-columnview coral-columnview-item.is-selected .foundation-layout-util-subtletext {
+    color: #676767;
+}
+
+/**
+    Set the box-sizing to border-box.
+ */
+.foundation-layout-util-borderbox {
+    box-sizing: border-box;
+}
+
+.foundation-layout-util-resizable {
+    resize: both;
+}
+
+.foundation-layout-util-resizable-none {
+    resize: none;
+}
+
+.foundation-layout-util-resizable-x {
+    resize: horizontal;
+}
+
+.foundation-layout-util-resizable-y {
+    resize: vertical;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.foundation-nestedcheckboxlist {
+    list-style: none;
+    padding: 0;
+}
+
+.foundation-nestedcheckboxlist .foundation-nestedcheckboxlist {
+    padding-left: 1.625rem;
+}
+
+.foundation-nestedcheckboxlist .coral-Form-fieldwrapper {
+    margin: 0;
+}
+
+.foundation-nestedcheckboxlist .coral-Form-field {
+    margin: 0 0 0.5rem; /* margin-botton is the same as .coral-Form--vertical .coral-Form-fieldwrapper--singleline */
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.betty-ActionBar {
+    padding: 0.3125rem 0;
+    height: 3rem;
+    background-color: #FAFAFA;
+}
+
+/* Positioning */
+
+.betty-ActionBar coral-actionbar-primary {
+    left: 0;
+}
+
+.betty-ActionBar coral-actionbar-secondary {
+    right: 0;
+}
+
+.betty-ActionBar coral-actionbar-primary > coral-actionbar-item .betty-ActionBar-item,
+.betty-ActionBar coral-actionbar-primary > [coral-actionbar-more] {
+    /* Target gap is 42px; Coral.Button has 11px border + padding each side; 42 - 11 - 11 = 20*/
+    margin-left: 1.25rem;
+}
+
+.betty-ActionBar coral-actionbar-primary > coral-actionbar-item:first-of-type .betty-ActionBar-item {
+    /* Target gap is 16px; in this case we simply add 16px after the border. */
+    margin-left: 1rem;
+}
+
+.betty-ActionBar coral-actionbar-primary > coral-actionbar-item:first-of-type button[is="coral-button"][variant="quiet"].betty-ActionBar-item {
+    /* Target gap is 16px; Coral.Button has 11px border + padding each side; 16 - 11 = 5. */
+    margin-left: 0.3125rem;
+}
+
+.betty-ActionBar coral-actionbar-secondary > coral-actionbar-item .betty-ActionBar-item,
+.betty-ActionBar coral-actionbar-secondary > [coral-actionbar-more] {
+    /* Target gap is 42px; Coral.Button has 11px border + padding each side; 42 - 11 - 11 = 20*/
+    margin-right: 1.25rem;
+}
+
+.betty-ActionBar coral-actionbar-secondary > coral-actionbar-item:last-of-type .betty-ActionBar-item {
+    /* Target gap is 16px; in this case we simply add 16px after the border. */
+    margin-right: 1rem;
+}
+
+.betty-ActionBar coral-actionbar-secondary > coral-actionbar-item:last-of-type button[is="coral-button"][variant="quiet"].betty-ActionBar-item {
+    /* Target gap is 16px; Coral.Button has 11px border + padding each side; 16 - 11 = 5. */
+    margin-right: 0.3125rem;
+}
+
+/* Variants */
+
+.betty-ActionBar--large {
+    border-bottom: 0.0625rem solid #E1E1E1;
+    padding: 0.4375rem 0 0.375rem;
+    height: 3.25rem;
+}
+
+.betty-ActionBar--bottom {
+    border-top: 0.0625rem solid #E1E1E1;
+    border-bottom: 0;
+}
+
+.betty-ActionBar--overlay {
+    background-color: rgba(245, 245, 245, 0.95);
+}
+
+.betty-ActionBar--collapsed coral-actionbar-primary > coral-actionbar-item button[is="coral-button"].betty-ActionBar-item {
+    /* Target gap is 28px (assuming icon-only); Coral.Button has 11px border + padding; 28 - 11 - 11 = 6. */
+    margin-left: 0.375rem;
+}
+
+.betty-ActionBar--collapsed coral-actionbar-primary > coral-actionbar-item:first-of-type button[is="coral-button"][variant="quiet"].betty-ActionBar-item {
+    /* Target gap is 16px; Coral.Button has 11px border + padding; 16 - 11 = 5. */
+    margin-left: 0.3125rem;
+}
+
+.betty-ActionBar--collapsed coral-actionbar-secondary > coral-actionbar-item button[is="coral-button"].betty-ActionBar-item {
+    /* Target gap 28 (assuming icon-only); Coral.Button has 11px border + padding; 28 - 11 - 11 = 6. */
+    margin-right: 0.375rem;
+}
+
+.betty-ActionBar--collapsed coral-actionbar-secondary > coral-actionbar-item:last-of-type button[is="coral-button"][variant="quiet"].betty-ActionBar-item {
+    /* Target gap is 16px; Coral.Button has 11px border + padding; 16 - 11 = 5. */
+    margin-right: 0.3125rem;
+}
+
+.betty-ActionBar--collapsed coral-actionbar-primary > coral-actionbar-item .betty-ActionBar-item coral-button-label:not(:only-child),
+.betty-ActionBar--collapsed coral-actionbar-primary > coral-actionbar-item .betty-ActionBar-item coral-anchorbutton-label:not(:only-child),
+.betty-ActionBar--collapsed coral-actionbar-secondary > coral-actionbar-item .betty-ActionBar-item coral-button-label:not(:only-child),
+.betty-ActionBar--collapsed coral-actionbar-secondary > coral-actionbar-item .betty-ActionBar-item coral-anchorbutton-label:not(:only-child) {
+    clip: rect(0, 0, 0, 0);
+    height: 1px !important; /* csslint allow: important */
+    margin: 0 -1px -1px 0 !important; /* csslint allow: important */
+    overflow: hidden;
+    position: absolute;
+    width: 1px !important; /* csslint allow: important */
+}
+
+/* Themes */
+
+.coral--dark.betty-ActionBar,
+.coral--dark .betty-ActionBar {
+    background-color: #505050;
+}
+
+.coral--dark.betty-ActionBar--large,
+.coral--dark .betty-ActionBar--large {
+    border-top-color: #373737;
+    border-bottom-color: #373737;
+}
+
+.coral--dark .betty-ActionBar--overlay {
+    background-color: rgba(75, 75, 75, 0.95);
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.betty-SimpleBar {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: 3rem;
+    background-color: #FAFAFA;
+}
+
+.betty-SimpleBar-region {
+    margin: 0 1rem;
+}
+
+.betty-SimpleBar-region--maximized {
+    flex: 1;
+}
+
+.betty-SimpleBar-region > * { /* csslint allow: universal-selector */
+    margin-left: 0.625rem;
+}
+
+.betty-SimpleBar-region > :first-child {
+    margin-left: 0;
+}
+
+.betty-SimpleBar-region:nth-of-type(1) > button[is="coral-button"][variant="quiet"]:first-child {
+    /* Target gap 0; Coral.Button (quiet) has 11px border + padding; 0 - 11 = -5; .betty-SimpleBar-region already
+       provides 16 on both sides */
+    margin-left: -0.3125rem;
+}
+
+.betty-SimpleBar-region:nth-of-type(2) > button[is="coral-button"][variant="quiet"]:last-child {
+    /* Target gap 0; Coral.Button (quiet) has 11px border + padding; 0 - 11 = -5; .betty-SimpleBar-region already
+       provides 16 on both sides */
+    margin-right: -0.3125rem;
+}
+
+
+.betty-SimpleBar-title {
+    margin-bottom: 0;
+    line-height: 2.375rem;
+}
+
+
+/* Variants */
+
+.betty-SimpleBar--large,
+.betty-SimpleBar--omnisearch {
+    border-bottom: 0.0625rem solid #E1E1E1;
+    height: 3.25rem;
+}
+
+.betty-SimpleBar--omnisearch {
+    background-color: #FFF;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+betty-titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.0625rem solid #E1E1E1;
+    height: 3rem;
+    background-color: #F0F0F0;
+}
+
+betty-titlebar-title {
+    order: 2;
+    flex: 0 1 auto; /* Allow the title area to shrink */
+    overflow: hidden;
+}
+
+betty-titlebar-title > betty-breadcrumbs {
+    display: block;
+}
+
+betty-titlebar-primary {
+    order: 1;
+    flex: 1 0 0%; /* csslint allow: zero-units */
+    display: flex;
+}
+
+betty-titlebar-secondary {
+    order: 3;
+    flex: 1 0 0%; /* csslint allow: zero-units */
+    display: flex;
+    justify-content: flex-end;
+}
+
+betty-titlebar-primary > button[is="coral-button"][variant="quiet"],
+betty-titlebar-secondary > button[is="coral-button"][variant="quiet"] {
+    margin-left: 0.8125rem; /* Target gap is 24px; Coral.Button has 11px border + padding each side; 24 - 11 = 13. */
+}
+
+betty-titlebar-primary > :not([variant="quiet"]),
+betty-titlebar-secondary > :not([variant="quiet"]) {
+    margin-left: 0.625rem;
+}
+
+betty-titlebar-primary > button[is="coral-button"][variant="quiet"] + button[is="coral-button"][variant="quiet"],
+betty-titlebar-secondary > button[is="coral-button"][variant="quiet"] + button[is="coral-button"][variant="quiet"] {
+    /* Target gap is 24px; Coral.Button has 11px border + padding each side; 24 - 11 - 11 = 2.
+       Note that quiet button border + padding is transparent and should not be counted as button "width" from Betty spec POV. */
+    margin-left: 0.125rem;
+}
+
+betty-titlebar-primary > button[is="coral-button"][variant="quiet"] + :not([variant="quiet"]),
+betty-titlebar-primary > :not([variant="quiet"]) + button[is="coral-button"][variant="quiet"],
+betty-titlebar-secondary > button[is="coral-button"][variant="quiet"] + :not([variant="quiet"]),
+betty-titlebar-secondary > :not([variant="quiet"]) + button[is="coral-button"][variant="quiet"] {
+    margin-left: 0.8125rem; /* Target gap is 24px; Coral.Button has 11px border + padding each side; 24 - 11 = 13. */
+}
+
+betty-titlebar-primary > button[is="coral-button"] .granite-command-inline,
+betty-titlebar-secondary > button[is="coral-button"] .granite-command-inline {
+    display: none;
+}
+
+betty-titlebar-primary > :first-child {
+    margin-left: 1rem;
+}
+
+betty-titlebar-secondary > :last-child,
+/* foundation-toggleable-control has the popover as the last-child so we need to handle this particular case. */
+betty-titlebar-secondary > button.foundation-toggleable-control:not([variant="quiet"]):nth-last-child(2) { /* csslint allow: overqualified-elements */
+    margin-right: 1rem;
+}
+
+betty-titlebar-primary > coral-cyclebutton + button[is="coral-button"][variant="quiet"],
+betty-titlebar-secondary > button[is="coral-button"][variant="quiet"] + coral-cyclebutton {
+    /* Target gap is 24px; 24 - 11 - 11 = 2. */
+    margin-left: 0.125rem;
+}
+
+betty-titlebar-primary > coral-cyclebutton + :not([variant="quiet"]),
+betty-titlebar-secondary > :not([variant="quiet"]) + coral-cyclebutton {
+    /* Target gap is 24px; 24 - 11 = 13. */
+    margin-left: 0.8125rem;
+}
+
+betty-titlebar-primary > button[is="coral-button"][variant="quiet"]:first-child,
+betty-titlebar-primary > coral-cyclebutton:first-child {
+    /* Target gap is 16px; Coral.Button and Coral.CycleButton have 11px border + padding each side; 16 - 11 = 5. */
+    margin-left: 0.3125rem;
+}
+
+betty-titlebar-primary > button[is="coral-button"][variant="quiet"]:last-child,
+betty-titlebar-secondary > coral-cyclebutton:last-child {
+    /* Target gap is 16px; Coral.Button and Coral.CycleButton have 11px border + padding each side; 16 - 11 = 5. */
+    margin-right: 0.3125rem;
+}
+
+betty-titlebar granite-pagingstatus {
+    line-height: 2.375rem;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: #505050;
+}
+
+/* Themes */
+
+betty-titlebar.coral--dark,
+.coral--dark betty-titlebar {
+    border-bottom-color: #373737;
+    background-color: #505050;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+betty-breadcrumbs {
+    display: inline-block;
+}
+
+betty-breadcrumbs-item {
+    display: none !important; /* csslint allow: important */
+}
+
+.betty-breadcrumbs-button {
+    display: block;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+    min-width: 0;
+    font-size: 1.125rem;
+}
+
+.betty-breadcrumbs-button.is-selected {
+    visibility: hidden;
+}
+
+.betty-breadcrumbs-button-innerwrapper {
+    display: flex;
+    align-items: center;
+}
+
+.betty-breadcrumbs-button-innerwrapper > span {
+    flex: 0 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 2.25rem;
+}
+
+/* The selector needs to be more specific than `.coral3-Button .coral3-Icon` */
+.betty-breadcrumbs-button .betty-breadcrumbs-button-icon {
+    flex: none;
+    margin-right: 0.625rem;
+    top: 0.125rem; /* Coral.Icon has problem with baseline, so adjust it manually. */
+}
+
+betty-breadcrumbs:not([icon]) .betty-breadcrumbs-button-icon,
+betty-breadcrumbs[icon=""] .betty-breadcrumbs-button-icon {
+    display: none;
+}
+
+/* The selector needs to be more specific than `.coral3-Button .coral3-Icon` */
+.betty-breadcrumbs-button .betty-breadcrumbs-button-chevron {
+    flex: none;
+    margin-left: 0.625rem;
+    margin-right: 0;
+    top: 0.125rem; /* Coral.Icon has problem with baseline, so adjust it manually. */
+    padding-top: 0.0625rem; /* @cloudui chevron icon is not visually balanced */
+}
+
+.betty-breadcrumbs-button:disabled {
+    color: #6d6d6d; /* Style just like normal button even when it is disabled */
+}
+
+.betty-breadcrumbs-button:disabled .betty-breadcrumbs-button-chevron {
+    display: none;
+}
+
+.betty-breadcrumbs-popover {
+    border-width: 0.0625rem;
+    max-width: 90vw;
+    min-width: 13.125rem;
+    overflow: hidden; /* shows the round borders correctly */
+}
+
+.betty-breadcrumbs-popover coral-selectlist {
+    border: none;
+}
+
+.betty-breadcrumbs-popover .betty-breadcrumbs-selectlist-item {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2017 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+/** @private: this class is private and shall not be referenced. */
+.granite-command-inline {
+    color: inherit;
+    opacity: .96;
+    font-style: italic;
+    padding-left: 0.3125rem; /* 5px */
+}
+
+/** @private: this class is private and shall not be referenced. */
+.granite-command-alignRight {
+    display: none;
+}
+
+/**
+ * @private: this class is private and shall not be referenced.
+ */
+coral-list-item-content .granite-command-alignRight,
+coral-selectlist-item .granite-command-alignRight {
+    display: block;
+    font-style: italic;
+    color: rgb(110, 110, 110); /* @cloudui: secondary text */
+    float: right;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2015 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-collection-deselect {
+    padding: 0 0.625rem;
+}
+
+.granite-collection-deselect .foundation-admin-selectionstatus {
+    line-height: normal;
+    vertical-align: baseline;
+}
+
+.granite-collection-deselect:hover {
+    color: #323232;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2015 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-collection-selectionbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-collection-create-hidden {
+    display: none !important; /* csslint allow: important */
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2015 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/*
+TODO This CSS file is obsolete, just to support illegal usage.
+
+granite-actionbar is a toolbar that can hold arbitrary items.
+An item can either be added to the left, the right side or the center of the actionbar.
+
+Example:
+
+<div class="granite-actionbar">
+    <div class="granite-actionbar-left"></div>
+    <div class="granite-actionbar-centerwrapper">
+        <div class="granite-actionbar-center"></div>
+    </div>
+    <div class="granite-actionbar-right"></div>
+</div>
+*/
+.granite-actionbar {
+    border-bottom: 0.0625rem solid rgb(230, 230, 230);
+    padding-top: 0.3125rem;
+    min-height: 2.6875rem;
+    background-color: rgb(240, 240, 240);
+}
+
+.granite-actionbar:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.granite-actionbar-left,
+.granite-actionbar-right {
+    float: left;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    max-width: calc(50% - 100px);
+}
+
+.granite-actionbar-right {
+    float: right;
+    flex-flow: row wrap-reverse;
+    justify-content: flex-end;
+}
+
+.granite-actionbar-left > .granite-actionbar-item {
+    margin-left: 0.5rem;
+}
+
+.granite-actionbar-left > .granite-actionbar-item:first-child {
+    margin-left: 0.4375rem;
+}
+
+.granite-actionbar-right > .granite-actionbar-item {
+    margin-right: 0.5rem;
+}
+
+.granite-actionbar-right > .granite-actionbar-item:last-child {
+    margin-right: 0.4375rem;
+}
+
+.granite-actionbar-item:empty {
+    margin: 0;
+}
+
+.granite-actionbar-centerwrapper {
+    display: flex;
+    height: 0;
+}
+
+.granite-actionbar-centerwrapper > .granite-actionbar-center {
+    margin: auto;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2017 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-ActionGroup {
+    margin-right: 1em;
+}
+
+.granite-ActionGroup button[is="coral-button"] {
+    min-width: auto; /* csslint allow: known-properties */
+    font-size: 0.9375rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+.granite-ActionGroup coral-popover {
+    min-width: auto; /* csslint allow: known-properties */
+}
+
+.granite-ActionGroup-list {
+    font-size: 0.8125rem;
+    width: 7.5rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2015 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+/*
+  A custom style to override coral-ActionBar for the purpose of AEM Shell selection bar.
+  @coral
+
+  @deprecated Please use .betty-ActionBar instead with large variant.
+              This private component is maintained for temporary compatibility due to illegal usage outside this module.
+*/
+.granite-selectionbar {
+    border-bottom: 0.0625rem solid #E1E1E1;
+    padding: 0.4375rem 0 0.375rem;
+    height: 3.25rem;
+    background-color: #FAFAFA;
+}
+
+.granite-selectionbar coral-actionbar-primary {
+    left: 0;
+}
+
+.granite-selectionbar coral-actionbar-secondary {
+    right: 0.5rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-rail {
+    border-right: 0.125rem solid rgba(0, 0, 0, 0.05);
+    background-color: rgb(240, 240, 240);
+}
+
+.granite-rail.foundation-container-resizable {
+    border-right: 0;
+}
+
+.coral-Form--graniteRail {
+    padding: 1rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2015 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-title {
+    display: inline-block;
+    color: rgb(109, 109, 109);
+    line-height: 2.375rem;
+    font-size: 1.125rem;
+    font-weight: bold;
+    text-align: center;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2015 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-pulldown-overlay {
+    border: 0.0625rem solid rgba(0, 0, 0, 0.15);
+}
+
+.granite-pulldown-overlay coral-anchorlist {
+    max-width: 12.5rem; /* 200px */
+}
+
+.granite-pulldown-overlay coral-list-item-content coral-icon:first-child {
+    vertical-align: middle;
+    margin-right: 0.4375rem; /* 7px */
+}
+
+.granite-pulldown-overlay a[is='coral-anchorlist-item'].coral-Link { /* csslint allow: overqualified-elements */
+  text-decoration: none;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+/*
+    @coral As Coral.Dialog doesn't give us the quiet version of the dialog, we have to customize it for now.
+*/
+.granite-pickerdialog .coral3-Dialog-header {
+    display: none;
+}
+
+.granite-pickerdialog coral-dialog-content {
+    padding: 0;
+    width: 80vw;
+    height: 80vh;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2020 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+
+.shell-collection-sortcontainer {
+    display: inline-flex;
+    align-items: center;
+}
+
+.shell-collection-sortcontainer > hr {
+    height: 1.125rem;
+    margin-left: 0.5625rem;
+}
+
+betty-titlebar-secondary > .shell-collection-sortcontainer {
+    margin-left: 0.75rem; /* Target gap is 24px; 24 - 12 = 12. */
+    margin-right: 0.3125rem; /* Target gap is 24px; 24 - 19 = 5. */
+}
+
+a.granite-skipNavigationLinks {
+    position: fixed;
+    top: -5000px;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    z-index: 10011;
+    background-color: var(--spectrum-global-color-static-gray-900);
+    color: var(--spectrum-global-color-static-blue-300);
+    text-decoration: underline;
+    text-align: center;
+    line-height: 1.0625rem;
+    padding: 1.00rem;
+    overflow: hidden;
+    font-weight: normal;
+    text-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+    border: none;
+}
+
+a.granite-skipNavigationLinks:not(:disabled):not(.is-disabled):focus {
+    top: 0;
+    outline: none;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2014 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+/*
+  Modal dialogs with wait cursors (for instance, foundation-ui.waitTicker)
+*/
+coral-dialog coral-wait {
+    margin-right: 0.5rem;
+}
+
+coral-tabview[maximized] {
+    height: 100%;
+}
+
+coral-tabview[maximized]:not([orientation="vertical"]) > coral-panelstack[maximized] {
+    height: calc(100% - 2.1875rem);
+}
+
+coral-tabview[maximized]:not([orientation="vertical"]) > coral-panelstack.coral-Well[maximized] {
+    height: calc(100% - 4.1875rem);
+}
+
+coral-tabview[maximized]:not([orientation="vertical"]) > coral-tablist[size="large"] + coral-panelstack[maximized] {
+    height: calc(100% - 3.0625rem);
+}
+
+coral-tabview[maximized]:not([orientation="vertical"]) > coral-tablist[size="large"] + coral-panelstack.coral-Well[maximized] {
+    height: calc(100% - 5.0625rem);
+}
+
+coral-tabview[orientation="vertical"] > coral-tablist {
+    height: 100%;
+}
+
+
+coral-panelstack[maximized],
+coral-panelstack[maximized] > coral-panel {
+    height: 100%;
+}
+
+coral-panelstack.coral-Well[maximized] {
+    height: calc(100% - 2rem);
+}
+
+coral-panelstack[maximized] > coral-panel > coral-panel-content {
+    height: 100%;
+    overflow: auto;
+    position: relative;
+}
+
+/*
+  Handles the case of the statusIcons both inside the select and the selectlist
+*/
+coral-select .granite-Select-statusIcon {
+    float: right;
+}
+
+coral-select .granite-Select-statusIcon:last-child {
+    margin-right: 0;
+}
+
+coral-select .granite-Select-statusIcon--error {
+    color: rgb(250, 105, 95);
+}
+
+coral-select .granite-Select-statusIcon--warning {
+    color: rgb(245, 195, 70);
+}
+
+coral-select .granite-Select-statusIcon--success {
+    color: rgb(140, 195, 95);
+}
+
+coral-select .granite-Select-statusIcon--help,
+coral-select .granite-Select-statusIcon--info {
+    color: rgb(120, 175, 255);
+}
+
+.coral-Form--vertical .foundation-field-readonly span.coral-Form-field { /* csslint allow: overqualified-elements */
+    display: block;
+}
+
+.coral-Form--vertical .coral-Form-fieldwrapper .granite-coral-Form-fieldlongdesc {
+    display: block;
+    margin: 0.5rem 0;
+    color: #707070;
+}
+
+.coral-Form--aligned .coral-Form-fieldwrapper .granite-coral-Form-fieldlongdesc {
+    display: inline-block;
+    margin: 0.5rem 0 0 6.5rem;
+    padding-left: .5rem;
+    color: #707070;
+}
+
+
+/**
+ * Implement .coral-Button--graniteActionBar as Betty ActionBar button
+ */
+.coral-Button--graniteActionBar,
+.coral-CycleButton--graniteActionBar button[is="coral-button"] {
+    font-weight: normal;
+    font-size: 0.8125rem;
+}
+
+.coral-Button--graniteActionBar coral-icon {
+    margin-right: 0;
+}
+
+/* Increases specificity */
+button[is="coral-button"].coral-Button--graniteActionBar coral-icon + coral-button-label:not(:empty),
+a[is="coral-anchorbutton"].coral-Button--graniteActionBar coral-icon + coral-anchorbutton-label:not(:empty) {
+    margin-left: 0.625rem;
+}
+
+coral-popover-content .coral-Button--graniteActionBar {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.coral-Pathbrowser-picker {
+    z-index: 11010;
+}
+
+/* CUI-5399: Coral.Table: [iPad/iPhone][Safari] sticky header cells are hidden with -webkit-overflow-scrolling: touch; */
+coral-shell-content {
+    -webkit-overflow-scrolling: auto !important; /* csslint allow: important */
+}
+
+/** @coral: CUI-1818, handles issue where tooltips would overflow the content */
+coral-tooltip[placement="left"] {
+    max-width: 18.75rem !important; /* csslint allow: important */
+}
+
+/** @coral: GRANITE-20624 */
+.coral3-QuickActions-buttonList {
+    /* Fits 3 items (3 * 40px) */
+    max-height: 7.5rem;
+}
+
+/**
+ * @coralui Override default card behavior to be able to resize them until GRANITE-19657 is fixed
+ */
+coral-card {
+    /* csslint allow: important */
+    min-width: 5rem !important;
+    /* csslint allow: important */
+    min-height: 6rem !important;
+}
+
+/**
+ * @coralui Override default asset card behavior to be able to resize them until GRANITE-19657 is fixed
+ */
+coral-card coral-card-asset {
+    /* csslint allow: important */
+    min-height: 6rem !important;
+}
+

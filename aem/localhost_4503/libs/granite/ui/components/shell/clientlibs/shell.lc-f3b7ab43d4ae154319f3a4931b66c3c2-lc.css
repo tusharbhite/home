@@ -1,0 +1,779 @@
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.globalnav-homecard {
+    height: 9.5rem; /* 152px */
+    outline: none;
+    cursor: pointer;
+}
+
+.globalnav-homecard-icon {
+    margin-top: 4.25rem; /* 68px */
+    width: 100%;
+    text-align: center;
+    color: rgba(0, 0, 0, .60); /* $coral-color-icon */
+}
+
+.globalnav-homecard-chevron {
+    position: absolute;
+    right: 4.25rem;
+    top: 4.25rem;
+    color: #707070;
+}
+
+.globalnav-homecard-title {
+    margin-top: 13px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #707070;
+}
+
+
+.globalnav-toolcard {
+    cursor: pointer;
+}
+
+.globalnav-toolcard-icon {
+    box-sizing: border-box;
+    padding-top: 80px;
+    height: 175px;
+    text-align: center;
+    color: rgba(0, 0, 0, .60);
+}
+
+
+.globalnav-collection-container coral-masonry {
+    margin: 0 auto;
+    max-width: 75.375rem; /* (columnwidth (222) + spacing(16)) * 5 + spacing(16) */
+}
+
+.globalnav-collection-container > coral-masonry coral-masonry-item {
+    outline: none;
+}
+
+.globalnav-collection-container > coral-masonry coral-masonry-item:focus-visible,
+.globalnav-collection-container > coral-masonry coral-masonry-item:focus-within {
+    outline: 0.125rem auto #326ec8;
+}
+
+coral-masonry-item > .globalnav-toolcard > coral-card-asset {
+    top: 0.0625rem;
+    left: 0.0625rem;
+    width: calc(100% - 0.125rem);
+}
+
+coral-masonry-item:focus .globalnav-homecard-icon,
+coral-masonry-item:hover .globalnav-homecard-icon,
+.globalnav-homecard:focus .globalnav-homecard-icon,
+.globalnav-toolcard:focus .globalnav-homecard-icon {
+    color: rgba(0, 0, 0, .80); /* $coral-color-icon-hover */
+}
+
+coral-masonry-item:focus .globalnav-homecard-chevron,
+coral-masonry-item:focus .globalnav-homecard-title,
+coral-masonry-item:hover .globalnav-homecard-chevron,
+coral-masonry-item:hover .globalnav-homecard-title,
+.globalnav-homecard:focus .globalnav-homecard-chevron,
+.globalnav-homecard:focus .globalnav-homecard-title,
+.globalnav-toolcard:focus .globalnav-homecard-chevron,
+.globalnav-toolcard:focus .globalnav-homecard-title {
+    color: rgb(50, 50, 50); /* $coral-color-text-heading */
+}
+
+
+.globalnav-navigator-backbutton {
+    width: 100%;
+    margin-top: 35px;
+
+    font-size: 22px;
+    font-weight: 300;
+    color: #707070;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+}
+
+.globalnav-navigator-backbutton > .globalnav-navigator-backbutton-icon {
+    position: relative;
+    top: -1px;
+
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+}
+
+/* @coral: centers the text due to the font size change. */
+.globalnav-navigator-backbutton coral-button-label {
+    vertical-align: baseline;
+    margin-left: 5px;
+}
+
+
+.globalnav-collection-container {
+    overflow: auto;
+    position: absolute;
+    top: 118px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+
+.globalnav-tools-navigation coral-columnview-column {
+    box-sizing: border-box; /* Make sure that the whole column width (including border) fits into the rail */
+}
+
+.globalnav-tools-navigation coral-columnview-item[active] {
+    background-color: inherit;
+    color: #323232;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+
+.globalnav-overlay {
+    height: 100%;
+    /* always override coral-shell-menu color */
+    background-color: #f5f5f5 !important; /* csslint allow: important */
+}
+
+.globalnav-overlay coral-tabview[orientation=vertical] coral-tablist {
+    border-right: 1px solid #E1E1E1;
+    width: 3.5rem; /* 56px */
+    background-color: #FAFAFA;
+}
+
+.globalnav-overlay coral-tabview[orientation=vertical] coral-tablist[size=L] coral-tab {
+    text-align: center; /* this is required to center the icon due to the width change */
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2015 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+/*! omnisearch.css */
+.granite-omnisearch-overlay {
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.30);
+
+    height: 100vh;
+    width: 100vw;
+}
+
+.granite-omnisearch-form {
+    width: 100%;
+    height: 100%;
+}
+
+.granite-omnisearch-viewall-button {
+    margin-left: 0.5rem; /* 8px */
+}
+
+.granite-omnisearch-multiresult-row {
+    padding-top: 1rem; /* 16px */
+}
+
+.granite-omnisearch-typeahead {
+    background-color: white;
+    position: relative;
+
+    padding-left: 1rem;
+
+    border-bottom: .0625rem solid #d0d0d0;
+}
+
+.granite-omnisearch-typeahead-close {
+    position: absolute;
+    top: 0.4375rem; /* 7px */
+    right: 0;
+}
+
+.granite-omnisearch-typeahead-close coral-icon {
+    font-size: 0.875rem; /* 14px */
+}
+
+.granite-omnisearch-typeahead-close:not(:focus) coral-icon,
+.granite-omnisearch-typeahead-close:not(.is-focused) coral-icon  {
+    color: rgba(0, 0, 0, 0.60); /* $coral-color-icon */
+}
+
+.granite-omnisearch-typeahead-close coral-icon:before {
+    width: 0.875rem; /* 14px */
+    height: 0.875rem; /* 14px */
+}
+
+.granite-omnisearch-typeahead-tags {
+    position: absolute;
+    left: 3.125rem; /* 50px */
+    top: 0.4375rem; /* 7px */
+    z-index: 10;
+    padding-right: 0.3125rem; /* 5px */
+}
+
+/* Show the input once it is positioned to avoid overlapping input with tags */
+.granite-omnisearch-typeahead-input[style] {
+    opacity: 1;
+}
+
+.granite-omnisearch-typeahead-search-icon {
+    position: absolute;
+    top: 1.125rem; /* 18px; */
+    left: 1.125rem; /* 18px; */
+}
+
+/* @coral */
+.granite-omnisearch-typeahead-tags .u-coral-text-italic,
+.granite-omnisearch-typeahead-suggestions .u-coral-text-italic,
+.granite-omnisearch-typeahead-tags-holder-list .u-coral-text-italic {
+    font-style: italic;
+}
+
+/* @coral */
+.granite-omnisearch-typeahead-tags .u-coral-text-capitalize,
+.granite-omnisearch-typeahead-suggestions .u-coral-text-capitalize,
+.granite-omnisearch-typeahead-tags-holder-list .u-coral-text-capitalize {
+    text-transform: capitalize;
+}
+
+/* @coral */
+.granite-omnisearch-typeahead-tags .u-coral-text-secondary,
+.granite-omnisearch-typeahead-suggestions .u-coral-text-secondary,
+.granite-omnisearch-typeahead-tags-holder-list .u-coral-text-secondary {
+    color: rgb(97, 97, 97);/* @cloudui */
+}
+
+.granite-omnisearch-typeahead-suggestions {
+    font-size: 0.9375rem; /* 15px*/
+
+    color: rgb(50, 50, 50); /* $coral-color-text-heading */
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.granite-omnisearch-typeahead-suggestions [coral-list-item] { /* csslint allow: unqualified-attributes */
+    /* increases the height to 46px */
+    padding: 0.5rem 1rem;
+    line-height: 1.875rem; /* 30px */
+}
+
+.granite-omnisearch-typeahead-suggestions [coral-list-item] coral-tag {
+    vertical-align: middle;
+}
+
+.granite-omnisearch-typeahead-suggestions coral-icon {
+    color: rgba(0, 0, 0, 0.40);
+    line-height: 1.875rem; /* 30px */
+}
+
+.granite-omnisearch-typeahead-suggestions-tip {
+    float: right;
+    color: rgb(145, 145, 145);/* @cloudui */
+    display: none;
+}
+
+[coral-list-item].is-focused .granite-omnisearch-typeahead-suggestions-tip {
+    display: block;
+}
+
+.granite-omnisearch-typeahead-overlay {
+    left: 0;
+    right: 0;
+
+    border-top: 0.0625rem solid rgb(208, 208, 208); /* $coral-color-border */
+    border-bottom: 0.0625rem solid rgb(208, 208, 208); /* $coral-color-border */
+
+    max-height: 25.875rem; /* 9*46px (item*height) */
+
+    /* scrollable() */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    min-height: 1px;
+}
+
+.granite-omnisearch-typeahead-input {
+    display: block;
+    position: relative;
+    opacity: 0;
+
+    color: rgb(50, 50, 50); /* $coral-color-text-heading */
+
+    width: 100%;
+    height: 52px; /* coral shell header height */
+
+    font-size: 26px;
+    line-height: 1.5rem;
+
+    /* makes space for the close button */
+    padding-right: 2.375rem; /* 38px */
+
+    /* avoids bottom of letters to be cut off on FF */
+    padding-top: 0;
+    padding-bottom: 0;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.granite-omnisearch-typeahead-input:-ms-input-placeholder,
+.granite-omnisearch-typeahead-input::-ms-input-placeholder,
+.granite-omnisearch-typeahead-input::placeholder {
+    font-weight: 300;
+    color: #bebebe;
+}
+
+.granite-omnisearch-typeahead-input:hover,
+.granite-omnisearch-typeahead-input:focus {
+    border-color: transparent;
+}
+
+.granite-omnisearch-result-empty {
+    margin-top: 190px;
+    text-align: center;
+}
+
+.granite-omnisearch-result-empty .granite-omnisearch-result-empty-label {
+    margin-top: 40px;
+    font-size: 29px;
+    font-weight: 100;
+    line-height: 35px;
+    color: #707070;
+}
+
+.granite-omnisearch-result-empty .granite-omnisearch-result-empty-query {
+    font-size: 35px;
+    font-weight: 500;
+    color: #323232;
+}
+
+.granite-omnisearch-result-empty .granite-omnisearch-result-empty-hint {
+    margin-top: 30px;
+    font-size: 24px;
+    line-height: 24px;
+    color: #707070;
+}
+
+.granite-omnisearch-result-empty .granite-omnisearch-result-empty-illustration {
+    width: 200px;
+    height: 98px;
+    margin-bottom: 24px;
+    fill: #b6b6b6;
+}
+
+/* this is needed to hide the reorder column which has been hardcoded in the 'row' template */
+.granite-omnisearch-result tr[is='coral-table-row'] [coral-table-roworder] { /* csslint allow: unqualified-attributes */
+    display: none;
+}
+
+.granite-omnisearch-typeahead-tags-holder {
+    position: absolute;
+    left: 3.125rem; /* 50px; */
+    top: .625rem;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.granite-omnisearch-typeahead-tags-holder-label {
+    padding-left: .2rem;
+}
+
+.granite-omnisearch-typeahead-tags-holder:not([hidden]) + .granite-omnisearch-typeahead-tags {
+    padding-left: 3.125rem; /* 50px; */
+}
+
+.granite-omnisearch-typeahead-tags-holder-popover {
+    width: 220px;
+}
+
+.granite-omnisearch-typeahead-tags-holder-list-remove {
+    color: rgb(145, 145, 145);/* @cloudui */
+    position: absolute;
+    right: .625rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2015 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-shell-badge-item {
+    position: relative;
+    margin: 0.25rem;
+    border-bottom: 0.0625rem solid #F0F0F0;
+    padding: .85rem 1rem;
+    padding-left: 2.375rem;
+}
+
+.granite-shell-badge-item-link {
+    /* all rules required to make the whole div clickable */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.granite-shell-badge-item-inbox {
+    position: relative;
+    margin: 0.125rem 0.1875rem;
+    border-bottom: 0.0625rem solid #F0F0F0;
+    padding: .85rem 1rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: .950rem;
+    color: #737373;
+    background-color: #fbfbfb;
+}
+
+.granite-shell-badge-item-title {
+    font-weight: bold;
+}
+
+.granite-shell-badge-item-description {
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical; /* csslint allow: compatible-vendor-prefixes */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 4.25rem;
+    color: #707070;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-shell-footer {
+    border-top: 0.0625rem solid rgb(230, 230, 230);
+    padding: 0.5rem;
+    text-align: right;
+    color: #b4b4b4;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+/*! onboarding.css */
+.granite-shell-onboarding {
+    width: 100%;
+    height: 100%;
+}
+
+.granite-shell-onboarding coral-steplist {
+    display: inline-flex;
+    margin-top: 22px !important;
+}
+
+.granite-shell-onboarding p {
+    font-size: 15px;
+    line-height: 1.3;
+}
+
+.granite-shell-onboarding-highlight {
+    z-index: 0;
+    transition: all .5s;
+
+    border: 2px solid rgb(250, 250, 250);
+    box-shadow: 0 0 0 1000rem rgba(0, 0, 0, 0.3);
+
+    min-height: 38px;
+    box-sizing: border-box;
+}
+
+/** since we use the box-shadow to create the overlay, we just remove the mask when it is "hidden" */
+.granite-shell-onboarding-highlight.is-hidden {
+    border-color: rgba(0, 0, 0, 0.7);
+    width: 0;
+    height: 0;
+    max-height: 0;
+    max-width: 0;
+    min-height: 0;
+    transition: none;
+}
+
+.granite-shell-onboarding-skipbutton {
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.granite-shell-onboarding-controls {
+    float: right;
+}
+
+.granite-shell-onboarding-checkbox {
+    display: block;
+    color: #6f6f6f;
+}
+
+.granite-shell-onboarding-popover {
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+    border-radius: 3px;
+
+    max-width: 380px;
+
+    box-shadow: 0 2px 15px 1px rgba(0, 0, 0, 0.1);
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2016 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-shell-userproperties {
+	overflow: visible;
+}
+
+#invalid-user-error {
+	color: red;
+}
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2018 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-help-about-dialog coral-dialog-content {
+    max-width: 29rem;
+    overflow: auto;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2017 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-shell-content-tree {
+    display: inline-block;
+    min-width: 100%;
+    height: 100%;
+}
+
+.shell-collectionpage-viewsettings coral-dialog-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 30rem;
+    width: 46rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2017 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.granite-shortcuts-sections {
+    min-width: 40rem; /* IE11 requires width, otherwise everything is collapsed */
+}
+
+.granite-shortcuts-section {
+    margin: 0.375rem 0;
+}
+
+.granite-shortcuts-section:last-child {
+    margin-bottom: 0;
+}
+
+.granite-shortcuts-item {
+    display: flex;
+    align-items: center;
+    margin: 0.25rem 2.5rem 0.25rem;
+}
+
+.granite-shortcuts-item-label {
+    margin-right: 0.75rem;
+    min-width: 8rem;
+    max-width: 8rem;
+    text-align: right;
+}
+
+.granite-shortcuts-item-combination {
+    display: flex;
+    align-items: center;
+}
+
+.granite-shortcuts-item-combination-part {
+    border: 0.0625rem solid #dcdcdc;
+    border-radius: 0.25rem;
+    padding: .3125rem 0.625rem;
+    background: #fafafa;
+    white-space: nowrap;
+}
+
+.granite-shortcuts-item-combination-plus {
+    margin: 0 0.5rem;
+    color: #dcdcdc;
+    font-weight: bold;
+}
+
+@supports (display: grid) {
+    .granite-shortcuts-section {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+
+    .granite-shortcuts-item:nth-child(odd) {
+        margin-right: 3.5rem;
+    }
+
+    .granite-shortcuts-item:nth-child(even) {
+        margin-left: 3.5rem;
+    }
+}
+
+/*
+We need the next two rules to limit the size of the dialog and keep it always fully visible.
+See CUI-6998.
+*/
+.granite-shortcuts-dialog .coral3-Dialog-wrapper {
+    max-height: 90vh;
+}
+
+.granite-shortcuts-dialog coral-dialog-content {
+    /* header + footer = 8.75rem */
+    max-height: calc(90vh - 8.75rem);
+    overflow: auto;
+}
+
+.granite-shortcuts-dialog-enable-switch-container {
+    position: absolute;
+    bottom: 0.9375rem;
+    left: 0.9375rem;
+    display: flex;
+    align-items: center;
+}
+
+.granite-shortcuts-dialog-enable-switch {
+    margin-right: 0.625rem;
+}
+
+.granite-shortcuts-dialog-enable-alert {
+    margin: 0 0 0 2.5rem;
+}
+
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2017 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+.coral--dark coral-shell-menubar-item.granite-user-icon button:not(:disabled):not(.is-disabled):focus,
+.coral--dark coral-shell-menubar-item.granite-user-icon button:not(:disabled):not(.is-disabled).is-focused {
+    outline: 0.125rem solid #87beff;
+}
+

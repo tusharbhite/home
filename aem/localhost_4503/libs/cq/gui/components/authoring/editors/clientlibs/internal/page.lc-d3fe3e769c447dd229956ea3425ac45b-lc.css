@@ -1,0 +1,64 @@
+/*
+* Those styles are applied to the content page that is under edition.
+* They consist of small adjustments to tailor the rendering of components to the context of the Editor (mostly, placeholder components).
+*/
+
+/* Sets padding on containers (to be able to select them) */
+.cq-Editable-dom--container,
+.cq-Editable-dom--container.aem-GridColumn {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}
+
+/* Sets height for component placeholders */
+.cq-placeholder,
+.new {
+    height: 2.875rem;
+}
+
+/* New placeholder (Drag new components here) */
+.new {
+    margin: 1.25rem 0 1.5625rem 0;
+}
+
+/* Start/End placeholders */
+.cq-placeholder.cq-marker-start {
+    margin: 0.625rem 0 0.3125rem 0;
+}
+.cq-placeholder.cq-marker-end {
+    margin: 0.3125rem 0 0.625rem 0;
+}
+.parsys > .cq-placeholder.cq-marker-start {
+    margin: 0;
+}
+
+/* Set styles for components under the inline editor select */
+.cq-under-inlineeditor-selector {
+    min-height: 11.25rem;
+    margin: 0.9375rem 0;
+}
+
+/* Override of Classic UI's rule */
+form div.section {
+    padding-bottom: 0;
+}
+
+/* Stretch the placeholder of the image component */
+img.cq-placeholder {
+    width: 100%;
+}
+
+/* Reset previous styles in Preview mode */
+.aem-AuthorLayer-Preview .colctrl-start,
+.aem-AuthorLayer-Preview .cq-placeholder,
+.aem-AuthorLayer-Preview .new {
+    /* Hide placeholders */
+    display: none;
+}
+
+/* Remove padding inside containers */
+.aem-AuthorLayer-Preview .cq-Editable-dom--container,
+.aem-AuthorLayer-Preview .cq-Editable-dom--container.aem-GridColumn {
+    padding-top: 0;
+    padding-bottom: 0;
+}
