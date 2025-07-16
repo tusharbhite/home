@@ -1,0 +1,11 @@
+{
+    "title": "portfolio",
+    "description": "",
+    "path": "/content/tushar/portfolio",
+    "hits": 0,
+    "navTitle": "portfolio",
+    "template": "/conf/tushar/settings/wcm/templates/portfolio",
+    "thumbnail": "/conf/tushar/settings/wcm/templates/portfolio/thumbnail.png",
+    "tags": "",
+    "sitesection": "portfolio"
+  }
