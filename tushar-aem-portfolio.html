@@ -2054,26 +2054,5 @@
 </body>
 
 <!-- Mirrored from localhost:4503/content/tushar/portfolio.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jul 2025 16:01:58 GMT -->
-<script>
-
-/*file:///D:/home/aem/localhost_4503/...
-D:\Repos\gt\home\tushar-aem-portfolio.html*/
-
-const prefix = "/Repos/gt/home"; // Windows-style path as string
-
-document.querySelectorAll('script[src], link[href], img[src]').forEach(tag => {
-  const attr = tag.hasAttribute('src') ? 'src' : 'href';
-  const value = tag.getAttribute(attr);
-
-  if (value.startsWith("/home")) {
-    const newValue = prefix + value.slice("/home".length); // Replace only the "/home" part
-    tag.setAttribute(attr, newValue);
-    console.log(`Modified ${attr}: ${value} → ${newValue}`);
-  }
-});
-
-
-
-</script>
 
 </html>
