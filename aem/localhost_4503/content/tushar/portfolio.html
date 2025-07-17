@@ -85,64 +85,7 @@
                         display: visibility
                     });
 
-                    window.injectContextHubUI(injectWindow.document, ContextHub, scripts, styles, options, function(UI, options) {
-                        /* call it on parent ready, otherwise rarely window.document.body won't be ready due to race condition! */
-                        $(window.document).ready(function() {
-                            var pageContainer = UI.Properties.get('PAGE_CONTAINER') || $(window.document.body);
-                            var zIndex = options.zIndex || UI.Properties.get('CONTAINER_UI_Z_INDEX') || 890;
 
-                            UI.Properties.set('CONTAINER_UI_Z_INDEX', zIndex);
-                            UI.Properties.set('PAGE_CONTAINER', pageContainer);
-
-                            /* unified shell */
-                            if (injectWindow.document.querySelectorAll('link[href*="exc-unifiedcontent"]').length > 0) {
-                                var excIframe = injectWindow.document.querySelector('.exc-core-sandbox iframe');
-                                var iframeTop = 0, unifiedShellHeight = 0;
-                                
-                                var editorTitleBarOffset = injectWindow.document
-                                    .querySelector('.editor-panel-header').getBoundingClientRect().height
-                                //var editorTitleBarOffset = 50;
-
-                                if (excIframe) {
-                                    iframeTop = excIframe.getBoundingClientRect().top;
-                                    unifiedShellHeight = excIframe.contentWindow.document
-                                        .querySelector('.header-main').getBoundingClientRect().height;
-                                    
-                                }
-
-                                UI.Properties.set('IFRAME_TOP_MARGIN', iframeTop + editorTitleBarOffset);
-                                UI.Properties.set('UNIFIED_SHELL_HEIGHT', unifiedShellHeight);
-                                UI.Properties.set('HIDE_CONTAINER_DRAWER', true);
-                                UI.Container.visible({ state: true });
-                            } else {
-                                UI.Properties.set('UNIFIED_SHELL_HEIGHT', 0);
-                            }
-
-                            /* if document was not yet ready, set the page container once again later */
-                            if (pageContainer.length === 0) {
-                                $(function() {
-                                    UI.Properties.set('PAGE_CONTAINER', $(window.document.body));
-                                });
-                            }
-
-                            if (isEmbedded) {
-                                /* hide ContextHub container on iframe unload - to get rid of white gap that is visible during page reload */
-                                window.onbeforeunload = function() {
-                                    /* catch the errors in case objects will get destroyed before code will be executed */
-                                    try {
-                                        $(ContextHub.UIFrame).hide();
-                                        var pageContainer = UI.Properties.get('PAGE_CONTAINER') || $('');
-                                        pageContainer.css('transition', '');
-                                        pageContainer.css('top', UI.Properties.get('IFRAME_TOP_MARGIN'));
-                                    } catch (error) {
-                                        console.error("Error while unloading the page: ", error);
-                                    }
-                                };
-                            }
-                        });
-                    });
-
-                }(ContextHubJQ));
             </script>
 
 
