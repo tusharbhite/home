@@ -528,87 +528,214 @@
                                                         </div>
 
                                                         <div class="about-me" id="about-me" style="display:none">
-                                                            <div class="sticky-element"> <button class="globalnav-navigator-backbutton _coral-Button _coral-Button--secondary _coral-Button--quiet" is="coral-button" variant="minimal" size="M">
-                                                                    
-                                                                    <coral-button-label class="_coral-Button-label">About Me</coral-button-label>
-                                                                </button>
-                                                                <betty-breadcrumbs hidden="" class="granite-collection-navigator globalnav-navigator" data-granite-collection-navigator-target="#globalnav-home-collection" id="coral-id-186"><span role="heading" aria-level="1"><button is="coral-button" variant="quiet" class="_coral-Button _coral-Button--primary _coral-Button--quiet betty-breadcrumbs-button" type="button" aria-haspopup="listbox" aria-expanded="false" size="M">
-                                                                            <coral-button-label class="_coral-Button-label"><span class="betty-breadcrumbs-button-innerwrapper">
-                                                                                    <coral-icon icon="" size="S" class="_coral-Icon--sizeS betty-breadcrumbs-button-icon _coral-Icon" alt=""></coral-icon><span>About Me</span> <span role="img" class="betty-breadcrumbs-button-hidden-accessibility-label" aria-label=", Change file or folder"></span>
-                                                                                    <coral-icon icon="chevronDown" size="XS" class="_coral-Icon--sizeXS betty-breadcrumbs-button-chevron _coral-Icon" alt="" autoarialabel="off" aria-hidden="true"> <svg focusable="false" aria-hidden="true" class="_coral-Icon--svg _coral-Icon">
-                                                                                            <use xlink:href="#spectrum-icon-18-ChevronDown"></use>
-                                                                                        </svg> </coral-icon>
-                                                                                </span> </coral-button-label>
-                                                                        </button> </span>
-                                                                    <coral-popover x-placement="left" class="betty-breadcrumbs-popover _coral-Overlay _coral-Popover" role="presentation" aria-live="assertive" variant="default" closable="off" tabindex="0" style="position: absolute; display: none; visibility: visible; will-change: transform; top: 0px; left: 0px; transform: translate3d(5px, 0px, 0px);" x-out-of-boundaries="">
-                                                                        <div handle="topTabCapture" coral-tabcapture="top" tabindex="0" role="presentation"></div>
-                                                                        <div class=" _coral-Dialog-header" handle="headerWrapper" role="presentation" hidden="">
-                                                                            <coral-popover-header class="_coral-Dialog-title"></coral-popover-header>
-                                                                        </div> <button is="coral-button" tracking="off" handle="closeButton" class="_coral-Dialog-closeButton _coral-ClearButton" type="button" variant="_custom" icon="close" title="Close" tabindex="-1" coral-close="" size="M" style="display: none;">
-                                                                            <coral-icon size="S" class="_coral-Icon--sizeS _coral-Icon" role="img" icon="close"> <svg focusable="false" aria-hidden="true" class="_coral-Icon--svg _coral-Icon">
-                                                                                    <use xlink:href="#spectrum-icon-18-Close"></use>
-                                                                                </svg> </coral-icon>
-                                                                            <coral-button-label></coral-button-label>
-                                                                        </button>
-                                                                        <div class=" _coral-Popover-tip" handle="tip" hidden=""></div>
-                                                                        <coral-popover-content class="_coral-Dialog-content">
-                                                                            <coral-selectlist aria-label="Change file or folder" class="_coral-Menu" role="listbox"></coral-selectlist>
-                                                                        </coral-popover-content>
-                                                                        <coral-popover-footer class="_coral-Dialog-footer" hidden=""></coral-popover-footer>
-                                                                        <div handle="intermediateTabCapture" coral-tabcapture="intermediate" tabindex="0" role="presentation"></div>
-                                                                        <div handle="bottomTabCapture" coral-tabcapture="bottom" tabindex="0" role="presentation"></div>
-                                                                    </coral-popover>
-                                                                    <betty-breadcrumbs-item data-granite-collection-navigator-collectionid="/mnt/overlay/cq/core/content/nav/assets">About Me</betty-breadcrumbs-item>
-                                                                    <betty-breadcrumbs-item data-granite-collection-navigator-collectionid="/mnt/overlay/cq/core/content/nav">About Me</betty-breadcrumbs-item>
-                                                                </betty-breadcrumbs>
-                                                            </div>
+                                                        <div class="sticky-element"> <button class="globalnav-navigator-backbutton _coral-Button _coral-Button--secondary _coral-Button--quiet" is="coral-button" variant="minimal" size="M">
+                                                        <!--/* <coral-icon icon="chevronLeft" class="globalnav-navigator-backbutton-icon _coral-Icon _coral-Icon--sizeS" role="img" size="S" aria-hidden="true"> <svg focusable="false" aria-hidden="true" class="_coral-Icon--svg _coral-Icon">
+                                                                <use xlink:href="#spectrum-icon-18-ChevronLeft"></use>
+                                                            </svg> </coral-icon> */-->
+                                                        <coral-button-label class="_coral-Button-label">About Me</coral-button-label>
+                                                    </button>
+                                                    <betty-breadcrumbs hidden="" class="granite-collection-navigator globalnav-navigator" data-granite-collection-navigator-target="#globalnav-home-collection" id="coral-id-186"><span role="heading" aria-level="1"><button is="coral-button" variant="quiet" class="_coral-Button _coral-Button--primary _coral-Button--quiet betty-breadcrumbs-button" type="button" aria-haspopup="listbox" aria-expanded="false" size="M">
+                                                                <coral-button-label class="_coral-Button-label"><span class="betty-breadcrumbs-button-innerwrapper">
+                                                                        <coral-icon icon="" size="S" class="_coral-Icon--sizeS betty-breadcrumbs-button-icon _coral-Icon" alt=""></coral-icon><span>About Me</span> <span role="img" class="betty-breadcrumbs-button-hidden-accessibility-label" aria-label=", Change file or folder"></span>
+                                                                        <coral-icon icon="chevronDown" size="XS" class="_coral-Icon--sizeXS betty-breadcrumbs-button-chevron _coral-Icon" alt="" autoarialabel="off" aria-hidden="true"> <svg focusable="false" aria-hidden="true" class="_coral-Icon--svg _coral-Icon">
+                                                                                <use xlink:href="#spectrum-icon-18-ChevronDown"></use>
+                                                                            </svg> </coral-icon>
+                                                                    </span> </coral-button-label>
+                                                            </button> </span>
+                                                        <coral-popover x-placement="left" class="betty-breadcrumbs-popover _coral-Overlay _coral-Popover" role="presentation" aria-live="assertive" variant="default" closable="off" tabindex="0" style="position: absolute; display: none; visibility: visible; will-change: transform; top: 0px; left: 0px; transform: translate3d(5px, 0px, 0px);" x-out-of-boundaries="">
+                                                            <div handle="topTabCapture" coral-tabcapture="top" tabindex="0" role="presentation"></div>
+                                                            <div class=" _coral-Dialog-header" handle="headerWrapper" role="presentation" hidden="">
+                                                                <coral-popover-header class="_coral-Dialog-title"></coral-popover-header>
+                                                            </div> <button is="coral-button" tracking="off" handle="closeButton" class="_coral-Dialog-closeButton _coral-ClearButton" type="button" variant="_custom" icon="close" title="Close" tabindex="-1" coral-close="" size="M" style="display: none;">
+                                                                <coral-icon size="S" class="_coral-Icon--sizeS _coral-Icon" role="img" icon="close"> <svg focusable="false" aria-hidden="true" class="_coral-Icon--svg _coral-Icon">
+                                                                        <use xlink:href="#spectrum-icon-18-Close"></use>
+                                                                    </svg> </coral-icon>
+                                                                <coral-button-label></coral-button-label>
+                                                            </button>
+                                                            <div class=" _coral-Popover-tip" handle="tip" hidden=""></div>
+                                                            <coral-popover-content class="_coral-Dialog-content">
+                                                                <coral-selectlist aria-label="Change file or folder" class="_coral-Menu" role="listbox"></coral-selectlist>
+                                                            </coral-popover-content>
+                                                            <coral-popover-footer class="_coral-Dialog-footer" hidden=""></coral-popover-footer>
+                                                            <div handle="intermediateTabCapture" coral-tabcapture="intermediate" tabindex="0" role="presentation"></div>
+                                                            <div handle="bottomTabCapture" coral-tabcapture="bottom" tabindex="0" role="presentation"></div>
+                                                        </coral-popover>
+                                                        <betty-breadcrumbs-item data-granite-collection-navigator-collectionid="/mnt/overlay/cq/core/content/nav/assets">About Me</betty-breadcrumbs-item>
+                                                        <betty-breadcrumbs-item data-granite-collection-navigator-collectionid="/mnt/overlay/cq/core/content/nav">About Me</betty-breadcrumbs-item>
+                                                    </betty-breadcrumbs>
+                                                </div>
 
-                                                 
-                                                            <div class="certifications">
-                                                                    <coral-masonry layout="dashboard" spacing="40" columnwidth="200">
-                                                                    <coral-masonry-item>
+                                                <div class="foundation-layout-panel-bodywrapper">
+                                                <div class="foundation-layout-panel-body">
+                                                    <div class="foundation-layout-panel-rail foundation-layout-panel-rail-active" data-granite-layout-panel-min-width="304">
+                                                      
                                                                       <div class="photo-card-container">
-                                                                        <coral-card fixedwidth stacked assetwidth="200" assetheight="200">
-                                                                          <coral-card-asset><img class="my-photo" src="https://www.w3schools.com/howto/img_girl.jpg"/></coral-card-asset>
+                                                                        <coral-card style="width:300px" fixedwidth stacked assetwidth="200" assetheight="200">
+                                                                          <coral-card-asset><img class="my-photo" src="https://www.w3schools.com/howto/img_girl.jpg"></coral-card-asset>
                                                                           <coral-card-content>
+                                                                          
+
+                                                                            <coral-tag value="tag1">
+                                                                              Software Developer
+                                                                            </coral-tag>
+                                                                            <coral-tag value="tag2">
+                                                                              Technical Content writer
+                                                                            </coral-tag>
+                                                                            <coral-tag value="tag3">
+                                                                              Trainer
+                                                                            </coral-tag>
+                                                                            <coral-tag value="tag4">
+                                                                              Vibe Coder
+                                                                            </coral-tag>
+                                                                            <coral-tag value="tag5">
+                                                                              Freelancer
+                                                                            </coral-tag>
+                                                                            <coral-tag value="tag5">
+                                                                            Integration Strategist
+                                                                            </coral-tag>
+                                                                            <coral-tag value="tag6">
+                                                                              AI Enthusiast
+                                                                            </coral-tag>
+
                                                                             <coral-card-context>"Versatile software developer specializing in Java and AEM, with a creative flair for automation and business strategy."</coral-card-context>
-                                                                            <coral-card-title>Tushar Bhite</coral-card-title>
+                                                                            <coral-card-title>  <h3 class="coral-Heading coral-Heading--3">Tushar Bhite</h3>
+                                                                            </coral-card-title>
                                                                           </coral-card-content>
+                                                                          <div class="cbg"><coral-buttongroup>
+                                                                          <button is="coral-button" icon="email">E-Mail</button>
+                                                                          <button is="coral-button" icon="devicePhone" variant="secondary">Call</button>
+                                                                          <button is="coral-button" icon="wordpressColor" variant="secondary">WhatsApp</button>
+                                                                          </coral-buttongroup>
+                                                                          </div>
+
+                                                                          <div class="cbg">
+                                                                          <coral-buttongroup>
+                                                                            <button is="coral-button" variant="quiet">Developed with</button>
+                                                                            <button is="coral-button" icon="heart" variant="quiet">by Me</button>
+                                                                          </coral-buttongroup>
+                                                                          </div>
+
+                                                                          <div class="cbg">
+                                                                          <coral-buttongroup>
+                                                                            <button is="coral-button" icon="fileCampaign" variant="quiet">Copy Right 2025 All Rights Reserved</button>
+                                                                          </coral-buttongroup>
+                                                                          </div>
                                                                         </coral-card>
-                                                                      </div> 
-                                                                    </coral-masonry-item>
-                                                                    <coral-masonry-item>
-                                                                      <coral-card fixedwidth assetwidth="300" assetheight="200">
-                                                                        <coral-card-asset><img src="/home/aem/localhost_4503/content/dam/tushar-standaard-template-site/Adobe_Certified_Expert_Experience_Cloud_products_Digital_Badge.png"/></coral-card-asset>                                                               
-                                                                        <coral-card-content>
-                                                                          <coral-card-title>Adobe Certified Expert - Adobe Experience Manager Sites Developer</coral-card-title>                                                                                                              
-                                                                        </coral-card-content>
-                                                                      </coral-card>
-                                                                    </coral-masonry-item>
-                                                                    <coral-masonry-item>
-                                                                    <coral-card fixedwidth assetwidth="300" assetheight="200">
-                                                                      <coral-card-asset><img src="/home/aem/localhost_4503/content/dam/tushar-standaard-template-site/113064c8-5bd4-11f0-9b2a-42010a400fc3_badge.png"/></coral-card-asset>
-                                                                      <coral-card-content>
-                                                                        <coral-card-title>Adobe Certified Professional - Adobe Experience Manager Sites Developer</coral-card-title>                                                                        
-                                                                      </coral-card-content>
-                                                                    </coral-card>
-                                                                  </coral-masonry-item>
-                                                                  <coral-masonry-item>
-                                                                  <coral-card fixedwidth assetwidth="300" assetheight="200">
-                                                                    <coral-card-asset><img src="/home/aem/localhost_4503/content/dam/tushar-standaard-template-site/113064c8-5bd4-11f0-9b2a-42010a400fc3_badge.png"/></coral-card-asset>
-                                                                    <coral-card-content>
-                                                                      <coral-card-title>Adobe Certified Professional - Adobe Experience Manager Digital Librarian</coral-card-title>                                
-                                                                    </coral-card-content>
-                                                                  </coral-card>
-                                                                </coral-masonry-item>
-                                                                </coral-masonry>
 
 
+                                                                    
+                                                                      </div>
+
+                                                                      
+                                                                      
+                                                                      
+                                                        <div class="granite-collection-loading-title-wrapper">
+                                                            <div class="granite-collection-loading-title">
+                                                                <div class="granite-collection-loading-container">
+                                                                    <coral-wait class="granite-collection-loading-wait _coral-CircleLoader _coral-CircleLoader--indeterminate" role="progressbar" size="M" variant="default" indeterminate="" value="0">
+                                                                        
+                                                                        
+                                                                    <div handle="track" class=" _coral-CircleLoader-track"></div><div handle="fills" class=" _coral-CircleLoader-fills">
+                                                                      <div class=" _coral-CircleLoader-fillMask1">
+                                                                        <div handle="subMask1" class=" _coral-CircleLoader-fillSubMask1">
+                                                                          <div class=" _coral-CircleLoader-fill"></div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class=" _coral-CircleLoader-fillMask2">
+                                                                        <div handle="subMask2" class=" _coral-CircleLoader-fillSubMask2">
+                                                                          <div class=" _coral-CircleLoader-fill"></div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div></coral-wait> <span>Loading</span>
+                                                                </div>
                                                             </div>
-
-                                                            
-                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="foundation-layout-panel-content" role="grid" aria-colcount="1">
                                                         
+                                                    <coral-alert variant="warning" size="L">
+                                                      <coral-alert-header>Disclaimer</coral-alert-header>
+                                                      <coral-alert-content>
+                                                      This portfolio website was created solely for educational and demonstration purposes. I do not claim ownership of Adobe Experience Manager (AEM) or any related Adobe technologies. While the UI and UX are visually inspired by AEM, some publicly available CSS and JavaScript files from Adobe were used to accurately simulate the design experience. No proprietary or licensed Adobe components have been redistributed or altered in a way that violates usage rights. The goal is to showcase my technical capabilities and learning journey, with no affiliation to or endorsement by Adobe Inc. All trademarks and brand assets remain the property of their respective owners. If further clarification is needed regarding attribution or intent, I’m happy to provide it.
+                                                      <div style="text-align:right">
+                                                          <button is="coral-button" variant="minimal" coral-close>Close</button>
+                                                        </div>
+                                                      </coral-alert-content>
+                                                    </coral-alert>
+
+
+
+                                                    <div class="certifications">
+                                                        <coral-masonry layout="dashboard" spacing="40" columnwidth="200">
+                                  
+                                                        <coral-masonry-item>
+                                                          <coral-card fixedwidth assetwidth="300" assetheight="200">
+                                                            <coral-card-asset><img src="/content/dam/tushar-standaard-template-site/Adobe_Certified_Expert_Experience_Cloud_products_Digital_Badge.png"></coral-card-asset>                                                               
+                                                            <coral-card-content>
+                                                              <coral-card-title>Adobe Certified Expert - Adobe Experience Manager Sites Developer</coral-card-title>                                                                                                              
+                                                            </coral-card-content>
+                                                          </coral-card>
+                                                        </coral-masonry-item>
+                                                        <coral-masonry-item>
+                                                        <coral-card fixedwidth assetwidth="300" assetheight="200">
+                                                          <coral-card-asset><img src="/content/dam/tushar-standaard-template-site/113064c8-5bd4-11f0-9b2a-42010a400fc3_badge.png"></coral-card-asset>
+                                                          <coral-card-content>
+                                                            <coral-card-title>Adobe Certified Professional - Adobe Experience Manager Sites Developer</coral-card-title>                                                                        
+                                                          </coral-card-content>
+                                                        </coral-card>
+                                                      </coral-masonry-item>
+                                                      <coral-masonry-item>
+                                                      <coral-card fixedwidth assetwidth="300" assetheight="200">
+                                                        <coral-card-asset><img src="/content/dam/tushar-standaard-template-site/113064c8-5bd4-11f0-9b2a-42010a400fc3_badge.png"></coral-card-asset>
+                                                        <coral-card-content>
+                                                          <coral-card-title>Adobe Certified Professional - Adobe Experience Manager Digital Librarian</coral-card-title>                                
+                                                        </coral-card-content>
+                                                      </coral-card>
+                                                    </coral-masonry-item>
+                                                    </coral-masonry>
+
+
+                                                </div>
+
+
+
+                                                        <div class="granite-collection-loading-title-wrapper">
+                                                            <div class="granite-collection-loading-title">
+                                                                <div class="granite-collection-loading-container">
+                                                                    <coral-wait class="granite-collection-loading-wait _coral-CircleLoader _coral-CircleLoader--indeterminate" role="progressbar" size="M" variant="default" indeterminate="" value="0">
+                                                                        
+                                                                        
+                                                                    <div handle="track" class=" _coral-CircleLoader-track"></div><div handle="fills" class=" _coral-CircleLoader-fills">
+                                                                      <div class=" _coral-CircleLoader-fillMask1">
+                                                                        <div handle="subMask1" class=" _coral-CircleLoader-fillSubMask1">
+                                                                          <div class=" _coral-CircleLoader-fill"></div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class=" _coral-CircleLoader-fillMask2">
+                                                                        <div handle="subMask2" class=" _coral-CircleLoader-fillSubMask2">
+                                                                          <div class=" _coral-CircleLoader-fill"></div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div></coral-wait> <span>Loading more items</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                     
+                                                
+
+                                                <!--/* <herobody>
+                                                <div class="bg"></div>
+                                                <p>This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+                                                <herobody> */-->
+                                                <!--/* <div class="image-container">
+                                                  <img src="https://www.w3schools.com/howto/img_girl.jpg" alt="Descriptive Alt Text" />
+                                                </div> */-->
+                                            
+
 
                                                         </div>
 
@@ -1927,4 +2054,26 @@
 </body>
 
 <!-- Mirrored from localhost:4503/content/tushar/portfolio.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jul 2025 16:01:58 GMT -->
+<script>
+
+/*file:///D:/home/aem/localhost_4503/...
+D:\Repos\gt\home\tushar-aem-portfolio.html*/
+
+const prefix = "/Repos/gt/home"; // Windows-style path as string
+
+document.querySelectorAll('script[src], link[href], img[src]').forEach(tag => {
+  const attr = tag.hasAttribute('src') ? 'src' : 'href';
+  const value = tag.getAttribute(attr);
+
+  if (value.startsWith("/home")) {
+    const newValue = prefix + value.slice("/home".length); // Replace only the "/home" part
+    tag.setAttribute(attr, newValue);
+    console.log(`Modified ${attr}: ${value} → ${newValue}`);
+  }
+});
+
+
+
+</script>
+
 </html>

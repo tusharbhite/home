@@ -218,3 +218,19 @@ coral-selectlist {
     cursor: pointer;
     /* Displays as a hand */
 }
+
+
+/*Contacts css*/
+
+.photo-card-container {
+    display: grid;
+    place-items: center;
+}
+
+.cbg {
+    padding-top: 20px;
+}
+
+.certifications coral-card-asset {
+    background-color: transparent;
+}
