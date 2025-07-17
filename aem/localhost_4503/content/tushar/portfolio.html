@@ -43,7 +43,9 @@
                 ContextHub.Constants.MODE = "ui";
             }());
         </script> */-->
-        <script src="http://localhost:4503/etc/cloudsettings.kernel.js/libs/settings/cloudsettings/legacy/contexthub" type="text/javascript"></script><script type="text/javascript">
+        <!--/* <script src="http://localhost:4503/etc/cloudsettings.kernel.js/libs/settings/cloudsettings/legacy/contexthub" type="text/javascript"></script> */-->
+        
+        <script type="text/javascript">
                 (function($) {
                     'use strict';
 
@@ -57,39 +59,7 @@
                     var injectWindow;
                     var allowEmbedding = false;
 
-                    <!--/* //using this to determine if running in Unified Shell to determine where 
-                    // to inject ContextHub UI.  
-                    var unifiedShellDiv = window.top.document.querySelector('#exc');
-        
-                    if (allowEmbedding) {
-                        injectWindow = window;
-                    } else if (!!unifiedShellDiv) {
-                        injectWindow = unifiedShellDiv.querySelector('iframe').contentWindow;
-                    } else {
-                        injectWindow = window.top;
-                    }
-                    
-                    try {
-                        //* if window.top contains 'ContextHubEmbedding' flag, use current window instead of window.top 
-                        if (window.top.hasOwnProperty('ContextHubEmbedding') === true) {
-                            injectWindow = window;
-                        }
-                    } catch(error) {
-                        // if window.top is not reachable for security reasons (like page embedded into an iframe on a different domain), use current window.
-                        injectWindow = window;
-                    }
-
-                    /* is ContextHub UI loaded from another iframe? then hide it by default (event listeners will display it when requested) */
-                    var isEmbedded = injectWindow !== window;
-                    var visibility = isEmbedded ? 'none' : 'block';
-
-                    /* display ContextHub immediately if it's embedded on same page as ContentFinder */
-                    if (isEmbedded && $('#cq-cf-wrapper', injectWindow.document).length) {
-                        /* inject container to a page which includes ContextHub and not to top window */
-                        injectWindow = window;
-                        visibility = 'block';
-                        options['zIndex'] = 10000;
-                    } */-->
+                   
 
                     /*
                      * coralui3 related includes:
