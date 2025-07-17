@@ -234,3 +234,23 @@ coral-selectlist {
 .certifications coral-card-asset {
     background-color: transparent;
 }
+
+.tab-item-label {
+    text-align: left;
+}
+
+.tab-item-btn {
+    width: 80% !important;
+    margin-left: 10% !important;
+    box-sizing: border-box;
+    border-left-color: thistle !important;
+    border-right-color: thistle !important;
+}
+
+.tab-list-item {
+    margin-top: 10px;
+}
+
+.span-check {
+    width: 100% !important;
+}

@@ -132,3 +132,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //     console.log("Resumed after 1 second.");
 // });
+
+
+//tabs
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtonsContainer = document.getElementById('tabButtons');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    // Set up initial active state for first tab
+    // This is important because without CSS, we need JS to set the initial visibility
+    tabPanes.forEach(pane => {
+        if (!pane.classList.contains('active-tab-pane')) {
+            pane.style.display = 'none'; // Hide non-active panes
+        }
+    });
+
+    tabButtonsContainer.addEventListener('click', function(event) {
+        // Ensure a button was clicked, not just the container
+        // if (event.target.tagName === 'BUTTON') {
+        var clickedButton = event.target;
+        // console.log(clickedButton);
+
+        // Remove 'active' class from all buttons and hide all panes
+        // document.querySelectorAll('.active-tab-button').forEach(btn => {
+        //     btn.classList.remove('active-tab-button');
+        // });
+        tabPanes.forEach(pane => {
+            pane.style.display = 'none';
+            // pane.classList.remove('active-tab-pane');
+        });
+
+        // Add 'active' class to the clicked button
+        // clickedButton = clickedButton.querySelector("coral-columnview-item");
+        // clickedButton.classList.add('active-tab-button');
+
+        // Get the target tab pane ID from the data-tab attribute
+        const targetTabId = clickedButton.getAttribute("data-tab");
+
+        // Show the corresponding tab pane
+        const targetPane = document.getElementById(targetTabId);
+        console.log("showing " + targetTabId)
+        if (targetPane) {
+            targetPane.style.display = 'block';
+            // targetPane.classList.add('active-tab-pane'); // Mark as active for initial setup
+        }
+        // }
+    });
+});
