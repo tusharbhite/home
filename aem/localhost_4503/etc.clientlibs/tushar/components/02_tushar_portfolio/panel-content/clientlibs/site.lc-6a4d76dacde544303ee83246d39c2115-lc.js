@@ -125,13 +125,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-// document.addEventListener("click", async function() {
-//     console.log("Click detected. Pausing for 1 second...");
+document.addEventListener("DOMContentLoaded", function() {
 
-//     await new Promise(resolve => setTimeout(resolve, 1000)); // 1000 ms = 1 second
+    if (window.innerWidth <= 767) {
+        // Elements to move
+        const firstElement = document.getElementById("disclaimer"); // Element you want to move to top
+        const secondElement = document.getElementById("certifications"); // Element to move to bottom
 
-//     console.log("Resumed after 1 second.");
-// });
+        // Destination container
+        const targetContainer = document.getElementById("about-me-parent");
+
+        // Move firstElement as the first child
+        targetContainer.insertBefore(firstElement, targetContainer.firstChild);
+
+        // Move secondElement as the last child
+        targetContainer.appendChild(secondElement);
+    }
+
+});
 
 
 //tabs

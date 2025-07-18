@@ -315,4 +315,12 @@ coral-selectlist {
         margin-left: 0px !important;
         width: 97% !important;
     }
+    #certifications coral-card {
+        width: 100% !important;
+    }
+    coral-alert {
+        min-width: 0px !important;
+        margin-left: 10% !important;
+        margin-right: 10% !important;
+    }
 }
