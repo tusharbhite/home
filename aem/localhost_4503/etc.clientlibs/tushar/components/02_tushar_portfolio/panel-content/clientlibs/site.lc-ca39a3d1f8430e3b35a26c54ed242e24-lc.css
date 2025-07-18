@@ -254,3 +254,40 @@ coral-selectlist {
 .span-check {
     width: 100% !important;
 }
+
+/*Mobile and desktop Optimizations*/
+
+/*Desktop Only (width ≥ 768px)*/
+
+@media screen and (min-width: 768px) {
+    .professional-summary {
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+    .major-work {
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+    .experience #timeline-content {
+        margin-left: 20%;
+    }
+    coral-alert {
+        margin-top: 0px !important;
+        margin-left: 5% !important;
+        margin-right: 5% !important;
+    }
+}
+
+
+/*Mobile Only (width < 768px)*/
+
+@media screen and (max-width: 767px) {
+    .professional-summary {
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+    .foundation-layout-panel-rail {
+        width: 50% !important;
+        min-width: 50% !important;
+    }
+}
