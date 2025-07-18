@@ -257,9 +257,13 @@ coral-selectlist {
 
 /*Mobile and desktop Optimizations*/
 
+
 /*Desktop Only (width ≥ 768px)*/
 
 @media screen and (min-width: 768px) {
+    .globalnav-collection-container {
+        top: 90px !important;
+    }
     .professional-summary {
         margin-right: 10%;
         margin-left: 10%;
@@ -276,18 +280,39 @@ coral-selectlist {
         margin-left: 5% !important;
         margin-right: 5% !important;
     }
+    .things-panel .tab-item-btn {
+        width: 40% !important;
+        margin-left: 10% !important;
+        margin-right: 50% !important;
+    }
 }
 
 
 /*Mobile Only (width < 768px)*/
 
 @media screen and (max-width: 767px) {
+    .globalnav-collection-container {
+        top: 90px !important;
+    }
     .professional-summary {
         margin-right: 5%;
         margin-left: 5%;
     }
-    .foundation-layout-panel-rail {
+    .things-panel .foundation-layout-panel-rail {
         width: 50% !important;
         min-width: 50% !important;
+    }
+    .things-panel coral-columnview-item {
+        width: auto !important;
+    }
+    .things-panel coral-columnview-column {
+        width: 80% !important;
+    }
+    .things-panel coral-columnview-item-thumbnail {
+        display: none !important;
+    }
+    .things-panel .tab-item-btn {
+        margin-left: 0px !important;
+        width: 97% !important;
     }
 }
