@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaCore | Innovative Healthcare Solutions</title>
+    <style>
+        /* --- 1. DESIGN SYSTEM & VARIABLES --- */
+        :root {
+            --primary: #007bff; /* Medical Blue */
+            --primary-hover: #0056b3;
+            --bg-body: #ffffff;
+            --bg-card: #f8f9fa;
+            --text-main: #212529;
+            --text-dim: #6c757d;
+            --border: #dee2e6;
+            --header-h: 70px;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0b0f13;
+            --bg-card: #1a2026;
+            --text-main: #f8f9fa;
+            --text-dim: #adb5bd;
+            --border: #343a40;
+            --primary: #3399ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--bg-body); 
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .container-aem { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 60px 0; }
+        img { max-width: 100%; display: block; }
+
+        /* --- 2. HEADER --- */
+        .header {
+            height: var(--header-h);
+            background: var(--bg-body);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            display: flex; align-items: center;
+        }
+        .header-content {
+            display: flex; justify-content: space-between; align-items: center; width: 100%;
+        }
+        .logo { font-size: 24px; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo span { color: var(--text-main); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 500; font-size: 14px; text-transform: uppercase; transition: var(--transition); }
+        .nav-links a:hover { color: var(--primary); }
+        .header-actions { display: flex; gap: 15px; align-items: center; }
+
+        /* --- 3. THEME TOGGLE & HAMBURGER --- */
+        .icon-btn { background: none; border: none; cursor: pointer; color: var(--text-main); font-size: 18px; display: flex; align-items: center; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .hamburger span { width: 25px; height: 3px; background: var(--text-main); transition: var(--transition); }
+
+        /* --- 4. HERO BANNER --- */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,40,80,0.7), rgba(0,40,80,0.7)), url('https://images.unsplash.com/photo-1579152276503-3150731fc6c5?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            display: flex; align-items: center; text-align: center;
+            margin-top: var(--header-h);
+        }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 3.5rem); color: white; margin-bottom: 20px; line-height: 1.1; }
+        .hero-content p { font-size: 1.2rem; color: #e0e0e0; margin-bottom: 30px; max-width: 700px; margin-inline: auto; }
+
+        /* --- 5. BREADCRUMB --- */
+        .breadcrumb { padding: 20px 0; font-size: 14px; color: var(--text-dim); }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb span::before { content: '/'; margin: 0 10px; color: var(--border); }
+
+        /* --- 6. BUTTONS --- */
+        .btn { 
+            padding: 12px 28px; border-radius: 4px; font-weight: 600; cursor: pointer; 
+            display: inline-block; text-decoration: none; transition: var(--transition); border: 2px solid transparent;
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-secondary { border-color: white; color: white; background: transparent; }
+        .btn-secondary:hover { background: white; color: var(--primary); }
+        .btn-ghost { color: var(--primary); background: transparent; }
+        .btn-ghost:hover { text-decoration: underline; }
+
+        /* --- 7. TITLE COMPONENT --- */
+        .section-title { 
+            font-size: clamp(1.5rem, 4vw, 2.2rem); margin-bottom: 30px; 
+            padding-left: 15px; border-left: 4px solid var(--primary); 
+        }
+
+        /* --- 8. CARD GRID --- */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: var(--bg-card); border-radius: 8px; overflow: hidden; transition: var(--transition); border: 1px solid var(--border); }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card-img { height: 200px; background-size: cover; background-position: center; }
+        .card-body { padding: 20px; }
+        .card-body h3 { margin-bottom: 10px; color: var(--primary); }
+        .card-body p { font-size: 14px; color: var(--text-dim); margin-bottom: 15px; }
+
+        /* --- 9. CALLOUT CARD --- */
+        .callout { 
+            background: var(--primary); color: white; padding: 40px; 
+            border-radius: 12px; text-align: center; margin: 40px 0;
+        }
+
+        /* --- 10. CAROUSEL --- */
+        .carousel-container { position: relative; overflow: hidden; }
+        .carousel-track { display: flex; gap: 20px; transition: transform 0.5s ease; }
+        .carousel-item { min-width: 250px; border-radius: 8px; background: var(--bg-card); padding: 15px; border: 1px solid var(--border); }
+        .carousel-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); pointer-events: none; }
+        .carousel-nav button { pointer-events: auto; background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 50%; }
+
+        /* --- 11. TABS --- */
+        .tabs-nav { display: flex; gap: 10px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+        .tab-trigger { padding: 10px 20px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-dim); }
+        .tab-trigger.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: bold; }
+        .tab-content { display: none; animation: fadeIn 0.4s; }
+        .tab-content.active { display: block; }
+
+        /* --- 12. ACCORDION --- */
+        .accordion-item { border: 1px solid var(--border); margin-bottom: 10px; border-radius: 4px; }
+        .acc-header { padding: 15px; cursor: pointer; background: var(--bg-card); display: flex; justify-content: space-between; font-weight: 600; }
+        .acc-panel { padding: 0 15px; max-height: 0; overflow: hidden; transition: var(--transition); background: var(--bg-body); }
+
+        /* --- 13. TABLE --- */
+        .table-wrap { overflow-x: auto; margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: var(--bg-card); color: var(--primary); }
+
+        /* --- 14. TEASER --- */
+        .teaser { display: flex; gap: 40px; align-items: center; margin: 40px 0; }
+        .teaser-img, .teaser-text { flex: 1; }
+        .teaser-img img { border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* --- 15. FORM --- */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; }
+        input, select, textarea { 
+            width: 100%; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); 
+            color: var(--text-main); border-radius: 4px; outline: none;
+        }
+        input:focus { border-color: var(--primary); }
+        .error-msg { color: #dc3545; font-size: 12px; margin-top: 5px; display: none; }
+
+        /* --- 16. TEXT CAROUSEL --- */
+        .text-carousel { text-align: center; padding: 40px; background: var(--bg-card); min-height: 180px; display: flex; align-items: center; justify-content: center; }
+        .text-slide { display: none; animation: fadeEffect 1s; font-style: italic; font-size: 1.1rem; color: var(--text-dim); }
+        .text-slide.active { display: block; }
+
+        /* --- 17. CHECKLIST --- */
+        .check-list { list-style: none; }
+        .check-list li { position: relative; padding-left: 30px; margin-bottom: 10px; }
+        .check-list li::before { 
+            content: '✓'; position: absolute; left: 0; color: #28a745; font-weight: bold; 
+        }
+
+        /* --- 18. FOOTER --- */
+        .footer { background: #12161a; color: #f8f9fa; padding: 60px 0 20px; border-top: 4px solid var(--primary); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-logo { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 15px; }
+        .footer h4 { margin-bottom: 20px; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; }
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 10px; }
+        .footer ul a { color: #adb5bd; text-decoration: none; transition: var(--transition); }
+        .footer ul a:hover { color: #fff; }
+
+        .back-to-top { 
+            position: fixed; bottom: 30px; right: 30px; background: var(--primary); 
+            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; 
+            justify-content: center; color: white; text-decoration: none; opacity: 0; transition: var(--transition); z-index: 100;
+        }
+
+        .search-dropdown { 
+            position: absolute; width: 100%; background: var(--bg-card); border: 1px solid var(--border); 
+            z-index: 10; display: none; 
+        }
+        .search-dropdown div { padding: 10px; cursor: pointer; }
+        .search-dropdown div:hover { background: var(--primary); color: white; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: var(--bg-body); padding: 20px; border-bottom: 1px solid var(--border); }
+            .nav-links.mobile-active { display: flex; }
+            .hamburger { display: flex; }
+            .teaser { flex-direction: column; }
+            .hero { height: 60vh; }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeEffect { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container-aem header-content">
+            <a href="#" class="logo">PHARMA<span>CORE</span></a>
+            <nav class="nav-links" id="navLinks">
+                <a href="#solutions">Solutions</a>
+                <a href="#research">Research</a>
+                <a href="#pipeline">Pipeline</a>
+                <a href="#faq">Resources</a>
+            </nav>
+            <div class="header-actions">
+                <button class="icon-btn" id="themeToggle" title="Toggle Theme">🌓</button>
+                <button class="icon-btn search-trigger">🔍</button>
+                <div class="hamburger" id="hamburger">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container-aem hero-content">
+            <h1>Advancing Life Through Science.</h1>
+            <p>Leading the way in biotechnology and pharmaceutical innovation to develop life-changing therapies for global health challenges.</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <a href="#research" class="btn btn-primary">Our Research</a>
+                <a href="#newsletterForm" class="btn btn-secondary">Get Updates</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-aem">
+        <nav class="breadcrumb">
+            <a href="#">Home</a> <span>Therapeutics</span> <span>Oncology</span>
+        </nav>
+
+        <section id="solutions">
+            <h2 class="section-title">Therapeutic Areas</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?w=800');"></div>
+                    <div class="card-body">
+                        <h3>Oncology</h3>
+                        <p>Next-generation targeted therapies designed to combat complex cancer cell structures.</p>
+                        <a href="#" class="btn btn-ghost">Learn More →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1584362946444-1e7c4f94e847?w=800');"></div>
+                    <div class="card-body">
+                        <h3>Immunology</h3>
+                        <p>Harnessing the power of the human immune system to treat autoimmune disorders.</p>
+                        <a href="#" class="btn btn-ghost">Learn More →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1532187875605-1ef6c237a1e0?w=800');"></div>
+                    <div class="card-body">
+                        <h3>Rare Diseases</h3>
+                        <p>Dedicated research for patients with limited or no currently available treatment options.</p>
+                        <a href="#" class="btn btn-ghost">Learn More →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="callout">
+            <h2>Pioneering mRNA Technology</h2>
+            <p>Our recent breakthroughs in mRNA delivery systems are paving the way for a new era of preventive medicine.</p>
+            <br>
+            <a href="#" class="btn btn-secondary">Read the Whitepaper</a>
+        </div>
+
+        <section id="research">
+            <h2 class="section-title">Recent Clinical Insights</h2>
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-item">
+                        <strong>Trial Phase III</strong>
+                        <p>Positive results from the respiratory antiviral study.</p>
+                    </div>
+                    <div class="carousel-item">
+                        <strong>New FDA Approval</strong>
+                        <p>CoreVax received breakthrough status for pediatric care.</p>
+                    </div>
+                    <div class="carousel-item">
+                        <strong>Global Logistics</strong>
+                        <p>Expanding cold-chain distribution to Southeast Asia.</p>
+                    </div>
+                    <div class="carousel-item">
+                        <strong>Research Grant</strong>
+                        <p>$50M allocated for Alzheimer’s protein mapping.</p>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button id="prevBtn">❮</button>
+                    <button id="nextBtn">❯</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="teaser">
+            <div class="teaser-img">
+                <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=800" loading="lazy" alt="Scientific Research">
+            </div>
+            <div class="teaser-text">
+                <h2 class="section-title">Our Scientific Approach</h2>
+                <p>We combine AI-driven drug discovery with traditional medicinal chemistry to accelerate the timeline from bench to bedside.</p>
+                <ul class="check-list" style="margin-top: 20px;">
+                    <li>High-throughput molecular screening</li>
+                    <li>Patient-centric clinical trial design</li>
+                    <li>Sustainable manufacturing processes</li>
+                    <li>Global regulatory compliance experts</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <div class="tab-trigger active" data-tab="tab1">Innovation</div>
+                    <div class="tab-trigger" data-tab="tab2">Ethics</div>
+                    <div class="tab-trigger" data-tab="tab3">Sustainability</div>
+                </div>
+                <div class="tab-content active" id="tab1">
+                    <p>By leveraging CRISPR and deep learning, PharmaCore identifies potential candidates for complex genetic conditions 40% faster than industry standards.</p>
+                </div>
+                <div class="tab-content" id="tab2">
+                    <p>Patient safety and data privacy are the cornerstones of our operations. We adhere to the highest international bioethical standards.</p>
+                </div>
+                <div class="tab-content" id="tab3">
+                    <p>We are committed to carbon-neutral manufacturing by 2030 and zero-waste packaging for all consumer-facing products.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="pipeline">
+            <h2 class="section-title">Development Pipeline</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compound ID</th>
+                            <th>Target Indication</th>
+                            <th>Current Phase</th>
+                            <th>Expected Completion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>PC-402</td><td>Metastatic Melanoma</td><td>Phase III</td><td>Q4 2026</td></tr>
+                        <tr><td>PC-109</td><td>Type 1 Diabetes</td><td>Phase II</td><td>Q2 2027</td></tr>
+                        <tr><td>PC-771</td><td>Cystic Fibrosis</td><td>Phase I</td><td>Q1 2028</td></tr>
+                        <tr><td>PC-004</td><td>Hypertension Control</td><td>Pre-clinical</td><td>TBD</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2 class="section-title">Patient Resources</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="acc-header">How can I apply for a clinical trial? <span>+</span></div>
+                    <div class="acc-panel"><p>Patients can view active recruitment listings on our Clinical Portal and submit an initial eligibility screening form online.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="acc-header">Where can I find medication safety data? <span>+</span></div>
+                    <div class="acc-panel"><p>Full prescribing information and safety inserts are available in our digital library for all approved products.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="acc-header">Do you offer patient assistance programs? <span>+</span></div>
+                    <div class="acc-panel"><p>Yes, we provide financial support and access programs for eligible low-income patients through our "CareFirst" foundation.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-carousel">
+            <div class="text-slide active">"Empowering healthcare providers with data-driven therapeutic insights."</div>
+            <div class="text-slide">"Committed to equitable healthcare access across developing nations."</div>
+            <div class="text-slide">"Transforming the future of medicine through molecular engineering."</div>
+        </div>
+
+        <div class="search-container">
+            <h3 style="margin-bottom: 10px;">Search our Medical Database</h3>
+            <input type="text" id="searchInput" class="search-input" style="width: 100%; padding: 15px;" placeholder="Search for clinical trials, therapeutic areas, or molecules...">
+            <div class="search-dropdown" id="searchDropdown"></div>
+        </div>
+
+        <section id="newsletter">
+            <h2 class="section-title">Healthcare Professional Updates</h2>
+            <form id="newsletterForm" novalidate>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name" placeholder="Dr. Jane Smith">
+                    <div class="error-msg">Please enter your name</div>
+                </div>
+                <div class="form-group">
+                    <label>Professional Email Address</label>
+                    <input type="email" id="email" placeholder="jsmith@medicalcenter.org">
+                    <div class="error-msg">Valid professional email is required</div>
+                </div>
+                <div class="form-group">
+                    <label>Primary Specialty</label>
+                    <select id="interest">
+                        <option value="oncology">Oncology</option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="research">Research & Labs</option>
+                        <option value="administration">Hospital Admin</option>
+                    </select>
+                </div>
+                <div class="form-group" style="display: flex; gap: 10px; align-items: center;">
+                    <input type="checkbox" id="terms" style="width: auto;">
+                    <label for="terms" style="margin: 0;">I consent to receiving regulatory and scientific updates.</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Join Medical Network</button>
+            </form>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container-aem">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">PHARMA<span>CORE</span></div>
+                    <p style="color: #888;">Global leader in pharmaceutical innovation. Registered in 45 countries.</p>
+                </div>
+                <div>
+                    <h4>Therapeutics</h4>
+                    <ul>
+                        <li><a href="#">Oncology</a></li>
+                        <li><a href="#">Neurology</a></li>
+                        <li><a href="#">Vaccines</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Corporate</h4>
+                    <ul>
+                        <li><a href="#">Our Vision</a></li>
+                        <li><a href="#">Investors</a></li>
+                        <li><a href="#">ESG Report</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Legal</h4>
+                    <ul class="link-group">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Pharmacovigilance</a></li>
+                        <li><a href="#">Transparency</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #333; padding-top: 20px; text-align: center; color: #555;">
+                &copy; 2026 PharmaCore Global Holdings. For healthcare professional use only.
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
+
+    <script>
+        // --- Same Script Logic, Updated Search Data ---
+        const themeBtn = document.getElementById('themeToggle');
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeBtn.innerText = newTheme === 'dark' ? '🌓' : '☀️';
+        });
+
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('mobile-active');
+        });
+
+        document.querySelectorAll('.tab-trigger').forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                document.querySelectorAll('.tab-trigger, .tab-content').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById(this.dataset.tab).classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.acc-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const panel = this.nextElementSibling;
+                const isOpen = panel.style.maxHeight;
+                document.querySelectorAll('.acc-panel').forEach(p => p.style.maxHeight = null);
+                document.querySelectorAll('.acc-header span').forEach(s => s.innerText = '+');
+                if (!isOpen) {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                    this.querySelector('span').innerText = '-';
+                }
+            });
+        });
+
+        const track = document.getElementById('carouselTrack');
+        let index = 0;
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            index = (index + 1) % 4;
+            track.style.transform = `translateX(-${index * 270}px)`;
+        });
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            index = index === 0 ? 3 : index - 1;
+            track.style.transform = `translateX(-${index * 270}px)`;
+        });
+
+        let slideIndex = 0;
+        function showSlides() {
+            const slides = document.querySelectorAll('.text-slide');
+            if(slides.length > 0) {
+                slides.forEach(s => s.classList.remove('active'));
+                slideIndex = (slideIndex + 1) % slides.length;
+                slides[slideIndex].classList.add('active');
+            }
+            setTimeout(showSlides, 5000);
+        }
+        showSlides();
+
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let valid = true;
+            const email = document.getElementById('email');
+            const name = document.getElementById('name');
+
+            if (!name.value) { name.nextElementSibling.style.display = 'block'; valid = false; } 
+            else { name.nextElementSibling.style.display = 'none'; }
+
+            if (!email.value.includes('@')) { email.nextElementSibling.style.display = 'block'; valid = false; } 
+            else { email.nextElementSibling.style.display = 'none'; }
+
+            if (valid) alert('Thank you for joining PharmaCore Professional Network.');
+        });
+
+        const searchInput = document.getElementById('searchInput');
+        const dropdown = document.getElementById('searchDropdown');
+        const medicalData = ['Oncology Trials', 'Immunology Research', 'Gene Therapy', 'mRNA Vaccines', 'Clinical Phase III', 'Oncology Pipeline'];
+
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            dropdown.innerHTML = '';
+            if (val.length < 2) { dropdown.style.display = 'none'; return; }
+            const filtered = medicalData.filter(i => i.toLowerCase().includes(val));
+            if (filtered.length > 0) {
+                dropdown.style.display = 'block';
+                filtered.forEach(item => {
+                    const div = document.createElement('div');
+                    div.innerText = item;
+                    div.onclick = () => { searchInput.value = item; dropdown.style.display = 'none'; };
+                    dropdown.appendChild(div);
+                });
+            } else { dropdown.style.display = 'none'; }
+        });
+
+        window.onscroll = function() {
+            const btn = document.getElementById('backToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.opacity = '1';
+            } else { btn.style.opacity = '0'; }
+        };
+    </script>
+</body>
+</html>
