@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local ID Streamer</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #0f0f0f; color: #efefef; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+        .container { width: 100%; max-width: 800px; background: #1e1e1e; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .input-group { margin-bottom: 20px; display: flex; gap: 10px; }
+        input { flex: 1; padding: 12px; border-radius: 6px; border: 1px solid #333; background: #2b2b2b; color: white; }
+        button { padding: 12px 24px; border-radius: 6px; border: none; background: #e50914; color: white; cursor: pointer; font-weight: bold; }
+        button:disabled { background: #555; cursor: not-allowed; }
+        .video-container { margin-top: 20px; width: 100%; background: #000; border-radius: 8px; overflow: hidden; display: none; aspect-ratio: 16 / 9; }
+        .status { font-size: 0.8rem; color: #888; margin-top: 5px; }
+        .error { color: #ff4d4d; margin-top: 15px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Stream via IMDb Mapping</h2>
+    
+    <div class="input-group">
+        <input type="text" id="imdbUrl" placeholder="Paste IMDb URL (e.g., https://www.imdb.com/title/tt0107286/)">
+        <button id="searchBtn" onclick="searchInFile()">Search & Play</button>
+    </div>
+    <div id="loadingStatus" class="status">Ready to search in mapping file...</div>
+
+    <div class="input-group" style="margin-top:20px;">
+        <input type="number" id="tmdbIdInput" placeholder="Direct TMDB ID">
+        <button onclick="playDirect()">Play ID</button>
+    </div>
+
+    <p id="errorMessage" class="error"></p>
+
+    <div id="playerWrapper" class="video-container">
+        <iframe id="videoPlayer" src="" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const FILE_URL = 'mapping.txt'; // Path to your 17MB file
+    const playerWrapper = document.getElementById('playerWrapper');
+    const iframe = document.getElementById('videoPlayer');
+    const errorEl = document.getElementById('errorMessage');
+    const statusEl = document.getElementById('loadingStatus');
+
+    function setPlayer(id) {
+        errorEl.style.display = 'none';
+        // Note: Defaulting to 'movie' as the mapping file doesn't specify type.
+        // If it's a TV show, you may need to add a toggle.
+        iframe.src = `https://www.vidking.net/embed/movie/${id}`;
+        playerWrapper.style.display = 'block';
+    }
+
+    async function searchInFile() {
+        const urlInput = document.getElementById('imdbUrl').value;
+        const match = urlInput.match(/tt\d+/);
+
+        if (!match) {
+            showError("Invalid IMDb URL format.");
+            return;
+        }
+
+        const targetImdbId = match[0];
+        statusEl.innerText = "Searching local file (this may take a moment)...";
+        errorEl.style.display = 'none';
+
+        try {
+            // Fetch the 17mb file
+            const response = await fetch(FILE_URL);
+            if (!response.ok) throw new Error("Could not load mapping.txt file.");
+            
+            const text = await response.text();
+            
+            /** * SEARCH LOGIC:
+             * Using a Regular Expression to find the line ending in the specific IMDb ID.
+             * It looks for digits (TMDB ID) followed immediately by the target IMDb ID.
+             */
+            const regex = new RegExp(`(\\d+)${targetImdbId}`, 'g');
+            const found = regex.exec(text);
+
+            if (found && found[1]) {
+                const tmdbId = found[1];
+                statusEl.innerText = `Found! TMDB ID: ${tmdbId}`;
+                setPlayer(tmdbId);
+            } else {
+                throw new Error("IMDb ID not found in mapping file.");
+            }
+
+        } catch (err) {
+            showError(err.message);
+            statusEl.innerText = "Search failed.";
+        }
+    }
+
+    function playDirect() {
+        const id = document.getElementById('tmdbIdInput').value;
+        if (id) setPlayer(id);
+    }
+
+    function showError(msg) {
+        errorEl.innerText = msg;
+        errorEl.style.display = 'block';
+        playerWrapper.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
