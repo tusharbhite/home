@@ -62,11 +62,18 @@
     <div id="playerWrapper" class="video-container">
         <iframe id="videoPlayer" src="" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
     </div>
+
+    <div class="section">
+        <br><br>
+        <a href="https://tusharbhite.github.io/home/projects/movies/database.html"><button>All Movies Database</button></a>
+    </div>
+    <br>
 </div>
 
 <script>
     const MAPPING_FILE = 'mapping.txt';
     const TITLE_FILE = 'title-mapping.txt';
+    var param2="";
 
     const playerWrapper = document.getElementById('playerWrapper');
     const iframe = document.getElementById('videoPlayer');
@@ -81,6 +88,7 @@
         
         if (tmdbId && /^\d+$/.test(tmdbId)) {
             console.log("Auto-loading TMDB ID:", tmdbId);
+            param2="?autoPlay=true";
             setPlayer(tmdbId);
         }
     };
