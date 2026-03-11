@@ -3,116 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Large Dataset Viewer</title>
+    <title>Advanced Movie Database</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; background: #f9f9f9; }
-        .controls { margin-bottom: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-        table { width: 100%; border-collapse: collapse; background: white; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background: #007bff; color: white; position: sticky; top: 0; }
-        tr:nth-child(even) { background: #f2f2f2; }
+        :root { --primary: #007bff; --success: #28a745; --dark: #343a40; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background: #f0f2f5; color: #333; }
         
-        .pagination { display: flex; gap: 5px; margin-top: 20px; flex-wrap: wrap; }
-        .page-btn { 
-            padding: 8px 12px; border: 1px solid #ccc; background: white; cursor: pointer; border-radius: 4px; 
-        }
-        .page-btn.active { background: #007bff; color: white; border-color: #007bff; }
-        .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .info { margin-bottom: 10px; font-weight: bold; }
+        /* Search Section */
+        .search-container { max-width: 900px; margin: 0 auto 20px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        input[type="text"] { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
+        button.search-btn { padding: 0 25px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        
+        /* Progress Bar */
+        .progress-wrapper { width: 100%; background: #eee; height: 8px; border-radius: 4px; overflow: hidden; display: none; margin-bottom: 10px; }
+        #progressBar { width: 0%; height: 100%; background: var(--primary); transition: width 0.1s; }
+
+        /* Table Styles */
+        .table-wrapper { overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th { background: var(--dark); color: white; padding: 15px; text-align: left; position: sticky; top: 0; }
+        td { padding: 12px 15px; border-bottom: 1px solid #eee; }
+        tr:hover { background-color: #f8f9fa; }
+
+        /* Buttons in Table */
+        .action-btns { display: flex; gap: 8px; }
+        .btn-copy { background: #6c757d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        .btn-watch { background: var(--success); color: white; text-decoration: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .btn-copy:active { transform: scale(0.95); }
+
+        /* Pagination */
+        .pagination-container { margin-top: 20px; display: flex; justify-content: center; gap: 5px; flex-wrap: wrap; }
+        .page-btn { padding: 8px 14px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 4px; }
+        .page-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .page-btn:disabled { background: #eee; cursor: not-allowed; }
     </style>
 </head>
 <body>
 
-    <h2>Movie Database Viewer</h2>
-    <div class="info" id="dataInfo">Loading data...</div>
-
-    <div class="controls">
-        <button class="page-btn" id="prevBtn">« Previous</button>
-        <div id="pageNumbers" class="pagination"></div>
-        <button class="page-btn" id="nextBtn">Next »</button>
+<div class="search-container">
+    <h2>Movie Library Explorer</h2>
+    <div class="input-group">
+        <input type="text" id="searchInput" placeholder="Search by movie title...">
+        <button class="search-btn" onclick="handleSearch()">Search</button>
     </div>
+    <div class="progress-wrapper" id="progressWrapper">
+        <div id="progressBar"></div>
+    </div>
+    <div id="statusInfo">Loading file...</div>
+</div>
 
+<div class="table-wrapper">
     <table id="movieTable">
         <thead>
             <tr>
                 <th>TMDB ID</th>
                 <th>Title</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody id="tableBody"></tbody>
     </table>
+</div>
 
-    <script>
-        let allData = [];
-        let currentPage = 1;
-        const rowsPerPage = 50000; // As requested
+<div class="pagination-container" id="pagination"></div>
 
-        async function init() {
-            try {
-                const response = await fetch('title-mapping.txt');
-                const text = await response.text();
-                
-                // Parse lines and filter out empty ones
-                allData = text.trim().split('\n')
-                    .map(line => line.split('*#'))
-                    .filter(parts => parts.length === 2);
+<script>
+    let masterData = []; // Original data
+    let filteredData = []; // Search results
+    let currentPage = 1;
+    const rowsPerPage = 50000;
 
-                renderTable();
-                renderPagination();
-            } catch (err) {
-                document.getElementById('dataInfo').textContent = "Error loading file.";
-            }
-        }
-
-        function renderTable() {
-            const start = (currentPage - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const pageData = allData.slice(start, end);
+    // Load Data
+    async function loadData() {
+        try {
+            const response = await fetch('title-mapping.txt');
+            const text = await response.text();
+            masterData = text.trim().split('\n').map(line => {
+                const parts = line.split('*#');
+                return { id: parts[0]?.trim(), title: parts[1]?.trim() };
+            }).filter(item => item.id && item.title);
             
-            const tableBody = document.getElementById('tableBody');
-            tableBody.innerHTML = pageData.map(item => `
-                <tr>
-                    <td>${item[0].trim()}</td>
-                    <td>${item[1].trim()}</td>
-                </tr>
-            `).join('');
-
-            document.getElementById('dataInfo').textContent = 
-                `Showing ${start + 1} to ${Math.min(end, allData.length)} of ${allData.length} records`;
+            filteredData = [...masterData];
+            updateUI();
+            document.getElementById('statusInfo').textContent = `Loaded ${masterData.length} records.`;
+        } catch (err) {
+            document.getElementById('statusInfo').textContent = "Error loading data file.";
         }
+    }
 
-        function renderPagination() {
-            const pageCount = Math.ceil(allData.length / rowsPerPage);
-            const container = document.getElementById('pageNumbers');
-            container.innerHTML = '';
+    // Search Logic with Precedence
+    function handleSearch() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        const wrapper = document.getElementById('progressWrapper');
+        const bar = document.getElementById('progressBar');
+        
+        wrapper.style.display = 'block';
+        bar.style.width = '0%';
 
-            for (let i = 1; i <= pageCount; i++) {
-                const btn = document.createElement('button');
-                btn.innerText = i;
-                btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
-                btn.onclick = () => {
-                    currentPage = i;
-                    updateUI();
-                };
-                container.appendChild(btn);
+        // Simulate progress for better UX
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 20;
+            bar.style.width = progress + '%';
+            if (progress >= 100) {
+                clearInterval(interval);
+                executeFilter(query);
+                wrapper.style.display = 'none';
             }
+        }, 50);
+    }
 
-            document.getElementById('prevBtn').disabled = currentPage === 1;
-            document.getElementById('nextBtn').disabled = currentPage === pageCount;
+    function executeFilter(query) {
+        if (!query) {
+            filteredData = [...masterData];
+        } else {
+            // Priority 1: Exact Match
+            const exact = [];
+            // Priority 2: Starts With
+            const startsWith = [];
+            // Priority 3: Contains
+            const contains = [];
+
+            masterData.forEach(item => {
+                const title = item.title.toLowerCase();
+                if (title === query) {
+                    exact.push(item);
+                } else if (title.startsWith(query)) {
+                    startsWith.push(item);
+                } else if (title.includes(query)) {
+                    contains.push(item);
+                }
+            });
+
+            filteredData = [...exact, ...startsWith, ...contains];
         }
 
-        function updateUI() {
-            renderTable();
-            renderPagination();
-            window.scrollTo(0, 0); // Scroll to top when changing page
+        currentPage = 1;
+        updateUI();
+        document.getElementById('statusInfo').textContent = `Found ${filteredData.length} matches.`;
+    }
+
+    // UI Rendering
+    function updateUI() {
+        renderTable();
+        renderPagination();
+    }
+
+    function renderTable() {
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageItems = filteredData.slice(start, end);
+        
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = pageItems.map(item => `
+            <tr>
+                <td><strong>${item.id}</strong></td>
+                <td>${item.title}</td>
+                <td class="action-btns">
+                    <button class="btn-copy" onclick="copyId('${item.id}')">Copy ID</button>
+                    <a href="https://tusharbhite.github.io/home/projects/movies/movies.html?tmdbid=${item.id}" 
+                       target="_blank" class="btn-watch">Watch</a>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function renderPagination() {
+        const pageCount = Math.ceil(filteredData.length / rowsPerPage);
+        const container = document.getElementById('pagination');
+        container.innerHTML = '';
+
+        if (pageCount <= 1) return;
+
+        for (let i = 1; i <= pageCount; i++) {
+            const btn = document.createElement('button');
+            btn.innerText = i;
+            btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+            btn.onclick = () => {
+                currentPage = i;
+                updateUI();
+                window.scrollTo(0,0);
+            };
+            container.appendChild(btn);
         }
+    }
 
-        document.getElementById('prevBtn').onclick = () => { if(currentPage > 1) { currentPage--; updateUI(); } };
-        document.getElementById('nextBtn').onclick = () => { 
-            if(currentPage < Math.ceil(allData.length / rowsPerPage)) { currentPage++; updateUI(); } 
-        };
+    // Helper Functions
+    function copyId(id) {
+        navigator.clipboard.writeText(id).then(() => {
+            alert('TMDB ID ' + id + ' copied to clipboard!');
+        });
+    }
 
-        init();
-    </script>
+    // Initialize
+    loadData();
+
+    // Allow "Enter" key to search
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSearch();
+    });
+</script>
+
 </body>
 </html>
