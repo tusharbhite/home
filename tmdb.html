@@ -122,9 +122,9 @@
 
     <div class="controls">
         <div class="lang-selector" id="langGroup">
-            <label><input type="radio" name="lang" value="db-marathi.txt" checked> Marathi</label>
-            <label><input type="radio" name="lang" value="db-hindi.txt"> Hindi</label>
-            <label><input type="radio" name="lang" value="db-english.txt"> English</label>
+            <label><input type="radio" name="lang" value="/home/projects/movies/db-marathi.txt" checked> Marathi</label>
+            <label><input type="radio" name="lang" value="/home/projects/movies/db-hindi.txt"> Hindi</label>
+            <label><input type="radio" name="lang" value="/home/projects/movies/db-english.txt"> English</label>
         </div>
         <input type="text" id="searchBox" placeholder="Search movies...">
     </div>
@@ -181,7 +181,7 @@
     const rowsPerPage = 100;
     let currentMovieId = null; // Track ID for the player
 
-    window.onload = () => loadData('db-marathi.txt');
+    window.onload = () => loadData('/home/projects/movies/db-marathi.txt');
 
     document.getElementById('langGroup').addEventListener('change', (e) => {
         loadData(e.target.value);
