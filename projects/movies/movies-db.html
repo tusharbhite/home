@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie DB Viewer</title>
+    <style>
+        :root {
+            --primary: #e50914;
+            --dark: #141414;
+            --light: #ffffff;
+            --gray: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container { max-width: 1000px; margin: auto; }
+
+        /* Controls Section */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: #222;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .lang-selector label { margin-right: 15px; cursor: pointer; }
+
+        #searchBox {
+            padding: 10px;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 4px;
+            border: none;
+        }
+
+        /* Table Styling */
+        .table-container { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1f1f1f;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray);
+            cursor: pointer;
+        }
+        tr:hover { background: #2a2a2a; }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+        button {
+            padding: 8px 12px;
+            background: var(--gray);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        button.active { background: var(--primary); }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #222;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .modal-content img { width: 200px; border-radius: 4px; margin-bottom: 15px; }
+        .watch-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .controls { flex-direction: column; align-items: stretch; }
+            #searchBox { max-width: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Movie Database</h2>
+
+    <div class="controls">
+        <div class="lang-selector" id="langGroup">
+            <label><input type="radio" name="lang" value="db-marathi.txt" checked> Marathi</label>
+            <label><input type="radio" name="lang" value="db-hindi.txt"> Hindi</label>
+            <label><input type="radio" name="lang" value="db-english.txt"> English</label>
+        </div>
+        <input type="text" id="searchBox" placeholder="Search movies...">
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Release Date</th>
+                </tr>
+            </thead>
+            <tbody id="movieBody"></tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <button onclick="changePage('first')">First</button>
+        <button onclick="changePage('prev')">Prev</button>
+        <span id="pageInfo">Page 1 of 1</span>
+        <button onclick="changePage('next')">Next</button>
+        <button onclick="changePage('last')">Last</button>
+        <input type="number" id="goToPage" style="width: 50px;" placeholder="No.">
+        <button onclick="jumpToPage()">Go</button>
+    </div>
+</div>
+
+<div id="movieModal" class="modal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()" id="modalContent">
+        <div id="movieDetailView">
+            <h3 id="modalTitle"></h3>
+            <img id="modalPoster" src="" alt="Poster">
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <a id="watchBtn" href="#" target="_blank" class="watch-btn">External Link</a>
+                <button onclick="loadPlayer()" class="watch-btn" style="background: #007bff;">Watch in Player</button>
+            </div>
+            <br>
+            <button onclick="closeModal()" style="background:none; color: gray; border:1px solid #444;">Close</button>
+        </div>
+
+        <div id="moviePlayerView" style="display: none;">
+            <div style="text-align: left; margin-bottom: 10px;">
+                <button onclick="backToDetails()" style="background: #444;">← Back</button>
+            </div>
+            <div id="iframeContainer"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let allData = [];
+    let filteredData = [];
+    let currentPage = 1;
+    const rowsPerPage = 100;
+    let currentMovieId = null; // Track ID for the player
+
+    window.onload = () => loadData('db-marathi.txt');
+
+    document.getElementById('langGroup').addEventListener('change', (e) => {
+        loadData(e.target.value);
+    });
+
+    document.getElementById('searchBox').addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        filteredData = allData.filter(m => m.title.toLowerCase().includes(term));
+        currentPage = 1;
+        renderTable();
+    });
+
+    async function loadData(filename) {
+        try {
+            const response = await fetch(filename);
+            const text = await response.text();
+            const lines = text.split('\n');
+            
+            allData = lines.map(line => {
+                const parts = line.split('$$');
+                if(parts.length < 4) return null;
+                return { id: parts[0], title: parts[1], date: parts[2], poster: parts[3]?.trim() };
+            }).filter(m => m !== null);
+
+            filteredData = [...allData];
+            currentPage = 1;
+            renderTable();
+        } catch (err) {
+            console.error("Error:", err);
+        }
+    }
+
+    function renderTable() {
+        const start = (currentPage - 1) * rowsPerPage;
+        const paginatedItems = filteredData.slice(start, start + rowsPerPage);
+        
+        document.getElementById('movieBody').innerHTML = paginatedItems.map(m => `
+            <tr onclick="showModal('${m.id}', '${m.title.replace(/'/g, "\\'")}', '${m.poster}')">
+                <td>${m.title}</td>
+                <td>${m.date}</td>
+            </tr>
+        `).join('');
+
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        document.getElementById('pageInfo').innerText = `Page ${currentPage} of ${totalPages || 1}`;
+    }
+
+    // Modal Control Functions
+    function showModal(id, title, poster) {
+        currentMovieId = id;
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalPoster').src = `https://image.tmdb.org/t/p/w200${poster}`;
+        document.getElementById('watchBtn').href = `https://tusharbhite.github.io/home/projects/movies/movies.html?tmdbid=${id}`;
+        
+        // Reset view to details
+        backToDetails();
+        
+        document.getElementById('movieModal').style.display = 'flex';
+    }
+
+    function loadPlayer() {
+        const container = document.getElementById('iframeContainer');
+        // Injecting iframe with the dynamic ID
+        container.innerHTML = `
+            <iframe 
+                src="https://www.vidking.net/embed/movie/${currentMovieId}" 
+                width="100%" 
+                height="400" 
+                frameborder="0" 
+                allowfullscreen>
+            </iframe>`;
+        
+        document.getElementById('movieDetailView').style.display = 'none';
+        document.getElementById('moviePlayerView').style.display = 'block';
+        
+        // Expand modal for player
+        document.getElementById('modalContent').style.maxWidth = '800px';
+    }
+
+    function backToDetails() {
+        document.getElementById('iframeContainer').innerHTML = ''; // Stop video playback
+        document.getElementById('movieDetailView').style.display = 'block';
+        document.getElementById('moviePlayerView').style.display = 'none';
+        document.getElementById('modalContent').style.maxWidth = '400px';
+    }
+
+    function closeModal() {
+        document.getElementById('iframeContainer').innerHTML = '';
+        document.getElementById('movieModal').style.display = 'none';
+    }
+
+    // Pagination Helpers
+    function changePage(dir) {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (dir === 'first') currentPage = 1;
+        else if (dir === 'last') currentPage = totalPages;
+        else if (dir === 'next' && currentPage < totalPages) currentPage++;
+        else if (dir === 'prev' && currentPage > 1) currentPage--;
+        renderTable();
+    }
+
+    function jumpToPage() {
+        const val = parseInt(document.getElementById('goToPage').value);
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (val >= 1 && val <= totalPages) {
+            currentPage = val;
+            renderTable();
+        }
+    }
+</script>
+
+</body>
+</html>
