@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie DB Viewer</title>
+    <title>Movie & Web Series DB</title>
     <style>
         :root {
             --primary: #e50914;
@@ -35,7 +35,7 @@
             justify-content: space-between;
         }
 
-        .lang-selector label { margin-right: 15px; cursor: pointer; }
+        .lang-selector label { margin-right: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 
         #searchBox {
             padding: 10px;
@@ -43,10 +43,12 @@
             max-width: 300px;
             border-radius: 4px;
             border: none;
+            background: #444;
+            color: white;
         }
 
         /* Table Styling */
-        .table-container { overflow-x: auto; }
+        .table-container { overflow-x: auto; border-radius: 8px; }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -77,9 +79,8 @@
             cursor: pointer;
             border-radius: 4px;
         }
-        button:disabled { opacity: 0.5; cursor: not-allowed; }
-        button.active { background: var(--primary); }
-
+        button:hover { background: #444; }
+        
         /* Modal */
         .modal {
             display: none;
@@ -97,6 +98,7 @@
             text-align: center;
             max-width: 400px;
             width: 90%;
+            transition: max-width 0.3s ease;
         }
         .modal-content img { width: 200px; border-radius: 4px; margin-bottom: 15px; }
         .watch-btn {
@@ -107,6 +109,8 @@
             text-decoration: none;
             border-radius: 4px;
             font-weight: bold;
+            border: none;
+            cursor: pointer;
         }
 
         @media (max-width: 600px) {
@@ -118,15 +122,16 @@
 <body>
 
 <div class="container">
-    <h2>Movie Database</h2>
+    <h2>Movie & Series Database</h2>
 
     <div class="controls">
         <div class="lang-selector" id="langGroup">
             <label><input type="radio" name="lang" value="/home/projects/movies/db-marathi.txt" checked> Marathi</label>
             <label><input type="radio" name="lang" value="/home/projects/movies/db-hindi.txt"> Hindi</label>
             <label><input type="radio" name="lang" value="/home/projects/movies/db-english.txt"> English</label>
+            <label><input type="radio" name="lang" value="/home/projects/movies/db-web-series.txt"> Web Series</label>
         </div>
-        <input type="text" id="searchBox" placeholder="Search movies...">
+        <input type="text" id="searchBox" placeholder="Search by title...">
     </div>
 
     <div class="table-container">
@@ -147,7 +152,7 @@
         <span id="pageInfo">Page 1 of 1</span>
         <button onclick="changePage('next')">Next</button>
         <button onclick="changePage('last')">Last</button>
-        <input type="number" id="goToPage" style="width: 50px;" placeholder="No.">
+        <input type="number" id="goToPage" style="width: 50px; padding: 5px;" placeholder="No.">
         <button onclick="jumpToPage()">Go</button>
     </div>
 </div>
@@ -167,7 +172,7 @@
 
         <div id="moviePlayerView" style="display: none;">
             <div style="text-align: left; margin-bottom: 10px;">
-                <button onclick="backToDetails()" style="background: #444;">← Back</button>
+                <button onclick="backToDetails()" style="background: #444;">← Back to Details</button>
             </div>
             <div id="iframeContainer"></div>
         </div>
@@ -179,7 +184,8 @@
     let filteredData = [];
     let currentPage = 1;
     const rowsPerPage = 100;
-    let currentMovieId = null; // Track ID for the player
+    let currentMovieId = null;
+    let currentFileType = 'movie'; // Tracks if current list is movie or series
 
     window.onload = () => loadData('/home/projects/movies/db-marathi.txt');
 
@@ -196,6 +202,9 @@
 
     async function loadData(filename) {
         try {
+            // Set file type based on filename
+            currentFileType = filename.includes('web-series') ? 'series' : 'movie';
+            
             const response = await fetch(filename);
             const text = await response.text();
             const lines = text.split('\n');
@@ -210,7 +219,8 @@
             currentPage = 1;
             renderTable();
         } catch (err) {
-            console.error("Error:", err);
+            console.error("Error loading data:", err);
+            document.getElementById('movieBody').innerHTML = "<tr><td colspan='2'>Error loading file. Check paths.</td></tr>";
         }
     }
 
@@ -229,27 +239,33 @@
         document.getElementById('pageInfo').innerText = `Page ${currentPage} of ${totalPages || 1}`;
     }
 
-    // Modal Control Functions
     function showModal(id, title, poster) {
         currentMovieId = id;
         document.getElementById('modalTitle').innerText = title;
         document.getElementById('modalPoster').src = `https://image.tmdb.org/t/p/w200${poster}`;
         document.getElementById('watchBtn').href = `https://tusharbhite.github.io/home/projects/movies/movies.html?tmdbid=${id}`;
         
-        // Reset view to details
         backToDetails();
-        
         document.getElementById('movieModal').style.display = 'flex';
     }
 
     function loadPlayer() {
         const container = document.getElementById('iframeContainer');
-        // Injecting iframe with the dynamic ID
+        let embedUrl = "";
+
+        if (currentFileType === 'series') {
+            // Web Series URL format
+            embedUrl = `https://www.vidking.net/embed/tv/${currentMovieId}/1/1?color=e50914&autoPlay=true&nextEpisode=true&episodeSelector=true`;
+        } else {
+            // Movie URL format
+            embedUrl = `https://www.vidking.net/embed/movie/${currentMovieId}?autoPlay=true`;
+        }
+
         container.innerHTML = `
             <iframe 
-                src="https://www.vidking.net/embed/movie/${currentMovieId}?autoPlay=true" 
+                src="${embedUrl}" 
                 width="100%" 
-                height="400" 
+                height="500" 
                 frameborder="0" 
                 sandbox="allow-scripts allow-same-origin"
                 allowfullscreen>
@@ -257,13 +273,11 @@
         
         document.getElementById('movieDetailView').style.display = 'none';
         document.getElementById('moviePlayerView').style.display = 'block';
-        
-        // Expand modal for player
-        document.getElementById('modalContent').style.maxWidth = '800px';
+        document.getElementById('modalContent').style.maxWidth = '900px'; // Wide view for player
     }
 
     function backToDetails() {
-        document.getElementById('iframeContainer').innerHTML = ''; // Stop video playback
+        document.getElementById('iframeContainer').innerHTML = ''; 
         document.getElementById('movieDetailView').style.display = 'block';
         document.getElementById('moviePlayerView').style.display = 'none';
         document.getElementById('modalContent').style.maxWidth = '400px';
@@ -274,7 +288,6 @@
         document.getElementById('movieModal').style.display = 'none';
     }
 
-    // Pagination Helpers
     function changePage(dir) {
         const totalPages = Math.ceil(filteredData.length / rowsPerPage);
         if (dir === 'first') currentPage = 1;
