@@ -1,12 +1,186 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Movies</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Explorer | Auto-Load Enabled</title>
+    <style>
+        :root { --accent: #e50914; --bg: #0f0f0f; --card: #1e1e1e; --input: #2b2b2b; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: #efefef; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .container { width: 100%; max-width: 900px; background: var(--card); padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .section { margin-bottom: 20px; }
+        .label { font-size: 0.85rem; color: #aaa; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .input-row { display: flex; gap: 10px; margin-bottom: 10px; }
+        input { flex: 1; padding: 12px; border-radius: 6px; border: 1px solid #333; background: var(--input); color: white; outline: none; }
+        input:focus { border-color: var(--accent); }
+        button { padding: 12px 20px; border-radius: 6px; border: none; background: var(--accent); color: white; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        button:hover { background: #ff1e27; }
+        
+        #resultsList { background: var(--input); border-radius: 6px; overflow: hidden; display: none; border: 1px solid #444; max-height: 250px; overflow-y: auto; }
+        .result-item { padding: 12px; border-bottom: 1px solid #444; cursor: pointer; }
+        .result-item:hover { background: #3d3d3d; color: var(--accent); }
+
+        .video-container { margin-top: 25px; width: 100%; background: #000; border-radius: 8px; overflow: hidden; display: none; aspect-ratio: 16 / 9; }
+        .error { color: #ff4d4d; font-size: 0.9rem; margin-top: 10px; display: none; background: rgba(255, 77, 77, 0.1); padding: 10px; border-radius: 5px; }
+        .loader { color: var(--accent); font-size: 0.8rem; display: none; margin-bottom: 10px; }
+    </style>
 </head>
 <body>
-    <h1>Movie List</h1>
-    <ul>
-        <li><a href="projects/movies/mapping.txt">Mapping</a></li>
-        <li><a href="projects/movies/title-mapping.txt">Title Mapping</a></li>
-    </ul>
+
+<div class="container">
+    <h2 style="margin-top:0; color: var(--accent);">Media Explorer</h2>
+
+    <div id="fileStatus" class="loader">Processing data...</div>
+
+    <div class="section">
+        <div class="label">1. Search by Title</div>
+        <div class="input-row">
+            <input type="text" id="titleInput" placeholder="Enter movie title...">
+            <button onclick="searchByTitle()">Find Title</button>
+        </div>
+        <div id="resultsList"></div>
+    </div>
+
+    <div class="section">
+        <div class="label">2. Search by IMDb URL</div>
+        <div class="input-row">
+            <input type="text" id="imdbUrl" placeholder="https://www.imdb.com/title/tt...">
+            <button onclick="searchByImdb()">Scan Mapping</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="label">3. Direct TMDB ID or URL</div>
+        <div class="input-row">
+            <input type="text" id="tmdbInput" placeholder="Enter ID (e.g. 278)">
+            <button onclick="searchByTmdb()">Play Now</button>
+        </div>
+    </div>
+
+    <p id="errorMessage" class="error"></p>
+
+    <div id="playerWrapper" class="video-container">
+        <iframe id="videoPlayer" src="" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="section">
+        <br><br>
+        <a href="https://tusharbhite.github.io/home/projects/movies/database.html"><button>All Movies Database</button></a>
+    </div>
+    <br>
+</div>
+
+<script>
+    const MAPPING_FILE = 'mapping.txt';
+    const TITLE_FILE = 'title-mapping.txt';
+    var param2="";
+
+    const playerWrapper = document.getElementById('playerWrapper');
+    const iframe = document.getElementById('videoPlayer');
+    const errorEl = document.getElementById('errorMessage');
+    const resultsList = document.getElementById('resultsList');
+    const statusEl = document.getElementById('fileStatus');
+
+    // --- NEW: Handle Query Parameters on Page Load ---
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tmdbId = urlParams.get('tmdbid');
+        
+        if (tmdbId && /^\d+$/.test(tmdbId)) {
+            console.log("Auto-loading TMDB ID:", tmdbId);
+            param2="?autoPlay=true";
+            setPlayer(tmdbId);
+        }
+    };
+
+    function showError(msg) {
+        errorEl.innerText = msg;
+        errorEl.style.display = 'block';
+        playerWrapper.style.display = 'none';
+        statusEl.style.display = 'none';
+    }
+
+    function setPlayer(tmdbId) {
+        errorEl.style.display = 'none';
+        resultsList.style.display = 'none';
+        iframe.src = `https://www.vidking.net/embed/movie/${tmdbId}`;
+        playerWrapper.style.display = 'block';
+        playerWrapper.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // METHOD 1: Title Mapping
+    async function searchByTitle() {
+        const query = document.getElementById('titleInput').value.toLowerCase().trim();
+        if (!query) return;
+        statusEl.style.display = 'block';
+
+        try {
+            const response = await fetch(TITLE_FILE);
+            const text = await response.text();
+            const lines = text.split('\n');
+
+            const matches = lines.filter(line => {
+                const titlePart = line.split('*#')[1];
+                return titlePart && titlePart.toLowerCase().includes(query);
+            }).slice(0, 10);
+
+            statusEl.style.display = 'none';
+            if (matches.length > 0) {
+                resultsList.innerHTML = '';
+                resultsList.style.display = 'block';
+                matches.forEach(match => {
+                    const [id, title] = match.split('*#');
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.innerText = title;
+                    div.onclick = () => setPlayer(id.trim());
+                    resultsList.appendChild(div);
+                });
+            } else {
+                showError("No title matches found.");
+            }
+        } catch (err) { showError("Could not load title-mapping.txt"); }
+    }
+
+    // METHOD 2: IMDb to TMDB Mapping
+    async function searchByImdb() {
+        const urlInput = document.getElementById('imdbUrl').value;
+        const imdbMatch = urlInput.match(/tt\d+/);
+
+        if (!imdbMatch) {
+            showError("Invalid IMDb URL format.");
+            return;
+        }
+
+        statusEl.style.display = 'block';
+        const targetImdbId = imdbMatch[0];
+
+        try {
+            const response = await fetch(MAPPING_FILE);
+            const text = await response.text();
+            const regex = new RegExp(`(\\d+)${targetImdbId}`, 'g');
+            const found = regex.exec(text);
+
+            statusEl.style.display = 'none';
+            if (found && found[1]) {
+                setPlayer(found[1]);
+            } else {
+                showError("IMDb ID not found in mapping file.");
+            }
+        } catch (err) { showError("Error reading mapping.txt"); }
+    }
+
+    // METHOD 3: Direct TMDB
+    function searchByTmdb() {
+        const input = document.getElementById('tmdbInput').value.trim();
+        const tmdbIdMatch = input.match(/\d+/);
+        if (tmdbIdMatch) {
+            setPlayer(tmdbIdMatch[0]);
+        } else {
+            showError("Please enter a valid TMDB ID.");
+        }
+    }
+</script>
+
 </body>
 </html>
