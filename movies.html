@@ -62,7 +62,7 @@
     <div class="section">
         <div class="label">4. Web Series (TMDB ID + S/E)</div>
         <div class="input-row">
-            <input type="text" id="seriesId" placeholder="Series ID (e.g. 119051)">
+            <input type="text" id="seriesId" placeholder="TMDB URL or Series ID (e.g. 119051)">
             <input type="number" id="seasonNum" class="short-input" placeholder="S" value="1">
             <input type="number" id="episodeNum" class="short-input" placeholder="E" value="1">
             <button onclick="searchSeries()">Play Series</button>
@@ -185,15 +185,26 @@
     }
 
     // NEW METHOD 4: Web Series TMDB
+    // UPDATED METHOD 4: Web Series TMDB (Handles ID or URL)
     function searchSeries() {
-        const id = document.getElementById('seriesId').value.trim();
+        const inputVal = document.getElementById('seriesId').value.trim();
         const season = document.getElementById('seasonNum').value || 1;
         const episode = document.getElementById('episodeNum').value || 1;
         
-        if (/^\d+$/.test(id)) {
-            setPlayer(id, 'tv', season, episode);
+        // This regex looks for digits that follow "/movie/", "/tv/", or just standalone digits
+        const idMatch = inputVal.match(/(?:movie|tv)\/(\d+)|^\d+$/);
+        
+        let finalId = null;
+
+        if (idMatch) {
+            // If it was a URL, the ID is in capture group 1. If it was just an ID, it's the whole match.
+            finalId = idMatch[1] || idMatch[0];
+        }
+
+        if (finalId) {
+            setPlayer(finalId, 'tv', season, episode);
         } else {
-            showError("Please enter a valid Series TMDB ID.");
+            showError("Please enter a valid TMDB ID or URL (e.g., .../tv/119051)");
         }
     }
 </script>
