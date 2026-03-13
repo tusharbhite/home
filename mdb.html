@@ -3,308 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie & Web Series DB</title>
+    <title>Media Explorer | Pro Search</title>
     <style>
-        :root {
-            --primary: #e50914;
-            --dark: #141414;
-            --light: #ffffff;
-            --gray: #333;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark);
-            color: var(--light);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container { max-width: 1000px; margin: auto; }
-
-        /* Controls Section */
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            background: #222;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .lang-selector label { margin-right: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
-
-        #searchBox {
-            padding: 10px;
-            width: 100%;
-            max-width: 300px;
-            border-radius: 4px;
-            border: none;
-            background: #444;
-            color: white;
-        }
-
-        /* Table Styling */
-        .table-container { overflow-x: auto; border-radius: 8px; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #1f1f1f;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--gray);
-            cursor: pointer;
-        }
-        tr:hover { background: #2a2a2a; }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-top: 20px;
-            justify-content: center;
-            align-items: center;
-        }
-        button {
-            padding: 8px 12px;
-            background: var(--gray);
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        button:hover { background: #444; }
+        :root { --accent: #e50914; --bg: #0f0f0f; --card: #1e1e1e; --input: #2b2b2b; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: #efefef; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .container { width: 100%; max-width: 900px; background: var(--card); padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .section { margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+        .section:last-of-type { border-bottom: none; }
+        .label { font-size: 0.85rem; color: #aaa; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .input-row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        input { flex: 1; min-width: 120px; padding: 12px; border-radius: 6px; border: 1px solid #333; background: var(--input); color: white; outline: none; }
+        input:focus { border-color: var(--accent); }
+        .short-input { flex: 0 0 80px; }
+        button { padding: 12px 20px; border-radius: 6px; border: none; background: var(--accent); color: white; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        button:hover { background: #ff1e27; }
         
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background: #222;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            transition: max-width 0.3s ease;
-        }
-        .modal-content img { width: 200px; border-radius: 4px; margin-bottom: 15px; }
-        .watch-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-        }
+        /* New Poster Grid Styles */
+        .api-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 15px; }
+        .poster-card { background: #111; border-radius: 6px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid #333; position: relative; }
+        .poster-card:hover { transform: scale(1.05); border-color: var(--accent); }
+        .poster-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
+        .poster-info { padding: 8px; font-size: 0.75rem; text-align: center; }
+        .badge { position: absolute; top: 5px; right: 5px; background: var(--accent); font-size: 10px; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
 
-        @media (max-width: 600px) {
-            .controls { flex-direction: column; align-items: stretch; }
-            #searchBox { max-width: none; }
-        }
+        #resultsList { background: var(--input); border-radius: 6px; overflow: hidden; display: none; border: 1px solid #444; max-height: 250px; overflow-y: auto; margin-bottom: 15px; }
+        .result-item { padding: 12px; border-bottom: 1px solid #444; cursor: pointer; }
+        .result-item:hover { background: #3d3d3d; color: var(--accent); }
+
+        .video-container { margin-top: 25px; width: 100%; background: #000; border-radius: 8px; overflow: hidden; display: none; aspect-ratio: 16 / 9; }
+        .error { color: #ff4d4d; font-size: 0.9rem; margin-top: 10px; display: none; background: rgba(255, 77, 77, 0.1); padding: 10px; border-radius: 5px; }
+        .loader { color: var(--accent); font-size: 0.8rem; display: none; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Movie & Series Database</h2>
+    <h2 style="margin-top:0; color: var(--accent);">Media Explorer</h2>
 
-    <div class="controls">
-        <div class="lang-selector" id="langGroup">
-            <label><input type="radio" name="lang" value="/home/projects/movies/db-marathi.txt" checked> Marathi</label>
-            <label><input type="radio" name="lang" value="/home/projects/movies/db-hindi.txt"> Hindi</label>
-            <label><input type="radio" name="lang" value="/home/projects/movies/db-english.txt"> English</label>
-            <label><input type="radio" name="lang" value="/home/projects/movies/db-web-series.txt"> Web Series</label>
+    <div id="fileStatus" class="loader">Processing request...</div>
+
+    <div class="section" style="background: rgba(229, 9, 20, 0.05); padding: 15px; border-radius: 8px;">
+        <div class="label" style="color: var(--accent);">Search Online (Auto-Find ID)</div>
+        <div class="input-row">
+            <input type="text" id="apiSearchInput" placeholder="Enter movie or series name (e.g. Inception, Stranger Things)...">
+            <button onclick="searchOnline()">Search Online</button>
         </div>
-        <input type="text" id="searchBox" placeholder="Search by title...">
+        <div id="apiResults" class="api-results"></div>
     </div>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Release Date</th>
-                </tr>
-            </thead>
-            <tbody id="movieBody"></tbody>
-        </table>
+    <div class="section">
+        <div class="label">1. Search Local Database by Title</div>
+        <div class="input-row">
+            <input type="text" id="titleInput" placeholder="Enter movie title...">
+            <button onclick="searchByTitle()">Find Title</button>
+        </div>
+        <div id="resultsList"></div>
     </div>
 
-    <div class="pagination">
-        <button onclick="changePage('first')">First</button>
-        <button onclick="changePage('prev')">Prev</button>
-        <span id="pageInfo">Page 1 of 1</span>
-        <button onclick="changePage('next')">Next</button>
-        <button onclick="changePage('last')">Last</button>
-        <input type="number" id="goToPage" style="width: 50px; padding: 5px;" placeholder="No.">
-        <button onclick="jumpToPage()">Go</button>
+    <div class="section">
+        <div class="label">2. Search Movie by IMDb URL</div>
+        <div class="input-row">
+            <input type="text" id="imdbUrl" placeholder="https://www.imdb.com/title/tt...">
+            <button onclick="searchByImdb()">Scan Mapping</button>
+        </div>
     </div>
-</div>
 
-<div id="movieModal" class="modal" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()" id="modalContent">
-        <div id="movieDetailView">
-            <h3 id="modalTitle"></h3>
-            <img id="modalPoster" src="" alt="Poster">
-            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <a id="watchBtn" href="#" target="_blank" class="watch-btn">External Link</a>
-                <button onclick="loadPlayer()" class="watch-btn" style="background: #007bff;">Watch in Player</button>
-            </div>
-            <br>
-            <button onclick="closeModal()" style="background:none; color: gray; border:1px solid #444;">Close</button>
+    <div class="section">
+        <div class="label">3. Direct Movie TMDB ID</div>
+        <div class="input-row">
+            <input type="text" id="tmdbInput" placeholder="Enter ID (e.g. 278)">
+            <button onclick="searchByTmdb()">Play Movie</button>
         </div>
+    </div>
 
-        <div id="moviePlayerView" style="display: none;">
-            <div style="text-align: left; margin-bottom: 10px;">
-                <button onclick="backToDetails()" style="background: #444;">← Back to Details</button>
-            </div>
-            <div id="iframeContainer"></div>
+    <div class="section">
+        <div class="label">4. Web Series (TMDB ID + S/E)</div>
+        <div class="input-row">
+            <input type="text" id="seriesId" placeholder="TMDB URL or Series ID (e.g. 119051)">
+            <input type="number" id="seasonNum" class="short-input" placeholder="S" value="1">
+            <input type="number" id="episodeNum" class="short-input" placeholder="E" value="1">
+            <button onclick="searchSeries()">Play Series</button>
         </div>
+    </div>
+
+    <p id="errorMessage" class="error"></p>
+
+    <div id="playerWrapper" class="video-container">
+        <iframe id="videoPlayer" src="" width="100%" height="100%" frameborder="0" sandbox="allow-scripts allow-same-origin" allowfullscreen></iframe>
     </div>
 </div>
 
 <script>
-    let allData = [];
-    let filteredData = [];
-    let currentPage = 1;
-    const rowsPerPage = 100;
-    let currentMovieId = null;
-    let currentFileType = 'movie'; // Tracks if current list is movie or series
+    const MAPPING_FILE = '/home/projects/movies/mapping.txt';
+    const TITLE_FILE = '/home/projects/movies/title-mapping.txt';
+    // YOUR GOOGLE SCRIPT URL
+    const DEPLOY_URL = "https://script.google.com/macros/s/AKfycbzwCBrQEre003L4PuM9_2sU6moQB7iv1pCafP6FG6VG95qv-Decngx5igUuFSM-hLjKqw/exec";
+    
+    const playerWrapper = document.getElementById('playerWrapper');
+    const iframe = document.getElementById('videoPlayer');
+    const errorEl = document.getElementById('errorMessage');
+    const resultsList = document.getElementById('resultsList');
+    const statusEl = document.getElementById('fileStatus');
+    const apiResultsGrid = document.getElementById('apiResults');
 
-    window.onload = () => loadData('/home/projects/movies/db-marathi.txt');
+    // --- NEW: Global Online Search Function ---
+    async function searchOnline() {
+        const query = document.getElementById('apiSearchInput').value.trim();
+        if (!query) return;
 
-    document.getElementById('langGroup').addEventListener('change', (e) => {
-        loadData(e.target.value);
-    });
+        statusEl.style.display = 'block';
+        apiResultsGrid.innerHTML = '';
+        errorEl.style.display = 'none';
 
-    document.getElementById('searchBox').addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        filteredData = allData.filter(m => m.title.toLowerCase().includes(term));
-        currentPage = 1;
-        renderTable();
-    });
-
-    async function loadData(filename) {
         try {
-            // Set file type based on filename
-            currentFileType = filename.includes('web-series') ? 'series' : 'movie';
+            const response = await fetch(`${DEPLOY_URL}?search=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            statusEl.style.display = 'none';
+
+            if (data.error) throw new Error(data.error);
+
+            // Combine movies and series for display
+            const allItems = [...(data.movies || []), ...(data.series || [])];
             
-            const response = await fetch(filename);
+            if (allItems.length === 0) {
+                showError("No online results found.");
+                return;
+            }
+
+            allItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'poster-card';
+                card.innerHTML = `
+                    <span class="badge">${item.type.toUpperCase()}</span>
+                    <img src="${item.poster || 'https://via.placeholder.com/200x300?text=No+Poster'}" alt="${item.title}">
+                    <div class="poster-info">
+                        <strong>${item.title}</strong><br>
+                        <span style="color:#888">${item.date.split('-')[0]}</span>
+                    </div>
+                `;
+                card.onclick = () => {
+                    if (item.type === 'movie') {
+                        setPlayer(item.id, 'movie');
+                    } else {
+                        // For series, we show the Season/Episode inputs in the original Section 4
+                        document.getElementById('seriesId').value = item.id;
+                        setPlayer(item.id, 'tv', 1, 1);
+                    }
+                };
+                apiResultsGrid.appendChild(card);
+            });
+
+        } catch (err) {
+            statusEl.style.display = 'none';
+            showError("API Error: " + err.message);
+        }
+    }
+
+    // --- EXISTING FUNCTIONS ---
+
+    function showError(msg) {
+        errorEl.innerText = msg;
+        errorEl.style.display = 'block';
+        playerWrapper.style.display = 'none';
+        statusEl.style.display = 'none';
+    }
+
+    function setPlayer(id, type = 'movie', season = 1, episode = 1) {
+        errorEl.style.display = 'none';
+        resultsList.style.display = 'none';
+        
+        let url = (type === 'tv') 
+            ? `https://www.vidking.net/embed/tv/${id}/${season}/${episode}?color=e50914&autoPlay=true&nextEpisode=true&episodeSelector=true`
+            : `https://www.vidking.net/embed/movie/${id}`;
+        
+        iframe.src = url;
+        playerWrapper.style.display = 'block';
+        playerWrapper.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function searchByTitle() {
+        const query = document.getElementById('titleInput').value.toLowerCase().trim();
+        if (!query) return;
+        statusEl.style.display = 'block';
+        try {
+            const response = await fetch(TITLE_FILE);
             const text = await response.text();
             const lines = text.split('\n');
-            
-            allData = lines.map(line => {
-                const parts = line.split('$$');
-                if(parts.length < 4) return null;
-                return { id: parts[0], title: parts[1], date: parts[2], poster: parts[3]?.trim() };
-            }).filter(m => m !== null);
-
-            filteredData = [...allData];
-            currentPage = 1;
-            renderTable();
-        } catch (err) {
-            console.error("Error loading data:", err);
-            document.getElementById('movieBody').innerHTML = "<tr><td colspan='2'>Error loading file. Check paths.</td></tr>";
-        }
+            const matches = lines.filter(line => {
+                const titlePart = line.split('*#')[1];
+                return titlePart && titlePart.toLowerCase().includes(query);
+            }).slice(0, 10);
+            statusEl.style.display = 'none';
+            if (matches.length > 0) {
+                resultsList.innerHTML = '';
+                resultsList.style.display = 'block';
+                matches.forEach(match => {
+                    const [id, title] = match.split('*#');
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.innerText = title;
+                    div.onclick = () => setPlayer(id.trim(), 'movie');
+                    resultsList.appendChild(div);
+                });
+            } else { showError("No title matches found."); }
+        } catch (err) { showError("Could not load mapping files."); }
     }
 
-    function renderTable() {
-        const start = (currentPage - 1) * rowsPerPage;
-        const paginatedItems = filteredData.slice(start, start + rowsPerPage);
-        
-        document.getElementById('movieBody').innerHTML = paginatedItems.map(m => `
-            <tr onclick="showModal('${m.id}', '${m.title.replace(/'/g, "\\'")}', '${m.poster}')">
-                <td>${m.title}</td>
-                <td>${m.date}</td>
-            </tr>
-        `).join('');
-
-        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-        document.getElementById('pageInfo').innerText = `Page ${currentPage} of ${totalPages || 1}`;
+    async function searchByImdb() {
+        const urlInput = document.getElementById('imdbUrl').value;
+        const imdbMatch = urlInput.match(/tt\d+/);
+        if (!imdbMatch) { showError("Invalid IMDb URL format."); return; }
+        statusEl.style.display = 'block';
+        try {
+            const response = await fetch(MAPPING_FILE);
+            const text = await response.text();
+            const regex = new RegExp(`(\\d+)${imdbMatch[0]}`, 'g');
+            const found = regex.exec(text);
+            statusEl.style.display = 'none';
+            if (found && found[1]) { setPlayer(found[1], 'movie'); } 
+            else { showError("IMDb ID not found."); }
+        } catch (err) { showError("Error reading mapping file."); }
     }
 
-    function showModal(id, title, poster) {
-        currentMovieId = id;
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalPoster').src = `https://image.tmdb.org/t/p/w200${poster}`;
-        document.getElementById('watchBtn').href = `https://tusharbhite.github.io/home/projects/movies/movies.html?tmdbid=${id}`;
-        
-        backToDetails();
-        document.getElementById('movieModal').style.display = 'flex';
+    function searchByTmdb() {
+        const input = document.getElementById('tmdbInput').value.trim();
+        const match = input.match(/\d+/);
+        if (match) setPlayer(match[0], 'movie');
+        else showError("Invalid TMDB ID.");
     }
 
-    function loadPlayer() {
-        const container = document.getElementById('iframeContainer');
-        let embedUrl = "";
-
-        if (currentFileType === 'series') {
-            // Web Series URL format
-            embedUrl = `https://www.vidking.net/embed/tv/${currentMovieId}/1/1?color=e50914&autoPlay=true&nextEpisode=true&episodeSelector=true`;
-        } else {
-            // Movie URL format
-            embedUrl = `https://www.vidking.net/embed/movie/${currentMovieId}?autoPlay=true`;
-        }
-
-        container.innerHTML = `
-            <iframe 
-                src="${embedUrl}" 
-                width="100%" 
-                height="500" 
-                frameborder="0" 
-                sandbox="allow-scripts allow-same-origin"
-                allowfullscreen>
-            </iframe>`;
-        
-        document.getElementById('movieDetailView').style.display = 'none';
-        document.getElementById('moviePlayerView').style.display = 'block';
-        document.getElementById('modalContent').style.maxWidth = '900px'; // Wide view for player
+    function searchSeries() {
+        const inputVal = document.getElementById('seriesId').value.trim();
+        const season = document.getElementById('seasonNum').value || 1;
+        const episode = document.getElementById('episodeNum').value || 1;
+        const idMatch = inputVal.match(/(?:movie|tv)\/(\d+)|^\d+$/);
+        const finalId = idMatch ? (idMatch[1] || idMatch[0]) : null;
+        if (finalId) setPlayer(finalId, 'tv', season, episode);
+        else showError("Invalid ID or URL.");
     }
 
-    function backToDetails() {
-        document.getElementById('iframeContainer').innerHTML = ''; 
-        document.getElementById('movieDetailView').style.display = 'block';
-        document.getElementById('moviePlayerView').style.display = 'none';
-        document.getElementById('modalContent').style.maxWidth = '400px';
-    }
-
-    function closeModal() {
-        document.getElementById('iframeContainer').innerHTML = '';
-        document.getElementById('movieModal').style.display = 'none';
-    }
-
-    function changePage(dir) {
-        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-        if (dir === 'first') currentPage = 1;
-        else if (dir === 'last') currentPage = totalPages;
-        else if (dir === 'next' && currentPage < totalPages) currentPage++;
-        else if (dir === 'prev' && currentPage > 1) currentPage--;
-        renderTable();
-    }
-
-    function jumpToPage() {
-        const val = parseInt(document.getElementById('goToPage').value);
-        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-        if (val >= 1 && val <= totalPages) {
-            currentPage = val;
-            renderTable();
-        }
-    }
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tmdbId = urlParams.get('tmdbid');
+        if (tmdbId && /^\d+$/.test(tmdbId)) setPlayer(tmdbId, 'movie');
+    };
 </script>
 
 </body>
