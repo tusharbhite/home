@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Media Explorer | Android TV</title>
+    <style>
+        :root { 
+            --accent: #e50914; 
+            --bg: #0f0f0f; 
+            --card: #1e1e1e; 
+            --input: #2b2b2b; 
+            --focus-border: #ffffff;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; 
+            background: var(--bg); 
+            color: #efefef; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 40px; /* Increased for TV Overscan */
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* TV Focus Highlight */
+        [tabindex]:focus, button:focus, input:focus {
+            outline: 4px solid var(--focus-border);
+            outline-offset: 2px;
+            background-color: #333 !important;
+            transform: scale(1.02);
+        }
+
+        .container { width: 95%; max-width: 1200px; background: var(--card); padding: 30px; border-radius: 12px; }
+        
+        .section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #333; }
+        
+        .label { font-size: 1.2rem; color: #aaa; margin-bottom: 15px; font-weight: bold; }
+
+        /* Input Wrapper for Clear and Mic buttons */
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: var(--input);
+            border-radius: 8px;
+            padding-right: 10px;
+            flex: 1;
+        }
+
+        .input-row { display: flex; gap: 15px; margin-bottom: 15px; align-items: stretch; }
+
+        input { 
+            flex: 1; 
+            padding: 18px; 
+            font-size: 1.3rem; 
+            border: none; 
+            background: transparent; 
+            color: white; 
+            outline: none; 
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        button { 
+            padding: 15px 30px; 
+            font-size: 1.2rem; 
+            border-radius: 8px; 
+            border: none; 
+            background: var(--accent); 
+            color: white; 
+            font-weight: bold; 
+        }
+
+        /* Grid layout for TV */
+        .api-results { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 25px; 
+            margin-top: 20px; 
+        }
+
+        .poster-card { 
+            background: #111; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            border: 2px solid transparent; 
+            transition: 0.2s;
+        }
+
+        .poster-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+        
+        .poster-info { padding: 12px; font-size: 1rem; text-align: center; }
+
+        .video-container { 
+            margin-top: 30px; 
+            width: 100%; 
+            background: #000; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            display: none; 
+            aspect-ratio: 16 / 9; 
+            border: 2px solid #333;
+        }
+
+        #resultsList { 
+            background: var(--input); 
+            border-radius: 8px; 
+            display: none; 
+            margin-bottom: 20px; 
+        }
+        
+        .result-item { padding: 20px; font-size: 1.2rem; border-bottom: 1px solid #444; }
+
+        .short-input { width: 100px; flex: none !important; text-align: center; background: var(--input) !important; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="color: var(--accent); margin-bottom: 30px;">Media Explorer TV</h1>
+
+    <div id="fileStatus" style="display:none; color: gold; margin-bottom: 10px;">Loading...</div>
+
+    <div class="section">
+        <div class="label">Search Movies & Series</div>
+        <div class="input-row">
+            <div class="input-group">
+                <input type="text" id="apiSearchInput" placeholder="Search title..." tabindex="1">
+                <button class="icon-btn" onclick="startVoice('apiSearchInput')" title="Voice Search" tabindex="2">🎤</button>
+                <button class="icon-btn" onclick="clearInput('apiSearchInput')" title="Clear" tabindex="3">✕</button>
+            </div>
+            <button onclick="searchOnline()" tabindex="4">Search</button>
+        </div>
+        <div id="apiResults" class="api-results"></div>
+    </div>
+
+    <div class="section">
+        <div class="label">Local Database</div>
+        <div class="input-row">
+            <div class="input-group">
+                <input type="text" id="titleInput" placeholder="Search local DB..." tabindex="5">
+                <button class="icon-btn" onclick="clearInput('titleInput')" tabindex="6">✕</button>
+            </div>
+            <button onclick="searchByTitle()" tabindex="7">Find</button>
+        </div>
+        <div id="resultsList"></div>
+    </div>
+
+    <div class="section">
+        <div class="label">Series Controls (TMDB ID + S/E)</div>
+        <div class="input-row">
+            <input type="text" id="seriesId" placeholder="ID (e.g. 119051)" tabindex="8">
+            <input type="number" id="seasonNum" class="short-input" value="1" tabindex="9">
+            <input type="number" id="episodeNum" class="short-input" value="1" tabindex="10">
+            <button onclick="searchSeries()" tabindex="11">Play Episode</button>
+        </div>
+    </div>
+
+    <div id="playerWrapper" class="video-container">
+        <iframe id="videoPlayer" src="" width="100%" height="100%" frameborder="0" allowfullscreen tabindex="12"></iframe>
+    </div>
+</div>
+
+<script>
+    const DEPLOY_URL = "https://script.google.com/macros/s/AKfycbzwCBrQEre003L4PuM9_2sU6moQB7iv1pCafP6FG6VG95qv-Decngx5igUuFSM-hLjKqw/exec";
+    const TITLE_FILE = '/home/projects/movies/title-mapping.txt';
+
+    // TV Utility: Clear Input
+    function clearInput(id) {
+        document.getElementById(id).value = '';
+        document.getElementById(id).focus();
+    }
+
+    // TV Utility: Trigger Gboard Voice (Handled by Android system when input is focused)
+    function startVoice(id) {
+        const input = document.getElementById(id);
+        input.focus();
+        // On most Android TVs, focusing and clicking the mic button triggers the system IME
+    }
+
+    // TV Navigation: Handle Enter key on focused items
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && document.activeElement) {
+            // If we are on an input, don't necessarily click (let user type)
+            // but if we are on a button or card, click it.
+            if (document.activeElement.tagName !== 'INPUT') {
+                document.activeElement.click();
+            }
+        }
+    });
+
+    async function searchOnline() {
+        const query = document.getElementById('apiSearchInput').value.trim();
+        if (!query) return;
+        const grid = document.getElementById('apiResults');
+        grid.innerHTML = "Loading...";
+
+        try {
+            const response = await fetch(`${DEPLOY_URL}?search=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            grid.innerHTML = '';
+
+            const allItems = [...(data.movies || []), ...(data.series || [])];
+            allItems.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'poster-card';
+                card.tabIndex = 100 + index; // Dynamic tab index for D-pad
+                card.innerHTML = `
+                    <img src="${item.poster || 'https://via.placeholder.com/200x300'}" alt="${item.title}">
+                    <div class="poster-info"><strong>${item.title}</strong></div>
+                `;
+                card.onclick = () => {
+                    if (item.type === 'movie') setPlayer(item.id, 'movie');
+                    else {
+                        document.getElementById('seriesId').value = item.id;
+                        setPlayer(item.id, 'tv', 1, 1);
+                    }
+                };
+                grid.appendChild(card);
+            });
+        } catch (err) { grid.innerHTML = "Error loading results."; }
+    }
+
+    function setPlayer(id, type = 'movie', season = 1, episode = 1) {
+        const wrapper = document.getElementById('playerWrapper');
+        const iframe = document.getElementById('videoPlayer');
+        let url = (type === 'tv') 
+            ? `https://www.vidking.net/embed/tv/${id}/${season}/${episode}?autoPlay=true`
+            : `https://www.vidking.net/embed/movie/${id}`;
+        
+        iframe.src = url;
+        wrapper.style.display = 'block';
+        wrapper.scrollIntoView({ behavior: 'smooth' });
+        iframe.focus(); // Move focus to player
+    }
+
+    // Reuse your existing search logic for searchByTitle, searchSeries etc.
+    // Ensure all dynamically created list items have [tabindex] 
+</script>
+
+</body>
+</html>
