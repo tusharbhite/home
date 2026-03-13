@@ -8,15 +8,17 @@
         :root { --accent: #e50914; --bg: #0f0f0f; --card: #1e1e1e; --input: #2b2b2b; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: #efefef; display: flex; flex-direction: column; align-items: center; padding: 20px; }
         .container { width: 100%; max-width: 900px; background: var(--card); padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .section { margin-bottom: 20px; }
+        .section { margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+        .section:last-of-type { border-bottom: none; }
         .label { font-size: 0.85rem; color: #aaa; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-        .input-row { display: flex; gap: 10px; margin-bottom: 10px; }
-        input { flex: 1; padding: 12px; border-radius: 6px; border: 1px solid #333; background: var(--input); color: white; outline: none; }
+        .input-row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        input { flex: 1; min-width: 120px; padding: 12px; border-radius: 6px; border: 1px solid #333; background: var(--input); color: white; outline: none; }
         input:focus { border-color: var(--accent); }
+        .short-input { flex: 0 0 80px; } /* For Season/Episode */
         button { padding: 12px 20px; border-radius: 6px; border: none; background: var(--accent); color: white; cursor: pointer; font-weight: bold; transition: 0.2s; }
         button:hover { background: #ff1e27; }
         
-        #resultsList { background: var(--input); border-radius: 6px; overflow: hidden; display: none; border: 1px solid #444; max-height: 250px; overflow-y: auto; }
+        #resultsList { background: var(--input); border-radius: 6px; overflow: hidden; display: none; border: 1px solid #444; max-height: 250px; overflow-y: auto; margin-bottom: 15px; }
         .result-item { padding: 12px; border-bottom: 1px solid #444; cursor: pointer; }
         .result-item:hover { background: #3d3d3d; color: var(--accent); }
 
@@ -33,7 +35,7 @@
     <div id="fileStatus" class="loader">Processing data...</div>
 
     <div class="section">
-        <div class="label">1. Search by Title</div>
+        <div class="label">1. Search Movie by Title</div>
         <div class="input-row">
             <input type="text" id="titleInput" placeholder="Enter movie title...">
             <button onclick="searchByTitle()">Find Title</button>
@@ -42,7 +44,7 @@
     </div>
 
     <div class="section">
-        <div class="label">2. Search by IMDb URL</div>
+        <div class="label">2. Search Movie by IMDb URL</div>
         <div class="input-row">
             <input type="text" id="imdbUrl" placeholder="https://www.imdb.com/title/tt...">
             <button onclick="searchByImdb()">Scan Mapping</button>
@@ -50,10 +52,20 @@
     </div>
 
     <div class="section">
-        <div class="label">3. Direct TMDB ID or URL</div>
+        <div class="label">3. Direct Movie TMDB ID</div>
         <div class="input-row">
             <input type="text" id="tmdbInput" placeholder="Enter ID (e.g. 278)">
-            <button onclick="searchByTmdb()">Play Now</button>
+            <button onclick="searchByTmdb()">Play Movie</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="label">4. Web Series (TMDB ID + S/E)</div>
+        <div class="input-row">
+            <input type="text" id="seriesId" placeholder="Series ID (e.g. 119051)">
+            <input type="number" id="seasonNum" class="short-input" placeholder="S" value="1">
+            <input type="number" id="episodeNum" class="short-input" placeholder="E" value="1">
+            <button onclick="searchSeries()">Play Series</button>
         </div>
     </div>
 
@@ -67,30 +79,24 @@
         <br><br>
         <a href="https://tusharbhite.github.io/home/projects/movies/database.html"><button>All Movies Database</button></a>
     </div>
-    <br>
 </div>
 
 <script>
     const MAPPING_FILE = '/home/projects/movies/mapping.txt';
     const TITLE_FILE = '/home/projects/movies/title-mapping.txt';
     
-    var param2="";
-
     const playerWrapper = document.getElementById('playerWrapper');
     const iframe = document.getElementById('videoPlayer');
     const errorEl = document.getElementById('errorMessage');
     const resultsList = document.getElementById('resultsList');
     const statusEl = document.getElementById('fileStatus');
 
-    // --- NEW: Handle Query Parameters on Page Load ---
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
         const tmdbId = urlParams.get('tmdbid');
         
         if (tmdbId && /^\d+$/.test(tmdbId)) {
-            console.log("Auto-loading TMDB ID:", tmdbId);
-            param2="?autoPlay=true";
-            setPlayer(tmdbId);
+            setPlayer(tmdbId, 'movie'); // Default auto-load to movie
         }
     };
 
@@ -101,10 +107,19 @@
         statusEl.style.display = 'none';
     }
 
-    function setPlayer(tmdbId) {
+    // UPDATED: Added 'type' parameter to switch between Movie and TV
+    function setPlayer(id, type = 'movie', season = 1, episode = 1) {
         errorEl.style.display = 'none';
         resultsList.style.display = 'none';
-        iframe.src = `https://www.vidking.net/embed/movie/${tmdbId}`;
+        
+        let url = "";
+        if(type === 'tv') {
+            url = `https://www.vidking.net/embed/tv/${id}/${season}/${episode}?color=e50914&autoPlay=true&nextEpisode=true&episodeSelector=true`;
+        } else {
+            url = `https://www.vidking.net/embed/movie/${id}`;
+        }
+        
+        iframe.src = url;
         playerWrapper.style.display = 'block';
         playerWrapper.scrollIntoView({ behavior: 'smooth' });
     }
@@ -134,7 +149,7 @@
                     const div = document.createElement('div');
                     div.className = 'result-item';
                     div.innerText = title;
-                    div.onclick = () => setPlayer(id.trim());
+                    div.onclick = () => setPlayer(id.trim(), 'movie');
                     resultsList.appendChild(div);
                 });
             } else {
@@ -143,42 +158,42 @@
         } catch (err) { showError("Could not load title-mapping.txt"); }
     }
 
-    // METHOD 2: IMDb to TMDB Mapping
+    // METHOD 2: IMDb
     async function searchByImdb() {
         const urlInput = document.getElementById('imdbUrl').value;
         const imdbMatch = urlInput.match(/tt\d+/);
-
-        if (!imdbMatch) {
-            showError("Invalid IMDb URL format.");
-            return;
-        }
-
+        if (!imdbMatch) { showError("Invalid IMDb URL format."); return; }
         statusEl.style.display = 'block';
         const targetImdbId = imdbMatch[0];
-
         try {
             const response = await fetch(MAPPING_FILE);
             const text = await response.text();
             const regex = new RegExp(`(\\d+)${targetImdbId}`, 'g');
             const found = regex.exec(text);
-
             statusEl.style.display = 'none';
-            if (found && found[1]) {
-                setPlayer(found[1]);
-            } else {
-                showError("IMDb ID not found in mapping file.");
-            }
+            if (found && found[1]) { setPlayer(found[1], 'movie'); } 
+            else { showError("IMDb ID not found in mapping file."); }
         } catch (err) { showError("Error reading mapping.txt"); }
     }
 
-    // METHOD 3: Direct TMDB
+    // METHOD 3: Direct Movie TMDB
     function searchByTmdb() {
         const input = document.getElementById('tmdbInput').value.trim();
         const tmdbIdMatch = input.match(/\d+/);
-        if (tmdbIdMatch) {
-            setPlayer(tmdbIdMatch[0]);
+        if (tmdbIdMatch) { setPlayer(tmdbIdMatch[0], 'movie'); } 
+        else { showError("Please enter a valid Movie TMDB ID."); }
+    }
+
+    // NEW METHOD 4: Web Series TMDB
+    function searchSeries() {
+        const id = document.getElementById('seriesId').value.trim();
+        const season = document.getElementById('seasonNum').value || 1;
+        const episode = document.getElementById('episodeNum').value || 1;
+        
+        if (/^\d+$/.test(id)) {
+            setPlayer(id, 'tv', season, episode);
         } else {
-            showError("Please enter a valid TMDB ID.");
+            showError("Please enter a valid Series TMDB ID.");
         }
     }
 </script>
