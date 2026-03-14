@@ -12,13 +12,18 @@
         .section:last-of-type { border-bottom: none; }
         .label { font-size: 0.85rem; color: #aaa; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
         .input-row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-        input { flex: 1; min-width: 120px; padding: 12px; border-radius: 6px; border: 1px solid #333; background: var(--input); color: white; outline: none; }
-        input:focus { border-color: var(--accent); }
+        input, select { flex: 1; min-width: 120px; padding: 12px; border-radius: 6px; border: 1px solid #333; background: var(--input); color: white; outline: none; }
+        input:focus, select:focus { border-color: var(--accent); }
         .short-input { flex: 0 0 80px; }
         button { padding: 12px 20px; border-radius: 6px; border: none; background: var(--accent); color: white; cursor: pointer; font-weight: bold; transition: 0.2s; }
         button:hover { background: #ff1e27; }
         
-        /* New Poster Grid Styles */
+        /* Server Selection Styling */
+        .server-header { display: flex; justify-content: space-between; align-items: center; background: #252525; padding: 10px 15px; border-radius: 8px 8px 0 0; border: 1px solid #333; margin-top: 25px; display: none; }
+        .server-header.active { display: flex; }
+        .server-label { font-size: 0.8rem; font-weight: bold; color: var(--accent); }
+        #serverSelect { flex: none; width: 180px; padding: 5px; font-size: 0.8rem; background: #111; }
+
         .api-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 15px; }
         .poster-card { background: #111; border-radius: 6px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid #333; position: relative; }
         .poster-card:hover { transform: scale(1.05); border-color: var(--accent); }
@@ -30,22 +35,9 @@
         .result-item { padding: 12px; border-bottom: 1px solid #444; cursor: pointer; }
         .result-item:hover { background: #3d3d3d; color: var(--accent); }
 
-        .video-container { margin-top: 25px; width: 100%; background: #000; border-radius: 8px; overflow: hidden; display: none; aspect-ratio: 16 / 9; }
+        .video-container { width: 100%; background: #000; border-radius: 0 0 8px 8px; overflow: hidden; display: none; aspect-ratio: 16 / 9; border: 1px solid #333; }
         .error { color: #ff4d4d; font-size: 0.9rem; margin-top: 10px; display: none; background: rgba(255, 77, 77, 0.1); padding: 10px; border-radius: 5px; }
         .loader { color: var(--accent); font-size: 0.8rem; display: none; margin-bottom: 10px; }
-        .cast-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            border: 1px solid white;
-            padding: 8px;
-            border-radius: 50%;
-            z-index: 10;
-            display: none; /* Only show when video plays */
-        }
-        .cast-btn svg { width: 24px; height: 24px; fill: white; }
-        .video-container { position: relative; } /* Ensure button overlays player */
     </style>
 </head>
 <body>
@@ -101,100 +93,126 @@
 
     <p id="errorMessage" class="error"></p>
 
+    <div id="serverHeader" class="server-header">
+        <div class="server-label">STREAMING SOURCE</div>
+        <select id="serverSelect" onchange="updateServer()">
+            <option value="vidking">Vidking (Default)</option>
+            <option value="1">Server 1 (Rakan)</option>
+            <option value="2">Server 2 (Bard)</option>
+            <option value="3">Server 3 (Xayah)</option>
+            <option value="4">Server 4 (Ekko)</option>
+            <option value="5">Server 5 (Naafiri)</option>
+            <option value="6">Server 6 (Ryze)</option>
+        </select>
+    </div>
+
     <div id="playerWrapper" class="video-container">
-        <button id="castBtn" class="cast-btn" onclick="launchCast()" title="Cast to TV">
-            <svg viewBox="0 0 24 24"><path d="M1 18v3h3c0-1.66-1.34-3-3-3zm0-4v2c2.76 0 5 2.24 5 5h2c0-3.87-3.13-7-7-7zm18-7H5c-1.1 0-2 .9-2 2v3h2V9h14v10h-7v2h7c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-18 8v2c4.97 0 9 4.03 9 9h2c0-6.08-4.92-11-11-11z"/></svg>
-        </button>
-        <iframe id="videoPlayer" src="" width="100%" height="100%" frameborder="0" sandbox="allow-scripts allow-same-origin" allowfullscreen></iframe>
+        <iframe id="videoPlayer" src="" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
     </div>
 </div>
 
 <script>
     const MAPPING_FILE = '/home/projects/movies/mapping.txt';
     const TITLE_FILE = '/home/projects/movies/title-mapping.txt';
-    // YOUR GOOGLE SCRIPT URL
     const DEPLOY_URL = "https://script.google.com/macros/s/AKfycbzwCBrQEre003L4PuM9_2sU6moQB7iv1pCafP6FG6VG95qv-Decngx5igUuFSM-hLjKqw/exec";
     
+    let currentState = { id: '', type: 'movie', season: 1, episode: 1 };
+
     const playerWrapper = document.getElementById('playerWrapper');
     const iframe = document.getElementById('videoPlayer');
     const errorEl = document.getElementById('errorMessage');
     const resultsList = document.getElementById('resultsList');
     const statusEl = document.getElementById('fileStatus');
     const apiResultsGrid = document.getElementById('apiResults');
+    const serverHeader = document.getElementById('serverHeader');
+    const serverSelect = document.getElementById('serverSelect');
 
-    // --- NEW: Global Online Search Function ---
+    function updateServer() {
+        if (currentState.id) {
+            setPlayer(currentState.id, currentState.type, currentState.season, currentState.episode);
+        }
+    }
+
+    function setPlayer(id, type = 'movie', season = 1, episode = 1) {
+        currentState = { id, type, season, episode };
+        errorEl.style.display = 'none';
+        resultsList.style.display = 'none';
+        
+        let selectedServer = serverSelect.value;
+        let src = '';
+
+        // Handle Sandbox Attribute logic
+        if (selectedServer === 'vidking' || selectedServer === '1') {
+            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+        } else {
+            iframe.removeAttribute('sandbox');
+        }
+
+        if (selectedServer === 'vidking') {
+            src = (type === 'tv') 
+                ? `https://www.vidking.net/embed/tv/${id}/${season}/${episode}?color=e50914&autoPlay=true&nextEpisode=true&episodeSelector=true`
+                : `https://www.vidking.net/embed/movie/${id}`;
+        } else {
+            const sNum = parseInt(selectedServer);
+            if (type === 'movie') {
+                switch (sNum) {
+                    case 1: src = `https://vidsrc.cc/v3/embed/movie/${id}?autoPlay=false`; break;
+                    case 2: src = `https://moviesapi.club/movie/${id}`; break;
+                    case 3: src = `https://vidsrc.me/embed/movie?tmdb=${id}`; break;
+                    case 4: src = `https://player.videasy.net/movie/${id}`; break;
+                    case 5: src = `https://vidsrc.su/embed/movie/${id}`; break;
+                    case 6: src = `https://vidlink.pro/movie/${id}?title=true&poster=true&autoplay=false`; break;
+                }
+            } else {
+                switch (sNum) {
+                    case 1: src = `https://vidsrc.cc/v3/embed/tv/${id}/${season}/${episode}?autoPlay=false`; break;
+                    case 2: src = `https://moviesapi.club/tv/${id}-${season}-${episode}`; break;
+                    case 3: src = `https://vidsrc.me/embed/tv?tmdb=${id}&season=${season}&episode=${episode}`; break;
+                    case 4: src = `https://player.videasy.net/tv/${id}/${season}/${episode}?nextEpisode=true&episodeSelector=true`; break;
+                    case 5: src = `https://vidsrc.su/embed/tv/${id}/${season}/${episode}`; break;
+                    case 6: src = `https://vidlink.pro/tv/${id}/${season}/${episode}?title=true&poster=true&autoplay=false&nextbutton=true`; break;
+                }
+            }
+        }
+        
+        iframe.src = src;
+        serverHeader.classList.add('active');
+        playerWrapper.style.display = 'block';
+        playerWrapper.scrollIntoView({ behavior: 'smooth' });
+    }
+
     async function searchOnline() {
         const query = document.getElementById('apiSearchInput').value.trim();
         if (!query) return;
-
         statusEl.style.display = 'block';
         apiResultsGrid.innerHTML = '';
         errorEl.style.display = 'none';
-
         try {
             const response = await fetch(`${DEPLOY_URL}?search=${encodeURIComponent(query)}`);
             const data = await response.json();
             statusEl.style.display = 'none';
-
             if (data.error) throw new Error(data.error);
-
-            // Combine movies and series for display
             const allItems = [...(data.movies || []), ...(data.series || [])];
-            
-            if (allItems.length === 0) {
-                showError("No online results found.");
-                return;
-            }
-
+            if (allItems.length === 0) { showError("No online results found."); return; }
             allItems.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'poster-card';
                 card.innerHTML = `
                     <span class="badge">${item.type.toUpperCase()}</span>
                     <img src="${item.poster || 'https://via.placeholder.com/200x300?text=No+Poster'}" alt="${item.title}">
-                    <div class="poster-info">
-                        <strong>${item.title}</strong><br>
-                        <span style="color:#888">${item.date.split('-')[0]}</span>
-                    </div>
-                `;
-                card.onclick = () => {
-                    if (item.type === 'movie') {
-                        setPlayer(item.id, 'movie');
-                    } else {
-                        // For series, we show the Season/Episode inputs in the original Section 4
-                        document.getElementById('seriesId').value = item.id;
-                        setPlayer(item.id, 'tv', 1, 1);
-                    }
-                };
+                    <div class="poster-info"><strong>${item.title}</strong><br><span style="color:#888">${item.date.split('-')[0]}</span></div>`;
+                card.onclick = () => item.type === 'movie' ? setPlayer(item.id, 'movie') : setPlayer(item.id, 'tv', 1, 1);
                 apiResultsGrid.appendChild(card);
             });
-
-        } catch (err) {
-            statusEl.style.display = 'none';
-            showError("API Error: " + err.message);
-        }
+        } catch (err) { statusEl.style.display = 'none'; showError("API Error: " + err.message); }
     }
-
-    // --- EXISTING FUNCTIONS ---
 
     function showError(msg) {
         errorEl.innerText = msg;
         errorEl.style.display = 'block';
         playerWrapper.style.display = 'none';
+        serverHeader.classList.remove('active');
         statusEl.style.display = 'none';
-    }
-
-    function setPlayer(id, type = 'movie', season = 1, episode = 1) {
-        errorEl.style.display = 'none';
-        resultsList.style.display = 'none';
-        
-        let url = (type === 'tv') 
-            ? `https://www.vidking.net/embed/tv/${id}/${season}/${episode}?color=e50914&autoPlay=true&nextEpisode=true&episodeSelector=true`
-            : `https://www.vidking.net/embed/movie/${id}`;
-        
-        iframe.src = url;
-        playerWrapper.style.display = 'block';
-        playerWrapper.scrollIntoView({ behavior: 'smooth' });
     }
 
     async function searchByTitle() {
@@ -263,42 +281,6 @@
         const tmdbId = urlParams.get('tmdbid');
         if (tmdbId && /^\d+$/.test(tmdbId)) setPlayer(tmdbId, 'movie');
     };
-</script>
-<script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-
-<script>
-    // Initialize Cast
-    window.__onGCastApiAvailable = function(isAvailable) {
-        if (isAvailable) {
-            initializeCastApi();
-        }
-    };
-
-    function initializeCastApi() {
-        cast.framework.CastContext.getInstance().setOptions({
-            receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
-            autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-        });
-    }
-
-    async function launchCast() {
-       const videoUrl = document.getElementById('videoPlayer').src;
-    // This protocol (wvc://) triggers apps like Web Video Caster
-    // which are built to extract videos from protected iframes.
-    window.location.href = `wvc://x-callback-url/open?url=${encodeURIComponent(videoUrl)}`;
-    
-    // Fallback: If they don't have the app, show a message
-    setTimeout(() => {
-        alert("To cast this video, please install 'Web Video Caster' from the Play Store. It will automatically grab the video from the link!");
-    }, 2000);
-    }
-
-    // Update your existing setPlayer function to show the button
-    const originalSetPlayer = setPlayer;
-    setPlayer = function(id, type, season, episode) {
-        originalSetPlayer(id, type, season, episode);
-        document.getElementById('castBtn').style.display = 'block';
-    }
 </script>
 </body>
 </html>
