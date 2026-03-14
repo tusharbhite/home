@@ -282,30 +282,15 @@
     }
 
     async function launchCast() {
-        const castSession = cast.framework.CastContext.getInstance().getCurrentSession();
-        const videoSrc = document.getElementById('videoPlayer').src;
-
-        if (!castSession) {
-            // Request session if not connected
-            try {
-                await cast.framework.CastContext.getInstance().requestSession();
-                launchCast(); // Retry after connection
-            } catch (e) {
-                console.error("Cast session failed", e);
-            }
-            return;
-        }
-
-        // Create Media Info
-        // NOTE: This works best with direct video links. 
-        // With iframes, it will attempt to open the web page on the TV.
-        const mediaInfo = new chrome.cast.media.MediaInfo(videoSrc, 'text/html');
-        const request = new chrome.cast.media.LoadRequest(mediaInfo);
-        
-        castSession.loadMedia(request).then(
-            () => console.log('Cast Success'),
-            (errorCode) => console.log('Error code: ' + errorCode)
-        );
+       const videoUrl = document.getElementById('videoPlayer').src;
+    // This protocol (wvc://) triggers apps like Web Video Caster
+    // which are built to extract videos from protected iframes.
+    window.location.href = `wvc://x-callback-url/open?url=${encodeURIComponent(videoUrl)}`;
+    
+    // Fallback: If they don't have the app, show a message
+    setTimeout(() => {
+        alert("To cast this video, please install 'Web Video Caster' from the Play Store. It will automatically grab the video from the link!");
+    }, 2000);
     }
 
     // Update your existing setPlayer function to show the button
