@@ -1,0 +1,73 @@
+{
+  "data": [
+    {
+      "ID": "93d0a88h33337e8c251f4436f170h4g4",
+      "objCode": "PROJ",
+      "name": "Q4 Customer Experience Research",
+      "description": "Initial planning phase for end-user sentiment analysis. Awaiting stakeholder approval on the budget.",
+      "status": "PLN",
+      "previousStatus": "IDE",
+      "priority": 1,
+      "percentComplete": 0.0,
+      "referenceNumber": 1650,
+      "URL": "https://your-domain.my.workfront.com/project/view?ID=93d0a88h33337e8c251f4436f170h4g4",
+      
+      "/* Account Mapping Fields */": "Linked to the second Salesforce Account (Globex)",
+      "companyID": "8f234bcd1111567ghi890",
+      "customerID": "8f567jkl1111234mno567",
+      "extRefID": "SFDC-ACC-443322",
+
+      "/* Dates (ISO 8601 Format) */": "Showing a future timeline",
+      "entryDate": "2026-05-01T09:00:00:000-0700",
+      "plannedStartDate": "2026-10-01T08:00:00:000-0700",
+      "plannedCompletionDate": "2026-12-15T17:00:00:000-0700",
+      "projectedCompletionDate": "2026-12-15T17:00:00:000-0700",
+      "actualStartDate": null,
+      "actualCompletionDate": null,
+      "lastUpdateDate": "2026-05-20T14:20:00:000-0700",
+
+      "/* Ownership & Hierarchy */": "Managed by the Research Department",
+      "ownerID": "54ad23f...user777",
+      "enteredByID": "54ad23f...user777",
+      "groupID": "60a7d...group05",
+      "portfolioID": "60b8e...port02",
+      "programID": "60c9f...prog12",
+      "sponsorID": "54ad23f...exec333",
+
+      "/* Financials & Work Metrics */": "Zero actuals, only planned values",
+      "budget": 15000.00,
+      "currency": "USD",
+      "actualCost": 0.00,
+      "plannedCost": 15000.00,
+      "actualLaborCost": 0.00,
+      "plannedLaborCost": 12000.00,
+      "actualRevenue": 0.00,
+      "plannedRevenue": 0.00,
+      "fixedCost": 0.00,
+      "cpi": 1.0,
+      "spi": 1.0,
+      "actualWorkRequiredDouble": 0.0,
+      "workRequired": 120,
+      "totalHours": 0.0,
+      
+      "/* Health & Status Indicators */": "Clean slate",
+      "condition": "0",
+      "conditionType": "MAN",
+      "progressStatus": "ON_TIME",
+      "hasDocuments": false,
+      "hasMessages": false,
+      "hasNotes": false,
+      "isProjectDead": false,
+      "isStatusComplete": false,
+      "numberOpenOpTasks": 0,
+      "totalTaskCount": 10,
+      "totalOpTaskCount": 0,
+
+      "/* Scorecards & Alignment */": "Planning stage scores",
+      "alignment": 45.0,
+      "optimizationScore": 50.0,
+      "projectRoi": 0.0,
+      "risk": 1
+    }
+  ]
+}

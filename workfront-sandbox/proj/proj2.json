@@ -1,0 +1,73 @@
+{
+  "data": [
+    {
+      "ID": "a4e1b99i44448f9d362g5547g281i5h5",
+      "objCode": "PROJ",
+      "name": "Legacy System Decommissioning",
+      "description": "Project to shut down the old CRM. Currently on hold indefinitely due to legal hold on data.",
+      "status": "DED",
+      "previousStatus": "CUR",
+      "priority": 0,
+      "percentComplete": 15.2,
+      "referenceNumber": 1822,
+      "URL": "https://your-domain.my.workfront.com/project/view?ID=a4e1b99i44448f9d362g5547g281i5h5",
+      
+      "/* Account Mapping Fields */": "Linked to Acme Corp",
+      "companyID": "5e123abc0000456def789",
+      "customerID": "5e789ghi0000123jkl456",
+      "extRefID": "SFDC-ACC-998877",
+
+      "/* Dates (ISO 8601 Format) */": "Timeline halted",
+      "entryDate": "2025-11-20T09:00:00:000-0700",
+      "plannedStartDate": "2025-12-01T08:00:00:000-0700",
+      "plannedCompletionDate": "2026-03-01T17:00:00:000-0700",
+      "projectedCompletionDate": "2026-06-30T17:00:00:000-0700",
+      "actualStartDate": "2025-12-05T09:00:00:000-0700",
+      "actualCompletionDate": null,
+      "lastUpdateDate": "2026-04-10T10:30:00:000-0700",
+
+      "/* Ownership & Hierarchy */": "IT Operations Group",
+      "ownerID": "54ad23f...user888",
+      "enteredByID": "54ad23f...user888",
+      "groupID": "60a7d...group10",
+      "portfolioID": "60b8e...port01",
+      "programID": "60c9f...prog20",
+      "sponsorID": "54ad23f...exec555",
+
+      "/* Financials & Work Metrics */": "Sunk costs only",
+      "budget": 45000.00,
+      "currency": "USD",
+      "actualCost": 12000.00,
+      "plannedCost": 45000.00,
+      "actualLaborCost": 11500.00,
+      "plannedLaborCost": 40000.00,
+      "actualRevenue": 0.00,
+      "plannedRevenue": 0.00,
+      "fixedCost": 500.00,
+      "cpi": 0.55,
+      "spi": 0.32,
+      "actualWorkRequiredDouble": 120.0,
+      "workRequired": 950,
+      "totalHours": 120.0,
+      
+      "/* Health & Status Indicators */": "Flagging as Dead",
+      "condition": "3",
+      "conditionType": "MAN",
+      "progressStatus": "BEHIND",
+      "hasDocuments": true,
+      "hasMessages": true,
+      "hasNotes": true,
+      "isProjectDead": true,
+      "isStatusComplete": false,
+      "numberOpenOpTasks": 8,
+      "totalTaskCount": 55,
+      "totalOpTaskCount": 10,
+
+      "/* Scorecards & Alignment */": "Low priority/Zero alignment",
+      "alignment": 10.0,
+      "optimizationScore": 5.0,
+      "projectRoi": 0.0,
+      "risk": 4
+    }
+  ]
+}

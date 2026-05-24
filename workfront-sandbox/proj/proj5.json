@@ -1,0 +1,73 @@
+{
+  "data": [
+    {
+      "ID": "60a7d55e00003b5f928c1103c847e1d1",
+      "objCode": "PROJ",
+      "name": "2026 Enterprise Salesforce Integration POC",
+      "description": "Integration project to sync Workfront project data with Salesforce Accounts for real-time visibility.",
+      "status": "CUR",
+      "previousStatus": "PLN",
+      "priority": 2,
+      "percentComplete": 75.5,
+      "referenceNumber": 1402,
+      "URL": "https://your-domain.my.workfront.com/project/view?ID=60a7d55e00003b5f928c1103c847e1d1",
+      
+      "/* Account Mapping Fields */": "Used to link to Salesforce Accounts",
+      "companyID": "5e123abc0000456def789",
+      "customerID": "5e789ghi0000123jkl456",
+      "extRefID": "SFDC-ACC-998877",
+
+      "/* Dates (ISO 8601 Format) */": "Critical for Gantt/Timeline views",
+      "entryDate": "2026-01-15T09:00:00:000-0700",
+      "plannedStartDate": "2026-02-01T08:00:00:000-0700",
+      "plannedCompletionDate": "2026-12-31T17:00:00:000-0700",
+      "projectedCompletionDate": "2026-12-20T17:00:00:000-0700",
+      "actualStartDate": "2026-02-03T10:30:00:000-0700",
+      "actualCompletionDate": null,
+      "lastUpdateDate": "2026-05-24T08:15:22:000-0700",
+
+      "/* Ownership & Hierarchy */": "Used for Resource Management",
+      "ownerID": "54ad23f...user123",
+      "enteredByID": "54ad23f...user123",
+      "groupID": "60a7d...group99",
+      "portfolioID": "60b8e...port01",
+      "programID": "60c9f...prog01",
+      "sponsorID": "54ad23f...exec456",
+
+      "/* Financials & Work Metrics */": "Key for executive reporting",
+      "budget": 50000.00,
+      "currency": "USD",
+      "actualCost": 12500.50,
+      "plannedCost": 48000.00,
+      "actualLaborCost": 10000.00,
+      "plannedLaborCost": 40000.00,
+      "actualRevenue": 0.00,
+      "plannedRevenue": 75000.00,
+      "fixedCost": 500.00,
+      "cpi": 0.95,
+      "spi": 1.02,
+      "actualWorkRequiredDouble": 450.5,
+      "workRequired": 600,
+      "totalHours": 450.5,
+      
+      "/* Health & Status Indicators */": "Visual triggers for the UI",
+      "condition": "0",
+      "conditionType": "MAN",
+      "progressStatus": "ON_TIME",
+      "hasDocuments": true,
+      "hasMessages": true,
+      "hasNotes": true,
+      "isProjectDead": false,
+      "isStatusComplete": false,
+      "numberOpenOpTasks": 3,
+      "totalTaskCount": 45,
+      "totalOpTaskCount": 12,
+
+      "/* Scorecards & Alignment */": "For Portfolio Optimization",
+      "alignment": 85.5,
+      "optimizationScore": 92.0,
+      "projectRoi": 12.5,
+      "risk": 1
+    }
+  ]
+}

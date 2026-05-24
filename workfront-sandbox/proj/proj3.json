@@ -1,0 +1,73 @@
+{
+  "data": [
+    {
+      "ID": "82c9f77g22226d7b140e3325e069g3f3",
+      "objCode": "PROJ",
+      "name": "Q1 Security Compliance Audit",
+      "description": "Standard quarterly audit for SOC2 compliance. Successfully completed with no major findings.",
+      "status": "CPL",
+      "previousStatus": "CUR",
+      "priority": 1,
+      "percentComplete": 100.0,
+      "referenceNumber": 1205,
+      "URL": "https://your-domain.my.workfront.com/project/view?ID=82c9f77g22226d7b140e3325e069g3f3",
+      
+      "/* Account Mapping Fields */": "Linked to the first Salesforce Account (Acme Corp)",
+      "companyID": "5e123abc0000456def789",
+      "customerID": "5e789ghi0000123jkl456",
+      "extRefID": "SFDC-ACC-998877",
+
+      "/* Dates (ISO 8601 Format) */": "Showing a completed timeline",
+      "entryDate": "2026-01-02T09:00:00:000-0700",
+      "plannedStartDate": "2026-01-05T08:00:00:000-0700",
+      "plannedCompletionDate": "2026-03-31T17:00:00:000-0700",
+      "projectedCompletionDate": "2026-03-25T17:00:00:000-0700",
+      "actualStartDate": "2026-01-05T08:00:00:000-0700",
+      "actualCompletionDate": "2026-03-24T16:45:00:000-0700",
+      "lastUpdateDate": "2026-03-24T17:00:00:000-0700",
+
+      "/* Ownership & Hierarchy */": "Completed by the Security group",
+      "ownerID": "54ad23f...user222",
+      "enteredByID": "54ad23f...user222",
+      "groupID": "60a7d...group02",
+      "portfolioID": "60b8e...port01",
+      "programID": "60c9f...prog09",
+      "sponsorID": "54ad23f...exec111",
+
+      "/* Financials & Work Metrics */": "Project was under budget (CPI > 1.0)",
+      "budget": 25000.00,
+      "currency": "USD",
+      "actualCost": 22000.00,
+      "plannedCost": 25000.00,
+      "actualLaborCost": 20000.00,
+      "plannedLaborCost": 23000.00,
+      "actualRevenue": 0.00,
+      "plannedRevenue": 0.00,
+      "fixedCost": 0.00,
+      "cpi": 1.14,
+      "spi": 1.05,
+      "actualWorkRequiredDouble": 320.0,
+      "workRequired": 320,
+      "totalHours": 320.0,
+      
+      "/* Health & Status Indicators */": "Flagging as Complete",
+      "condition": "0",
+      "conditionType": "MAN",
+      "progressStatus": "ON_TIME",
+      "hasDocuments": true,
+      "hasMessages": false,
+      "hasNotes": true,
+      "isProjectDead": false,
+      "isStatusComplete": true,
+      "numberOpenOpTasks": 0,
+      "totalTaskCount": 28,
+      "totalOpTaskCount": 0,
+
+      "/* Scorecards & Alignment */": "Final Scores",
+      "alignment": 100.0,
+      "optimizationScore": 95.0,
+      "projectRoi": 15.0,
+      "risk": 0
+    }
+  ]
+}
