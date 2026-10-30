@@ -1,0 +1,978 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6-Month Body Transformation Tracker</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            accent: '#10b981', // Emerald green
+                            gold: '#f59e0b',
+                            text: '#f8fafc',
+                            subtext: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- TOP HEADER / PROFILE SUMMARY -->
+<header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-30 shadow-lg backdrop-blur-md bg-opacity-90">
+    <div class="max-w-6xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+        <!-- Main Top Bar with Title, Selected Day Summary (when collapsed) and Mobile Toggle Button -->
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-500/20 uppercase tracking-wider">
+                    6-Month Transformation
+                </span>
+                <span class="text-xs text-slate-400 hidden sm:inline">Age 27 | 5'7"</span>
+            </div>
+
+            <!-- Compact Active Day Indicator (visible when header menu is collapsed on mobile) -->
+            <div id="collapsed-day-badge" class="md:hidden flex items-center gap-2 bg-slate-800 border border-slate-700/80 px-2.5 py-1 rounded-lg">
+                <i class="fa-solid fa-calendar-day text-amber-400 text-xs"></i>
+                <span id="collapsed-day-text" class="text-xs font-bold text-white">Mon (Paneer)</span>
+            </div>
+
+            <!-- Mobile Toggle Button -->
+            <button onclick="toggleMobileHeader()" aria-label="Toggle Navigation Menu" class="md:hidden text-slate-300 hover:text-white bg-slate-800 border border-slate-700 p-2 rounded-lg text-xs font-semibold flex items-center justify-center transition">
+                <i id="header-toggle-icon" class="fa-solid fa-bars text-emerald-400 text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Collapsible Content Wrapper -->
+        <div id="collapsible-header-content" class="hidden md:block mt-3 space-y-4">
+            
+            <!-- DAY SELECTOR NAVIGATION (TABS) INSIDE TOP MENU -->
+            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800 shadow-inner">
+                <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider mb-1.5 px-1">Select Active Day:</p>
+                <div class="flex items-center justify-between overflow-x-auto gap-2 pb-1 sm:pb-0" id="day-tabs-container">
+                    <!-- Tabs will be rendered here dynamically -->
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                
+                <!-- Title & Primary Goal -->
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Lean & Muscle Tracker</h1>
+                    <p class="text-slate-400 text-sm mt-0.5">Goal: <span class="text-emerald-400 font-semibold">80 kg ➔ 75 kg</span> | Shrink Belly Fat & Build Strength</p>
+                </div>
+
+                <!-- Schedule & Gear Badges -->
+                <div class="flex flex-wrap items-center gap-2 text-xs">
+                    <div class="bg-slate-800 border border-slate-700/60 px-3 py-1.5 rounded-lg flex items-center gap-2">
+                        <i class="fa-regular fa-clock text-emerald-400"></i>
+                        <span>Wake: 7 AM | Workout: 8 AM | Sleep: 11 PM</span>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700/60 px-3 py-1.5 rounded-lg flex items-center gap-2">
+                        <i class="fa-solid fa-dumbbell text-amber-400"></i>
+                        <span>5kg & 10kg Dumbbells + Skipping Rope</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Target Muscles Cloud & Progress Header -->
+            <div class="pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-1.5">
+                    <span class="text-xs text-slate-400 font-medium mr-1">Target Muscles:</span>
+                    <span class="px-2 py-0.5 text-xs font-medium bg-slate-800 text-slate-300 rounded border border-slate-700">Back</span>
+                    <span class="px-2 py-0.5 text-xs font-medium bg-slate-800 text-slate-300 rounded border border-slate-700">Biceps</span>
+                    <span class="px-2 py-0.5 text-xs font-medium bg-slate-800 text-slate-300 rounded border border-slate-700">Chest</span>
+                    <span class="px-2 py-0.5 text-xs font-medium bg-slate-800 text-slate-300 rounded border border-slate-700">Triceps</span>
+                    <span class="px-2 py-0.5 text-xs font-medium bg-slate-800 text-slate-300 rounded border border-slate-700">Shoulders</span>
+                    <span class="px-2 py-0.5 text-xs font-medium bg-slate-800 text-slate-300 rounded border border-slate-700">Legs</span>
+                    <span class="px-2 py-0.5 text-xs font-medium bg-slate-800 text-slate-300 rounded border border-slate-700">Forearms</span>
+                    <span class="px-2 py-0.5 text-xs font-medium bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30 font-semibold">Abs & Core</span>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <span class="text-xs text-slate-400 font-medium">Daily Completion:</span>
+                    <div class="w-32 bg-slate-800 rounded-full h-2.5 overflow-hidden border border-slate-700">
+                        <div id="daily-progress-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <span id="daily-progress-percent" class="text-xs font-bold text-emerald-400 w-8 text-right">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8 space-y-6">
+
+        <!-- DAY HEADER SUMMARY CARD -->
+        <section id="day-summary-card" class="bg-gradient-to-r from-slate-800 via-slate-800 to-slate-900 border border-slate-700/80 rounded-xl p-5 shadow-lg relative overflow-hidden">
+            <!-- Dynamic Content populated via JS -->
+        </section>
+
+        <!-- DAILY TIMELINE ROUTINE -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-emerald-400"></i>
+                    Daily Timeline & Action Plan
+                </h2>
+                <button onclick="resetCurrentDayProgress()" class="text-xs text-slate-400 hover:text-rose-400 transition flex items-center gap-1">
+                    <i class="fa-solid fa-rotate-right"></i> Reset Today's Checks
+                </button>
+            </div>
+
+            <!-- TIMELINE CONTAINER -->
+            <div id="timeline-container" class="space-y-4">
+                <!-- Dynamic timeline cards will be rendered here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- EXERCISE DETAILS MODAL -->
+    <div id="exercise-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl relative flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="p-5 border-b border-slate-800 flex items-start justify-between bg-slate-800/50 sticky top-0 backdrop-blur-md">
+                <div>
+                    <span id="modal-muscle-tag" class="text-xs font-semibold px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                        Muscle Group
+                    </span>
+                    <h3 id="modal-title" class="text-xl font-bold text-white mt-1">Exercise Name</h3>
+                </div>
+                <button onclick="closeExerciseModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-5 space-y-4 flex-1">
+                
+                <!-- Exercise Illustration / SVG Diagram Container -->
+                <div class="w-full bg-slate-950 rounded-xl border border-slate-800 overflow-hidden flex items-center justify-center p-4 relative group min-h-[180px]">
+                    <div id="modal-image-container" class="w-full flex items-center justify-center">
+                        <!-- SVG Diagram will be injected dynamically -->
+                    </div>
+                    <div class="absolute bottom-2 right-2 bg-slate-900/80 backdrop-blur-sm border border-slate-700/60 px-2 py-0.5 rounded text-[10px] text-slate-300">
+                        <i class="fa-solid fa-vector-square text-emerald-400 mr-1"></i>Visual Diagram
+                    </div>
+                </div>
+
+                <!-- Quick Specs Grid -->
+                <div class="grid grid-cols-3 gap-2 bg-slate-800/80 p-3 rounded-xl border border-slate-700 text-center">
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Equipment</span>
+                        <span id="modal-equipment" class="text-xs font-semibold text-amber-400">--</span>
+                    </div>
+                    <div class="border-x border-slate-700">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Target Sets & Reps</span>
+                        <span id="modal-sets-reps" class="text-xs font-semibold text-emerald-400">--</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Rest Between Sets</span>
+                        <span id="modal-rest" class="text-xs font-semibold text-slate-200">--</span>
+                    </div>
+                </div>
+
+                <!-- Proper Form & Execution Steps -->
+                <div>
+                    <h4 class="text-sm font-semibold text-slate-200 flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-shield-halved text-emerald-400"></i> Proper Form & Steps for Maximum Activation:
+                    </h4>
+                    <ol id="modal-steps-list" class="space-y-2 text-xs text-slate-300 list-decimal list-inside bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <!-- Dynamic Steps -->
+                    </ol>
+                </div>
+
+                <!-- Key Form Tip -->
+                <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl flex items-start gap-3 text-xs text-amber-200">
+                    <i class="fa-solid fa-lightbulb text-amber-400 text-base mt-0.5"></i>
+                    <div>
+                        <span class="font-bold block text-amber-300">Transformation Tip:</span>
+                        <p id="modal-tip">Maintain controlled movement speed. Do not rush reps.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900/90 text-right sticky bottom-0">
+                <button onclick="closeExerciseModal()" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold rounded-lg border border-slate-700 transition">
+                    Got it, Close
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JS LOGIC & DATA STRUCTURES -->
+    <script>
+        // Exercise Library with SVG Diagrams for guaranteed rendering
+        const EXERCISE_LIBRARY = {
+            "db_floor_press": {
+                name: "Dumbbell Floor Press",
+                muscle: "Chest & Triceps",
+                equipment: "10kg Dumbbells",
+                setsReps: "4 sets x 12–15 reps",
+                rest: "60 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 120 h260" stroke="#334155" stroke-width="4"/><rect x="80" y="105" width="140" height="15" rx="5" fill="#1e293b" stroke="#10b981"/><circle cx="95" cy="95" r="10" stroke="#f8fafc"/><path d="M100 100 L115 75 L140 75"/><path d="M100 100 L115 75 L140 75"/><path d="M140 40 L140 75" stroke="#f59e0b" stroke-width="5"/><path d="M180 40 L180 75" stroke="#f59e0b" stroke-width="5"/><rect x="130" y="30" width="20" height="10" rx="2" fill="#f59e0b"/><rect x="170" y="30" width="20" height="10" rx="2" fill="#f59e0b"/><path d="M140 35 L140 15" stroke="#10b981" stroke-dasharray="3,3"/><path d="M180 35 L180 15" stroke="#10b981" stroke-dasharray="3,3"/></svg>`,
+                tip: "Pause your elbows lightly on the floor for 1 second at the bottom to eliminate momentum and maximize chest strain.",
+                steps: [
+                    "Lie flat on your back on the floor with knees bent and feet flat on the ground.",
+                    "Hold a 10kg dumbbell in each hand at chest level, upper arms resting on the floor at a 45-degree angle to your torso.",
+                    "Press both dumbbells upward toward the ceiling until your arms are fully extended over your chest.",
+                    "Squeeze your chest muscles hard at the top position for 1 second.",
+                    "Lower the dumbbells slowly in a 3-second controlled tempo until your upper arms gently touch the floor."
+                ]
+            },
+            "db_bent_rows": {
+                name: "Dumbbell Bent-Over Rows",
+                muscle: "Back (Lats & Rhomboids) & Forearms",
+                equipment: "10kg Dumbbells",
+                setsReps: "4 sets x 12–15 reps",
+                rest: "60 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 135 h260" stroke="#334155" stroke-width="4"/><circle cx="100" cy="50" r="10" stroke="#f8fafc"/><path d="M100 60 L130 90 L120 135"/><path d="M130 90 L145 135"/><path d="M120 75 L150 65 L160 85" stroke="#f59e0b"/><rect x="152" y="80" width="16" height="12" rx="3" fill="#f59e0b"/><path d="M160 85 L160 60" stroke="#10b981" stroke-dasharray="3,3"/><path d="M130 75 L120 65" stroke="#10b981" stroke-width="4"/></svg>`,
+                tip: "Pull with your elbows, not your hands, to ensure your back muscles pull the weight rather than your biceps.",
+                steps: [
+                    "Stand with feet shoulder-width apart, holding a 10kg dumbbell in each hand.",
+                    "Hinge forward at your hips until your torso is nearly parallel to the floor, keeping your spine straight and core tight.",
+                    "Let the dumbbells hang straight down at arm's length with palms facing inward.",
+                    "Drive your elbows up and back, squeezing your shoulder blades together tightly at the top.",
+                    "Pause briefly at the top before slowly lowering the weights back down under full control."
+                ]
+            },
+            "pushups": {
+                name: "Push-Ups (Standard or Elevated)",
+                muscle: "Chest, Shoulders & Core",
+                equipment: "Bodyweight",
+                setsReps: "3–4 sets x 12–18 reps",
+                rest: "60 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 130 h260" stroke="#334155" stroke-width="4"/><circle cx="230" cy="65" r="10" stroke="#f8fafc"/><path d="M220 70 L130 85 L70 125" stroke="#10b981" stroke-width="4"/><path d="M210 72 L210 120 M195 73 L205 120"/><path d="M130 85 L130 115" stroke="#f59e0b"/><path d="M130 85 L130 65" stroke="#10b981" stroke-dasharray="3,3"/></svg>`,
+                tip: "Keep your elbows tucked at roughly 45 degrees relative to your torso—avoid flaring them out wide to protect shoulders.",
+                steps: [
+                    "Place your hands slightly wider than shoulder-width apart on the floor.",
+                    "Extend your legs back so you are supported on your toes, forming a straight line from head to heels.",
+                    "Engage your abs and glutes to keep your lower back from sagging.",
+                    "Lower your body until your chest is roughly 2 inches off the floor.",
+                    "Push firmly through your palms to return to the starting plank position."
+                ]
+            },
+            "standing_overhead_press": {
+                name: "Standing Dumbbell Overhead Press",
+                muscle: "Shoulders (Deltoids) & Triceps",
+                equipment: "10kg Dumbbells",
+                setsReps: "3 sets x 10–12 reps",
+                rest: "60 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="30" r="10" stroke="#f8fafc"/><path d="M150 40 L150 90 L140 140 M150 90 L160 140"/><path d="M150 55 L125 50 L125 25"/><path d="M150 55 L175 50 L175 25"/><rect x="115" y="15" width="20" height="10" rx="2" fill="#f59e0b"/><rect x="165" y="15" width="20" height="10" rx="2" fill="#f59e0b"/><path d="M125 45 L125 15" stroke="#10b981" stroke-dasharray="3,3"/><path d="M175 45 L175 15" stroke="#10b981" stroke-dasharray="3,3"/></svg>`,
+                tip: "Do not arch your lower back. Brace your glutes and abs tightly to stay stable.",
+                steps: [
+                    "Stand tall with feet hip-width apart, holding 10kg dumbbells at shoulder height with palms facing forward or inward.",
+                    "Keep your core braced and knees slightly soft (unlocked).",
+                    "Press the weights overhead until your arms are fully extended, without locking out elbows aggressively.",
+                    "Pause briefly at the top directly above your shoulders.",
+                    "Lower the weights slowly back to shoulder level over a 2 to 3 second count."
+                ]
+            },
+            "lateral_raises": {
+                name: "Dumbbell Lateral Raises",
+                muscle: "Side Shoulders (Lateral Deltoids)",
+                equipment: "5kg Dumbbells",
+                setsReps: "3 sets x 15 reps",
+                rest: "45 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="25" r="10" stroke="#f8fafc"/><path d="M150 35 L150 85 L140 140 M150 85 L160 140"/><path d="M150 45 L90 45"/><path d="M150 45 L210 45"/><rect x="80" y="40" width="12" height="10" rx="2" fill="#f59e0b"/><rect x="208" y="40" width="12" height="10" rx="2" fill="#f59e0b"/><path d="M135 75 Q90 75 86 55" stroke="#10b981" stroke-dasharray="3,3"/><path d="M165 75 Q210 75 214 55" stroke="#10b981" stroke-dasharray="3,3"/></svg>`,
+                tip: "Use strict form without swinging your body. Lead with your elbows slightly higher than your wrists.",
+                steps: [
+                    "Stand tall holding a 5kg dumbbell in each hand by your sides, palms facing inward.",
+                    "Maintain a slight bend in your elbows throughout the entire movement.",
+                    "Raise your arms out to the sides until they reach shoulder height, pouring out the weight as if holding water pitchers.",
+                    "Hold for a split second at the top of the motion.",
+                    "Lower back down slowly under tension—do not let the weights slam against your thighs."
+                ]
+            },
+            "bicep_tricep_superset": {
+                name: "Bicep Curls Superset w/ Overhead Tricep Ext.",
+                muscle: "Biceps & Triceps (Arms)",
+                equipment: "5kg or 10kg Dumbbells",
+                setsReps: "3 sets x 12 reps each",
+                rest: "45 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="100" cy="30" r="9" stroke="#f8fafc"/><path d="M100 39 L100 85 L92 140 M100 85 L108 140"/><path d="M100 50 L115 50 L110 35"/><rect x="102" y="28" width="14" height="10" rx="2" fill="#f59e0b"/><circle cx="200" cy="30" r="9" stroke="#f8fafc"/><path d="M200 39 L200 85 L192 140 M200 85 L208 140"/><path d="M200 50 L200 20 L185 25"/><rect x="175" y="20" width="14" height="10" rx="2" fill="#f59e0b"/></svg>`,
+                tip: "Perform 12 reps of Bicep Curls, then immediately perform 12 reps of Overhead Tricep Extension before resting.",
+                steps: [
+                    "Bicep Curls: Stand tall, curl dumbbells up toward shoulders while keeping elbows pinned to your sides.",
+                    "Lower curl dumbbells slowly, keeping tension on biceps.",
+                    "Overhead Tricep Extension: Hold one 10kg dumbbell overhead with both hands.",
+                    "Lower the weight behind your head by bending elbows to 90 degrees.",
+                    "Press the weight back up overhead by contracting your triceps."
+                ]
+            },
+            "skipping_hiit": {
+                name: "Skipping Rope HIIT Finisher",
+                muscle: "Cardio, Calves, Core & Fat Burn",
+                equipment: "Skipping Rope",
+                setsReps: "8 Rounds (30 sec fast / 30 sec rest)",
+                rest: "30 seconds active rest",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="30" r="10" stroke="#f8fafc"/><path d="M150 40 L150 85 L140 125 M150 85 L160 125"/><path d="M150 55 L120 65 M150 55 L180 65"/><path d="M120 65 Q150 160 180 65" stroke="#f59e0b" stroke-width="3"/></svg>`,
+                tip: "Stay light on the balls of your feet. Rotate your wrists rather than swinging your entire arms.",
+                steps: [
+                    "Grip skipping rope handles comfortably with elbows close to your waist.",
+                    "Jump at high speed for 30 seconds straight, maintaining steady rhythm.",
+                    "Rest by walking in place or stepping side-to-side for 30 seconds.",
+                    "Repeat for 8 continuous total rounds (8 minutes total duration)."
+                ]
+            },
+            "plank_hold": {
+                name: "Plank Hold",
+                muscle: "Abs, Core & Lower Back Stability",
+                equipment: "Bodyweight",
+                setsReps: "3 sets x 45–60 seconds",
+                rest: "45 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 130 h260" stroke="#334155" stroke-width="4"/><circle cx="230" cy="75" r="9" stroke="#f8fafc"/><path d="M220 80 L120 85 M120 85 L70 125" stroke="#10b981" stroke-width="4"/><path d="M210 82 L210 120 M195 82 L195 120"/></svg>`,
+                tip: "Pull your belly button inward toward your spine and squeeze your glutes hard.",
+                steps: [
+                    "Place elbows directly beneath your shoulders on the floor with forearms parallel.",
+                    "Extend legs back and balance on toes.",
+                    "Keep your body in a straight line from shoulders to ankles—do not let hips drop or pike up.",
+                    "Breathe steadily while keeping core actively braced for the target time duration."
+                ]
+            },
+            "goblet_squats": {
+                name: "Dumbbell Goblet Squats",
+                muscle: "Quadriceps, Glutes & Core",
+                equipment: "10kg Dumbbell",
+                setsReps: "4 sets x 15–20 reps",
+                rest: "60 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="35" r="9" stroke="#f8fafc"/><path d="M150 44 L150 80 L125 110 L125 140 M150 80 L175 110 L175 140"/><path d="M150 55 L135 55 M150 55 L165 55"/><rect x="142" y="48" width="16" height="16" rx="3" fill="#f59e0b"/><path d="M150 80 L150 115" stroke="#10b981" stroke-dasharray="3,3"/></svg>`,
+                tip: "Keep your chest upright and knees tracking outward over your toes.",
+                steps: [
+                    "Hold a single 10kg dumbbell vertically against your chest, cupping the upper head with both hands.",
+                    "Set your feet slightly wider than shoulder-width with toes turned out 15 degrees.",
+                    "Sit back and down into a squat, lowering thighs parallel to the floor or lower.",
+                    "Keep your weight distributed evenly across your feet, driving through heels to stand back up."
+                ]
+            },
+            "bulgarian_split_squat": {
+                name: "Bulgarian Split Squats",
+                muscle: "Quadriceps, Glutes & Hamstrings",
+                equipment: "5kg or 10kg Dumbbells",
+                setsReps: "3 sets x 10–12 reps per leg",
+                rest: "60 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><rect x="210" y="90" width="50" height="50" rx="3" fill="#1e293b" stroke="#334155"/><circle cx="140" cy="30" r="9" stroke="#f8fafc"/><path d="M140 39 L140 80 L130 140 M140 80 L180 90 L220 90"/><path d="M140 50 L125 70 M140 50 L155 70"/><rect x="118" y="68" width="12" height="10" rx="2" fill="#f59e0b"/><rect x="152" y="68" width="12" height="10" rx="2" fill="#f59e0b"/></svg>`,
+                tip: "Leaning slightly forward at hips focuses more glutes; staying upright focuses quads.",
+                steps: [
+                    "Stand 2 feet in front of a sturdy chair or couch. Place top of back foot on the bench.",
+                    "Hold dumbbells at your sides.",
+                    "Lower your back knee toward the floor until your front thigh is parallel to ground.",
+                    "Push firmly through your front heel to return to standing position."
+                ]
+            },
+            "single_leg_rdl": {
+                name: "Single-Leg Romanian Deadlifts",
+                muscle: "Hamstrings, Glutes & Lower Back",
+                equipment: "10kg Dumbbell",
+                setsReps: "3 sets x 12 reps per leg",
+                rest: "60 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="90" cy="50" r="9" stroke="#f8fafc"/><path d="M90 59 L130 65 L125 140 M130 65 L200 65"/><path d="M110 62 L110 95"/><rect x="103" y="95" width="14" height="12" rx="2" fill="#f59e0b"/></svg>`,
+                tip: "Focus on pushing your back leg straight behind you like a pendulum rather than just bending forward.",
+                steps: [
+                    "Stand on your right leg holding a 10kg dumbbell in your left hand.",
+                    "Keep your right knee soft with a slight bend.",
+                    "Hinge at your hips, lowering the dumbbell toward the floor while extending your left leg straight behind you.",
+                    "Squeeze your glutes and hamstrings to hinge back up tall."
+                ]
+            },
+            "calf_raises": {
+                name: "Dumbbell Calf Raises",
+                muscle: "Calves (Gastrocnemius)",
+                equipment: "10kg Dumbbells",
+                setsReps: "4 sets x 20 reps",
+                rest: "45 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="20" r="9" stroke="#f8fafc"/><path d="M150 29 L150 75 L142 130 M150 75 L158 130"/><path d="M150 40 L135 60 M150 40 L165 60"/><rect x="128" y="58" width="12" height="10" rx="2" fill="#f59e0b"/><rect x="160" y="58" width="12" height="10" rx="2" fill="#f59e0b"/><path d="M150 130 L150 115" stroke="#10b981" stroke-dasharray="3,3"/></svg>`,
+                tip: "Hold the top contraction for 2 full seconds on every rep.",
+                steps: [
+                    "Stand tall holding 10kg dumbbells in each hand by your sides.",
+                    "Rise high up onto the balls of your feet, squeezing calf muscles firmly.",
+                    "Pause at peak height, then lower heels slowly back to floor."
+                ]
+            },
+            "leg_raises": {
+                name: "Floor Lying Leg Raises",
+                muscle: "Lower Abs & Core",
+                equipment: "Bodyweight",
+                setsReps: "3 sets x 15–20 reps",
+                rest: "45 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 130 h260" stroke="#334155" stroke-width="4"/><circle cx="70" cy="115" r="9" stroke="#f8fafc"/><path d="M79 120 L160 120 L160 40" stroke="#10b981" stroke-width="4"/><path d="M160 40 L160 100" stroke="#10b981" stroke-dasharray="3,3"/></svg>`,
+                tip: "Press your lower back flat into the floor throughout the entire movement.",
+                steps: [
+                    "Lie flat on your back with legs fully extended and hands under your glutes for lower back support.",
+                    "Keep legs together and raise them toward ceiling until perpendicular to floor.",
+                    "Lower legs slowly back down until they hover just 2 inches off floor without touching."
+                ]
+            },
+            "russian_twists": {
+                name: "Dumbbell Russian Twists",
+                muscle: "Obliques & Rotational Core",
+                equipment: "5kg Dumbbell",
+                setsReps: "3 sets x 20 total reps",
+                rest: "45 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 130 h260" stroke="#334155" stroke-width="4"/><circle cx="110" cy="60" r="9" stroke="#f8fafc"/><path d="M110 69 L150 115 L190 90 L210 120"/><path d="M130 85 L160 85"/><rect x="152" y="78" width="16" height="14" rx="2" fill="#f59e0b"/></svg>`,
+                tip: "Rotate your shoulders fully, not just moving your hands from side to side.",
+                steps: [
+                    "Sit on floor with knees bent and feet lifted slightly off ground (or heels resting lightly).",
+                    "Hold 5kg dumbbell with both hands near chest and lean back slightly at 45 degrees.",
+                    "Twist torso to right, bringing dumbbell toward right hip, then twist to left."
+                ]
+            },
+            "mountain_climbers": {
+                name: "Mountain Climbers",
+                muscle: "Belly Fat Burner, Abs & Cardio",
+                equipment: "Bodyweight",
+                setsReps: "3 sets x 45 seconds",
+                rest: "45 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 130 h260" stroke="#334155" stroke-width="4"/><circle cx="230" cy="65" r="9" stroke="#f8fafc"/><path d="M221 70 L140 85 M140 85 L130 125 M140 85 L70 125"/><path d="M210 72 L210 120 M195 72 L195 120"/></svg>`,
+                tip: "Keep hips low and drive knees rapidly toward chest.",
+                steps: [
+                    "Start in top push-up plank position with wrists directly under shoulders.",
+                    "Drive right knee straight in toward chest, then quickly switch and drive left knee in.",
+                    "Continue running knees in and out at a brisk, controlled pace."
+                ]
+            },
+            "db_deadlifts": {
+                name: "Dumbbell Deadlifts",
+                muscle: "Hamstrings, Glutes, Back & Forearms",
+                equipment: "Dual 10kg Dumbbells",
+                setsReps: "3–4 sets x 12–15 reps",
+                rest: "60 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="120" cy="45" r="9" stroke="#f8fafc"/><path d="M120 54 L150 75 L145 140 M150 75 L160 140"/><path d="M140 70 L140 105"/><rect x="133" y="105" width="14" height="12" rx="2" fill="#f59e0b"/></svg>`,
+                tip: "Keep weights close to your shins throughout the motion.",
+                steps: [
+                    "Stand feet shoulder-width apart, holding 10kg dumbbells in front of thighs.",
+                    "Hinge at hips and bend knees slightly, sliding dumbbells down front of legs.",
+                    "Lower until weights reach shin height while keeping back flat.",
+                    "Drive hips forward to stand back up."
+                ]
+            },
+            "db_thrusters": {
+                name: "Dumbbell Thrusters (Squat to Press)",
+                muscle: "Full Body (Legs, Shoulders, Core)",
+                equipment: "Dual 5kg or 10kg Dumbbells",
+                setsReps: "3 sets x 12 reps",
+                rest: "60 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="20" r="9" stroke="#f8fafc"/><path d="M150 29 L150 70 L130 100 L130 140 M150 70 L170 100 L170 140"/><path d="M150 45 L130 25 M150 45 L170 25"/><rect x="122" y="15" width="14" height="10" rx="2" fill="#f59e0b"/><rect x="164" y="15" width="14" height="10" rx="2" fill="#f59e0b"/></svg>`,
+                tip: "Use momentum from your leg extension to launch dumbbells overhead.",
+                steps: [
+                    "Hold dumbbells at shoulder height with feet shoulder-width apart.",
+                    "Squat down deep until thighs are parallel to ground.",
+                    "Drive up explosively through legs and press dumbbells straight overhead in one smooth motion."
+                ]
+            },
+            "bicycle_crunches": {
+                name: "Bicycle Crunches",
+                muscle: "Abs & Obliques",
+                equipment: "Bodyweight",
+                setsReps: "3 sets x 20 reps per side",
+                rest: "45 seconds",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 130 h260" stroke="#334155" stroke-width="4"/><circle cx="80" cy="95" r="9" stroke="#f8fafc"/><path d="M89 100 L130 115 L160 80 M130 115 L210 115"/><path d="M85 98 L110 85 M160 80 L110 85" stroke="#10b981"/></svg>`,
+                tip: "Do not pull on your neck with your hands; twist from core.",
+                steps: [
+                    "Lie flat with hands behind head, knees bent at 90 degrees.",
+                    "Lift shoulders off floor, bring right elbow to left knee while extending right leg out straight.",
+                    "Switch sides seamlessly."
+                ]
+            },
+            "skipping_sprints": {
+                name: "Skipping Rope Sprints",
+                muscle: "Calves, Cardio & Belly Loss",
+                equipment: "Skipping Rope",
+                setsReps: "45 seconds continuous sprint",
+                rest: "15 seconds rest between circuit exercises",
+                svg: `<svg viewBox="0 0 300 150" class="w-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="30" r="10" stroke="#f8fafc"/><path d="M150 40 L150 85 L140 120 M150 85 L160 120"/><path d="M150 55 L120 65 M150 55 L180 65"/><path d="M120 65 Q150 160 180 65" stroke="#f59e0b" stroke-width="3"/></svg>`,
+                tip: "Jump as fast as possible while keeping steady breathing.",
+                steps: [
+                    "Spin rope rapidly using wrists.",
+                    "Maintain fast feet transitions for the full 45 second interval."
+                ]
+            }
+        };
+
+        // Day-by-Day Complete Schedules Data Structure
+        const WEEKLY_SCHEDULE = [
+            {
+                id: "mon",
+                dayName: "Monday",
+                theme: "Paneer Protein Day",
+                focus: "Upper Body Strength + Skipping HIIT",
+                proteinSource: "150g Paneer (Sabji / Bhurji)",
+                timeline: [
+                    { time: "7:00 AM", category: "hydrate", title: "Wake Up & Hydrate", details: "Warm water + 4-5 soaked badam, 2 pistachios, 2 cashews." },
+                    { 
+                        time: "8:00 AM - 9:00 AM", 
+                        category: "workout", 
+                        title: "Upper Body Workout & Skipping HIIT", 
+                        exercises: ["db_floor_press", "db_bent_rows", "pushups", "standing_overhead_press", "lateral_raises", "bicep_tricep_superset", "skipping_hiit", "plank_hold"] 
+                    },
+                    { time: "1:00 PM - 2:00 PM", category: "meal", title: "Single-Protein Lunch (Paneer)", details: "150g Paneer (as sabji or bhurji) + 1-2 Jowar/Bajri Bhakaris + Green Sabji & fresh salad." },
+                    { time: "5:00 PM - 5:30 PM", category: "meal", title: "Evening Snack", details: "Small handful of roasted chana (futana) or peanuts + optional Tea/Coffee (low/no sugar)." },
+                    { time: "8:30 PM - 9:00 PM", category: "meal", title: "Light Belly-Friendly Dinner", details: "1 Jowar/Bajri Bhakari + Normal daily home sabji. (Light & low carb for overnight fat loss)." },
+                    { time: "11:00 PM", category: "rest", title: "Sleep & Recovery", details: "7-8 hours of quality sleep for muscle growth." }
+                ]
+            },
+            {
+                id: "tue",
+                dayName: "Tuesday",
+                theme: "Soya Chunks Protein Day",
+                focus: "Lower Body & Core (Belly Fat Blaster)",
+                proteinSource: "50g-60g Dry Soya Chunks Curry (~25g-30g protein)",
+                timeline: [
+                    { time: "7:00 AM", category: "hydrate", title: "Wake Up & Hydrate", details: "Warm water + 4-5 soaked badam, 2 pistachios, 2 cashews." },
+                    { 
+                        time: "8:00 AM - 9:00 AM", 
+                        category: "workout", 
+                        title: "Lower Body & Belly Shredder Workout", 
+                        exercises: ["goblet_squats", "bulgarian_split_squat", "single_leg_rdl", "calf_raises", "leg_raises", "russian_twists", "mountain_climbers"] 
+                    },
+                    { time: "1:00 PM - 2:00 PM", category: "meal", title: "Single-Protein Lunch (Soya Chunks)", details: "Rich Soya Chunks Curry (50g-60g dry soya) + 1-2 Jowar/Bajri Bhakaris + Green Sabji & salad." },
+                    { time: "5:00 PM - 5:30 PM", category: "meal", title: "Evening Snack", details: "Small bowl of sprouted moong/chana or roasted chana + optional Tea/Coffee." },
+                    { time: "8:30 PM - 9:00 PM", category: "meal", title: "Light Belly-Friendly Dinner", details: "1 Jowar/Bajri Bhakari + Normal daily sabji." },
+                    { time: "11:00 PM", category: "rest", title: "Sleep & Recovery", details: "Sleep for leg muscle repair." }
+                ]
+            },
+            {
+                id: "wed",
+                dayName: "Wednesday",
+                theme: "Dal / Sprouts Protein Day",
+                focus: "Active Recovery & Light Skipping Cardio",
+                proteinSource: "Thick Mixed Dal / Sprouted Moong Sabji",
+                timeline: [
+                    { time: "7:00 AM", category: "hydrate", title: "Wake Up & Hydrate", details: "Warm water + 4-5 soaked badam, 2 pistachios, 2 cashews." },
+                    { 
+                        time: "8:00 AM - 8:30 AM", 
+                        category: "workout", 
+                        title: "Active Recovery Cardio", 
+                        exercises: ["skipping_hiit"] 
+                    },
+                    { time: "1:00 PM - 2:00 PM", category: "meal", title: "Single-Protein Lunch (Dal / Sprouts)", details: "Thick Dal (Moong/Toor/Chana) or Sprouted Moong Sabji + 2 Jowar/Bajri Bhakaris + Green Sabji & salad." },
+                    { time: "5:00 PM - 5:30 PM", category: "meal", title: "Evening Snack", details: "Small handful of roasted chana or peanuts + optional Tea/Coffee." },
+                    { time: "8:30 PM - 9:00 PM", category: "meal", title: "Light Belly-Friendly Dinner", details: "1 Jowar/Bajri Bhakari + Normal daily sabji." },
+                    { time: "11:00 PM", category: "rest", title: "Sleep & Recovery", details: "Rest up for tomorrow's upper body session." }
+                ]
+            },
+            {
+                id: "thu",
+                dayName: "Thursday",
+                theme: "Paneer Protein Day",
+                focus: "Upper Body Strength + Skipping HIIT",
+                proteinSource: "150g Paneer (Sabji / Bhurji)",
+                timeline: [
+                    { time: "7:00 AM", category: "hydrate", title: "Wake Up & Hydrate", details: "Warm water + 4-5 soaked badam, 2 pistachios, 2 cashews." },
+                    { 
+                        time: "8:00 AM - 9:00 AM", 
+                        category: "workout", 
+                        title: "Upper Body Workout & Skipping HIIT", 
+                        exercises: ["db_floor_press", "db_bent_rows", "pushups", "standing_overhead_press", "lateral_raises", "bicep_tricep_superset", "skipping_hiit", "plank_hold"] 
+                    },
+                    { time: "1:00 PM - 2:00 PM", category: "meal", title: "Single-Protein Lunch (Paneer)", details: "150g Paneer (as sabji or bhurji) + 1-2 Jowar/Bajri Bhakaris + Green Sabji & salad." },
+                    { time: "5:00 PM - 5:30 PM", category: "meal", title: "Evening Snack", details: "Small handful of roasted chana or peanuts + optional Tea/Coffee." },
+                    { time: "8:30 PM - 9:00 PM", category: "meal", title: "Light Belly-Friendly Dinner", details: "1 Jowar/Bajri Bhakari + Normal daily sabji." },
+                    { time: "11:00 PM", category: "rest", title: "Sleep & Recovery", details: "Sleep (7-8 hours)." }
+                ]
+            },
+            {
+                id: "fri",
+                dayName: "Friday",
+                theme: "Soya Chunks Protein Day",
+                focus: "Lower Body & Core (Belly Fat Blaster)",
+                proteinSource: "50g-60g Dry Soya Chunks Curry (~25g-30g protein)",
+                timeline: [
+                    { time: "7:00 AM", category: "hydrate", title: "Wake Up & Hydrate", details: "Warm water + 4-5 soaked badam, 2 pistachios, 2 cashews." },
+                    { 
+                        time: "8:00 AM - 9:00 AM", 
+                        category: "workout", 
+                        title: "Lower Body & Core Workout", 
+                        exercises: ["goblet_squats", "bulgarian_split_squat", "single_leg_rdl", "calf_raises", "leg_raises", "russian_twists", "mountain_climbers"] 
+                    },
+                    { time: "1:00 PM - 2:00 PM", category: "meal", title: "Single-Protein Lunch (Soya Chunks)", details: "Soya Chunks Curry (50g-60g dry soya) + 1-2 Jowar/Bajri Bhakaris + Green Sabji & salad." },
+                    { time: "5:00 PM - 5:30 PM", category: "meal", title: "Evening Snack", details: "Small bowl of sprouts or roasted chana + optional Tea/Coffee." },
+                    { time: "8:30 PM - 9:00 PM", category: "meal", title: "Light Belly-Friendly Dinner", details: "1 Jowar/Bajri Bhakari + Normal daily sabji." },
+                    { time: "11:00 PM", category: "rest", title: "Sleep & Recovery", details: "Rest." }
+                ]
+            },
+            {
+                id: "sat",
+                dayName: "Saturday",
+                theme: "Chicken / Egg Special Day (1x/Week)",
+                focus: "Full Body Burner & Rope Circuit",
+                proteinSource: "Chicken Breast Curry OR 3-4 Whole Eggs",
+                timeline: [
+                    { time: "7:00 AM", category: "hydrate", title: "Wake Up & Hydrate", details: "Warm water + 4-5 soaked badam, 2 pistachios, 2 cashews." },
+                    { 
+                        time: "8:00 AM - 9:00 AM", 
+                        category: "workout", 
+                        title: "Full Body Fat Burn Circuit", 
+                        exercises: ["skipping_sprints", "db_deadlifts", "db_thrusters", "bicycle_crunches"] 
+                    },
+                    { time: "1:00 PM - 2:00 PM", category: "meal", title: "Single-Protein Lunch (Chicken / Eggs)", details: "Chicken Breast Curry OR 3-4 Whole Eggs (Egg bhurji/curry) + 1-2 Jowar/Bajri Bhakaris + Green Sabji & salad." },
+                    { time: "5:00 PM - 5:30 PM", category: "meal", title: "Evening Snack", details: "Small handful of roasted chana or peanuts + optional Tea/Coffee." },
+                    { time: "8:30 PM - 9:00 PM", category: "meal", title: "Light Belly-Friendly Dinner", details: "1 Jowar/Bajri Bhakari + Normal daily sabji." },
+                    { time: "11:00 PM", category: "rest", title: "Sleep & Recovery", details: "Sleep." }
+                ]
+            },
+            {
+                id: "sun",
+                dayName: "Sunday",
+                theme: "Light Dal / Rest Day",
+                focus: "Full Rest & Muscle Recovery",
+                proteinSource: "Thick Moong or Toor Dal",
+                timeline: [
+                    { time: "7:00 AM", category: "hydrate", title: "Wake Up & Hydrate", details: "Warm water + 4-5 soaked badam, 2 pistachios, 2 cashews." },
+                    { time: "8:00 AM - 9:00 AM", category: "rest", title: "Rest & Active Stretch", details: "No heavy lifting today. Optional light stretching or foam rolling for recovery." },
+                    { time: "1:00 PM - 2:00 PM", category: "meal", title: "Single-Protein Lunch (Thick Dal)", details: "Thick Dal + 2 Jowar/Bajri Bhakaris + Green Sabji & fresh salad." },
+                    { time: "5:00 PM - 5:30 PM", category: "meal", title: "Evening Snack", details: "Small handful of roasted chana or peanuts + optional Tea/Coffee." },
+                    { time: "8:30 PM - 9:00 PM", category: "meal", title: "Light Belly-Friendly Dinner", details: "1 Jowar/Bajri Bhakari + Normal daily sabji." },
+                    { time: "11:00 PM", category: "rest", title: "Sleep & Recovery", details: "Recharge for Monday!" }
+                ]
+            }
+        ];
+
+        // Global State Variables
+        let currentDayId = "mon";
+        let userCheckState = {}; // Storage key: transformation_checks
+
+        // Initialize Application on Load
+        window.onload = function() {
+            loadProgressFromStorage();
+            
+            // Set current day tab based on actual day of week or default to Monday
+            const todayIndex = new Date().getDay(); // 0 is Sun, 1 is Mon
+            const dayMap = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+            currentDayId = dayMap[todayIndex] || "mon";
+
+            renderDayTabs();
+            renderActiveDay();
+        };
+
+        // Load checks from LocalStorage
+        function loadProgressFromStorage() {
+            try {
+                const saved = localStorage.getItem("transformation_tracker_checks");
+                if (saved) {
+                    userCheckState = JSON.parse(saved);
+                }
+            } catch (e) {
+                console.error("Could not load progress", e);
+                userCheckState = {};
+            }
+        }
+
+        // Save state to LocalStorage
+        function saveProgressToStorage() {
+            try {
+                localStorage.setItem("transformation_tracker_checks", JSON.stringify(userCheckState));
+            } catch (e) {
+                console.error("Could not save progress", e);
+            }
+        }
+
+        // Render Top Navigation Tabs
+        function renderDayTabs() {
+            const container = document.getElementById("day-tabs-container");
+            container.innerHTML = "";
+
+            WEEKLY_SCHEDULE.forEach(day => {
+                const isActive = day.id === currentDayId;
+                const button = document.createElement("button");
+                button.onclick = () => switchDay(day.id);
+                
+                button.className = `px-4 py-2.5 rounded-lg text-xs font-bold transition flex flex-col items-center min-w-[100px] border ${
+                    isActive 
+                    ? "bg-emerald-500 text-slate-950 border-emerald-400 shadow-md shadow-emerald-500/20" 
+                    : "bg-slate-800 text-slate-300 border-slate-700/70 hover:bg-slate-700 hover:text-white"
+                }`;
+
+                button.innerHTML = `
+                    <span class="uppercase tracking-wider">${day.dayName}</span>
+                    <span class="text-[10px] font-normal opacity-80 mt-0.5 truncate max-w-[90px]">${day.theme.split(' ')[0]}</span>
+                `;
+
+                container.appendChild(button);
+            });
+        }
+
+        // Switch Day Handler
+        function switchDay(dayId) {
+            currentDayId = dayId;
+            renderDayTabs();
+            renderActiveDay();
+        }
+
+        // Render Active Day Header & Timeline
+        function renderActiveDay() {
+            const dayData = WEEKLY_SCHEDULE.find(d => d.id === currentDayId);
+            if (!dayData) return;
+
+            // Update compact collapsed day indicator
+            const collapsedBadge = document.getElementById("collapsed-day-text");
+            if (collapsedBadge) {
+                collapsedBadge.innerText = `${dayData.dayName.substring(0, 3)} (${dayData.theme.split(' ')[0]})`;
+            }
+
+            // Render Day Header Summary Card
+            const summaryCard = document.getElementById("day-summary-card");
+            summaryCard.innerHTML = `
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 z-10 relative">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-amber-500/20 text-amber-300 text-xs font-semibold px-2.5 py-0.5 rounded border border-amber-500/30 uppercase">
+                                ${dayData.theme}
+                            </span>
+                            <span class="text-xs text-slate-400 font-medium">${dayData.dayName} Schedule</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-white mt-1">${dayData.focus}</h2>
+                        <p class="text-xs text-slate-300 mt-1">
+                            <strong class="text-emerald-400">Lunch Protein Source:</strong> ${dayData.proteinSource}
+                        </p>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-700 text-xs space-y-1">
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-slate-400">Target Items:</span>
+                            <span class="font-bold text-white">${dayData.timeline.length} Steps</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-slate-400">Dinner Rule:</span>
+                            <span class="font-bold text-amber-400">1 Bhakari + Sabji</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Render Timeline Items
+            const timelineContainer = document.getElementById("timeline-container");
+            timelineContainer.innerHTML = "";
+
+            dayData.timeline.forEach((item, index) => {
+                const checkKey = `${currentDayId}_item_${index}`;
+                const isChecked = !!userCheckState[checkKey];
+
+                const timelineCard = document.createElement("div");
+                timelineCard.className = `p-4 sm:p-5 rounded-xl border transition ${
+                    isChecked 
+                    ? "bg-slate-900/60 border-slate-800 opacity-75" 
+                    : "bg-slate-800/90 border-slate-700 shadow-md hover:border-slate-600"
+                }`;
+
+                // Category badges & icons
+                let categoryIcon = "fa-clock";
+                let badgeClass = "bg-slate-700 text-slate-300";
+                
+                if (item.category === "hydrate") {
+                    categoryIcon = "fa-glass-water text-cyan-400";
+                    badgeClass = "bg-cyan-500/10 text-cyan-300 border-cyan-500/30";
+                } else if (item.category === "workout") {
+                    categoryIcon = "fa-dumbbell text-emerald-400";
+                    badgeClass = "bg-emerald-500/10 text-emerald-300 border-emerald-500/30";
+                } else if (item.category === "meal") {
+                    categoryIcon = "fa-utensils text-amber-400";
+                    badgeClass = "bg-amber-500/10 text-amber-300 border-amber-500/30";
+                } else if (item.category === "rest") {
+                    categoryIcon = "fa-bed text-purple-400";
+                    badgeClass = "bg-purple-500/10 text-purple-300 border-purple-500/30";
+                }
+
+                let exercisesHTML = "";
+                if (item.exercises && item.exercises.length > 0) {
+                    exercisesHTML = `
+                        <div class="mt-4 pt-3 border-t border-slate-700/80">
+                            <p class="text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
+                                <span><i class="fa-solid fa-fire text-amber-400 mr-1"></i> Click exercise for form, steps & rest details:</span>
+                                <span class="text-[10px] text-slate-400 font-normal">Tap card for info</span>
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                ${item.exercises.map(exKey => {
+                                    const ex = EXERCISE_LIBRARY[exKey];
+                                    if (!ex) return '';
+                                    return `
+                                        <button onclick="openExerciseModal('${exKey}')" class="text-left bg-slate-900/90 hover:bg-slate-950 border border-slate-700/80 hover:border-emerald-500/50 p-2.5 rounded-lg transition group flex items-center justify-between">
+                                            <div>
+                                                <span class="text-xs font-bold text-white group-hover:text-emerald-400 transition block">${ex.name}</span>
+                                                <span class="text-[10px] text-slate-400">${ex.equipment} • ${ex.setsReps}</span>
+                                            </div>
+                                            <i class="fa-solid fa-circle-info text-slate-500 group-hover:text-emerald-400 text-xs ml-2"></i>
+                                        </button>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                timelineCard.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                            <input 
+                                type="checkbox" 
+                                id="${checkKey}" 
+                                ${isChecked ? "checked" : ""} 
+                                onchange="toggleCheck('${checkKey}')"
+                                class="mt-1 w-5 h-5 rounded border-slate-600 bg-slate-900 text-emerald-500 focus:ring-emerald-400 cursor-pointer accent-emerald-500"
+                            />
+                            <div>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="text-xs font-bold text-amber-400 flex items-center gap-1">
+                                        <i class="fa-regular ${categoryIcon}"></i> ${item.time}
+                                    </span>
+                                    <span class="text-[10px] px-2 py-0.5 rounded border ${badgeClass} font-semibold uppercase">
+                                        ${item.category}
+                                    </span>
+                                </div>
+                                <h3 class="text-base font-bold text-white mt-1 ${isChecked ? 'line-through text-slate-400' : ''}">
+                                    ${item.title}
+                                </h3>
+                                ${item.details ? `<p class="text-xs text-slate-300 mt-1">${item.details}</p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    ${exercisesHTML}
+                `;
+
+                timelineContainer.appendChild(timelineCard);
+            });
+
+            updateProgressBar();
+        }
+
+        // Toggle Checkbox
+        function toggleCheck(checkKey) {
+            userCheckState[checkKey] = !userCheckState[checkKey];
+            saveProgressToStorage();
+            renderActiveDay();
+        }
+
+        // Reset Current Day Progress
+        function resetCurrentDayProgress() {
+            const dayData = WEEKLY_SCHEDULE.find(d => d.id === currentDayId);
+            if (!dayData) return;
+
+            dayData.timeline.forEach((_, index) => {
+                const checkKey = `${currentDayId}_item_${index}`;
+                delete userCheckState[checkKey];
+            });
+
+            saveProgressToStorage();
+            renderActiveDay();
+        }
+
+        // Calculate and Update Top Progress Bar
+        function updateProgressBar() {
+            const dayData = WEEKLY_SCHEDULE.find(d => d.id === currentDayId);
+            if (!dayData) return;
+
+            let total = dayData.timeline.length;
+            let checkedCount = 0;
+
+            dayData.timeline.forEach((_, index) => {
+                const checkKey = `${currentDayId}_item_${index}`;
+                if (userCheckState[checkKey]) checkedCount++;
+            });
+
+            const percent = total > 0 ? Math.round((checkedCount / total) * 100) : 0;
+            
+            document.getElementById("daily-progress-bar").style.width = `${percent}%`;
+            document.getElementById("daily-progress-percent").innerText = `${percent}%`;
+        }
+
+        // Modal Functionality for Exercises
+        function openExerciseModal(exKey) {
+            const ex = EXERCISE_LIBRARY[exKey];
+            if (!ex) return;
+
+            document.getElementById("modal-title").innerText = ex.name;
+            document.getElementById("modal-muscle-tag").innerText = ex.muscle;
+            document.getElementById("modal-equipment").innerText = ex.equipment;
+            document.getElementById("modal-sets-reps").innerText = ex.setsReps;
+            document.getElementById("modal-rest").innerText = ex.rest;
+            document.getElementById("modal-tip").innerText = ex.tip;
+
+            // Set vector SVG diagram
+            const modalImgContainer = document.getElementById("modal-image-container");
+            modalImgContainer.innerHTML = ex.svg || `<div class="text-slate-500 text-xs">No diagram available</div>`;
+
+            const stepsList = document.getElementById("modal-steps-list");
+            stepsList.innerHTML = "";
+            ex.steps.forEach(step => {
+                const li = document.createElement("li");
+                li.innerText = step;
+                stepsList.appendChild(li);
+            });
+
+            document.getElementById("exercise-modal").classList.remove("hidden");
+            document.body.style.overflow = "hidden"; // Prevent background scroll
+        }
+
+        function closeExerciseModal() {
+            document.getElementById("exercise-modal").classList.add("hidden");
+            document.body.style.overflow = "auto";
+        }
+
+        // Close modal on outside click
+        document.getElementById("exercise-modal").addEventListener("click", function(e) {
+            if (e.target === this) {
+                closeExerciseModal();
+            }
+        });
+
+        // Toggle mobile top header visibility
+        function toggleMobileHeader() {
+            const content = document.getElementById("collapsible-header-content");
+            const icon = document.getElementById("header-toggle-icon");
+
+            if (content.classList.contains("hidden")) {
+                content.classList.remove("hidden");
+                icon.className = "fa-solid fa-xmark text-amber-400 text-sm";
+            } else {
+                content.classList.add("hidden");
+                icon.className = "fa-solid fa-bars text-emerald-400 text-sm";
+            }
+        }
+    </script>
+</body>
+</html>
+```
