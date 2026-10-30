@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Follow-Along Workout Instructor</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            accent: '#10b981', // Emerald green
+                            gold: '#f59e0b',
+                            text: '#f8fafc',
+                            subtext: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-28 md:pb-12 bg-slate-950 text-slate-100">
+<body class="bg-slate-950 text-slate-100 font-sans h-screen w-screen overflow-hidden flex flex-col justify-between p-2 sm:p-4">
+
+    <!-- TOP HEADER & DAY SELECTOR -->
+    <header class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 shadow-lg flex-shrink-0">
+        <div class="max-w-4xl mx-auto flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="bg-emerald-500/10 text-emerald-400 text-[10px] sm:text-xs font-extrabold px-2.5 py-1 rounded-full border border-emerald-500/20 uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Live Instructor
+                </span>
+            </div>
+
+            <!-- Day Selector Dropdown -->
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-calendar-day text-amber-400 text-xs"></i>
+                <select id="day-select" onchange="switchDay(this.value)" class="bg-slate-800 text-white font-bold text-xs py-1 px-2 sm:px-3 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500">
+                    <option value="mon">Mon: Upper + Skipping (Paneer)</option>
+                    <option value="tue">Tue: Lower + Core (Soya)</option>
+                    <option value="wed">Wed: Active Recovery (Dal)</option>
+                    <option value="thu">Thu: Upper + Skipping (Paneer)</option>
+                    <option value="fri">Fri: Lower + Core (Soya)</option>
+                    <option value="sat">Sat: Full Body Burner (Chicken/Eggs)</option>
+                    <option value="sun">Sun: Rest Day (Dal)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Overall Day Progress Bar -->
+        <div class="mt-2 flex items-center gap-2 max-w-4xl mx-auto">
+            <div class="flex-1 bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700/80">
+                <div id="workout-progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <span id="workout-progress-percent" class="text-[10px] sm:text-xs font-black text-emerald-400 w-10 text-right">0%</span>
+        </div>
+    </header>
+
+    <!-- MAIN INSTRUCTOR CONTAINER (NO SCROLL FIT) -->
+    <main class="max-w-4xl mx-auto w-full flex-1 my-2 flex flex-col justify-between gap-2 overflow-hidden">
+
+        <!-- DIET & PROTEIN NOTICE FOR THE DAY -->
+        <div id="diet-banner" class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 flex items-center justify-between gap-2 text-xs flex-shrink-0">
+            <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xs">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <div>
+                    <span class="text-slate-400 block text-[9px] uppercase font-semibold leading-tight">Today's Single Protein Source (Lunch)</span>
+                    <span id="diet-protein-text" class="text-white font-bold text-xs">150g Paneer (Sabji / Bhurji)</span>
+                </div>
+            </div>
+            <div class="text-right hidden sm:block">
+                <span class="text-slate-400 block text-[9px] uppercase leading-tight">Dinner Rule</span>
+                <span class="text-amber-400 font-bold text-xs">1 Bhakari + Sabji</span>
+            </div>
+        </div>
+
+        <!-- MAIN FOLLOW-ALONG WORKOUT SCREEN -->
+        <div id="workout-screen" class="bg-slate-900 border border-slate-800 rounded-2xl p-3 sm:p-4 shadow-2xl flex-1 flex flex-col justify-between overflow-hidden">
+            
+            <!-- Top Status Bar: Exercise Counters -->
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2 flex-shrink-0">
+                <div>
+                    <span id="exercise-counter-text" class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">Exercise 1 of 8</span>
+                    <h2 id="current-exercise-name" class="text-lg sm:text-xl font-black text-white leading-tight">Dumbbell Floor Press</h2>
+                </div>
+                <div class="text-right">
+                    <span id="current-set-badge" class="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-300 font-black text-xs rounded-lg border border-emerald-500/30 inline-block">
+                        Set 1 of 4
+                    </span>
+                    <span id="current-reps-text" class="text-[10px] sm:text-xs text-slate-400 block mt-0.5 font-medium">12 - 15 Reps</span>
+                </div>
+            </div>
+
+            <!-- Active Exercise View OR Rest Screen -->
+            <div id="instructor-view-container" class="flex-1 bg-slate-950 rounded-xl border border-slate-800 my-2 p-2 flex flex-col items-center justify-center relative overflow-hidden min-h-[140px]">
+                
+                <!-- Active Visual SVG Container -->
+                <div id="exercise-svg-display" class="w-full h-full flex items-center justify-center text-emerald-400 p-2">
+                    <!-- Dynamic SVG injected here -->
+                </div>
+
+                <!-- REST BREAK OVERLAY -->
+                <div id="rest-overlay" class="absolute inset-0 bg-slate-950/95 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center hidden z-20">
+                    <span class="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-amber-500/30 uppercase tracking-widest mb-1">
+                        Rest & Recover
+                    </span>
+                    <span id="rest-timer-display" class="text-4xl sm:text-5xl font-black text-amber-400 my-1">00:45</span>
+                    <p class="text-[11px] text-slate-300 max-w-xs">Breathe deeply, sip water. Next set starting automatically.</p>
+                    <div id="next-up-preview" class="mt-2 pt-2 border-t border-slate-800 text-[11px] text-slate-400">
+                        Up Next: <strong id="next-up-text" class="text-white">Dumbbell Floor Press (Set 2)</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Real-time Running Timer & Controls Bar -->
+            <div class="bg-slate-950 p-2 sm:p-3 rounded-xl border border-slate-800 flex items-center justify-between gap-2 flex-shrink-0">
+                
+                <!-- Main Timer -->
+                <div class="text-left pl-1">
+                    <span id="timer-status-label" class="text-[9px] text-slate-400 uppercase font-semibold tracking-wider block leading-none">Work Time</span>
+                    <span id="timer-display" class="text-2xl sm:text-3xl font-black text-emerald-400 font-mono tracking-tight leading-tight">00:45</span>
+                </div>
+
+                <!-- Primary Action Buttons with Previous Exercise Support -->
+                <div class="flex items-center gap-1.5 sm:gap-2">
+                    <button onclick="previousExercise()" class="px-2.5 sm:px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-lg border border-slate-700 transition flex items-center gap-1" title="Go to Previous Exercise">
+                        <i class="fa-solid fa-backward"></i>
+                        <span class="hidden sm:inline">Prev</span>
+                    </button>
+
+                    <button id="play-pause-btn" onclick="togglePlayPause()" class="px-4 sm:px-5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm rounded-lg transition flex items-center gap-1.5 shadow-md shadow-emerald-500/20">
+                        <i id="play-pause-icon" class="fa-solid fa-pause"></i>
+                        <span id="play-pause-text">Pause</span>
+                    </button>
+
+                    <button onclick="skipRestOrSet()" class="px-2.5 sm:px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-lg border border-slate-700 transition flex items-center gap-1" title="Skip to Next Set or Exercise">
+                        <span class="hidden sm:inline">Skip</span>
+                        <i class="fa-solid fa-forward"></i>
+                    </button>
+
+                    <button onclick="takeLargeBreak()" class="px-2.5 sm:px-3 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 font-bold text-xs rounded-lg border border-amber-500/30 transition flex items-center gap-1" title="Pause for a water break">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Proper Form Instructions & Equipment -->
+            <div class="mt-2 space-y-1 flex-shrink-0">
+                <div class="flex items-center justify-between text-[10px] sm:text-xs">
+                    <span class="text-slate-400 font-semibold truncate">
+                        <i class="fa-solid fa-dumbbell text-amber-400"></i> Equipment: <strong id="current-equipment-text" class="text-white">10kg Dumbbells</strong>
+                    </span>
+                    <span class="text-slate-400 font-semibold truncate">
+                        <i class="fa-solid fa-bullseye text-emerald-400"></i> Target: <strong id="current-target-text" class="text-white">Chest & Triceps</strong>
+                    </span>
+                </div>
+
+                <div class="bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-[11px] text-slate-300">
+                    <ol id="current-steps-list" class="list-disc list-inside space-y-0.5 text-slate-300 truncate">
+                        <!-- Dynamic Steps -->
+                    </ol>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- JS LOGIC & AUTOMATED INSTRUCTOR ENGINE -->
+    <script>
+        // Audio Beep Alerts using Web Audio API
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playBeep(freq = 600, duration = 0.15) {
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) { console.log(e); }
+        }
+
+        // Distinct Alert Sound 1: Exercise Start (Sharp Double-Beep)
+        function playExerciseStartSound() {
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                playBeep(880, 0.1);
+                setTimeout(() => playBeep(1174, 0.2), 120);
+            } catch(e) { console.log(e); }
+        }
+
+        // Distinct Alert Sound 2: Rest Start (Descending Chime)
+        function playRestStartSound() {
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                playBeep(659, 0.15);
+                setTimeout(() => playBeep(440, 0.25), 160);
+            } catch(e) { console.log(e); }
+        }
+
+        // Exercise Database with SVGs
+        const EXERCISES = {
+            "db_floor_press": {
+                name: "Dumbbell Floor Press",
+                target: "Chest & Triceps",
+                equipment: "10kg Dumbbells",
+                totalSets: 4,
+                repsText: "12 - 15 Reps",
+                workDurationSec: 45,
+                restDurationSec: 60,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 120 h260" stroke="#334155" stroke-width="4"/><rect x="80" y="105" width="140" height="15" rx="5" fill="#1e293b" stroke="#10b981"/><circle cx="95" cy="95" r="10" stroke="#f8fafc"/><path d="M100 100 L115 75 L140 75"/><path d="M140 40 L140 75" stroke="#f59e0b" stroke-width="5"/><path d="M180 40 L180 75" stroke="#f59e0b" stroke-width="5"/><rect x="130" y="30" width="20" height="10" rx="2" fill="#f59e0b"/><rect x="170" y="30" width="20" height="10" rx="2" fill="#f59e0b"/></svg>`,
+                steps: [
+                    "Lie flat on the floor with knees bent and feet flat.",
+                    "Hold 10kg dumbbells at chest level with upper arms at a 45-degree angle.",
+                    "Press dumbbells up until arms are fully extended over chest.",
+                    "Lower dumbbells slowly in 3 seconds until upper arms touch floor."
+                ]
+            },
+            "db_bent_rows": {
+                name: "Dumbbell Bent-Over Rows",
+                target: "Back & Forearms",
+                equipment: "10kg Dumbbells",
+                totalSets: 4,
+                repsText: "12 - 15 Reps",
+                workDurationSec: 45,
+                restDurationSec: 60,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 135 h260" stroke="#334155" stroke-width="4"/><circle cx="100" cy="50" r="10" stroke="#f8fafc"/><path d="M100 60 L130 90 L120 135"/><path d="M120 75 L150 65 L160 85" stroke="#f59e0b"/><rect x="152" y="80" width="16" height="12" rx="3" fill="#f59e0b"/></svg>`,
+                steps: [
+                    "Hinge at hips with flat back, holding 10kg dumbbells in each hand.",
+                    "Drive elbows up and back, squeezing shoulder blades tightly at top.",
+                    "Lower back down slowly under control."
+                ]
+            },
+            "pushups": {
+                name: "Push-Ups (Standard or Elevated)",
+                target: "Chest, Shoulders & Core",
+                equipment: "Bodyweight",
+                totalSets: 3,
+                repsText: "12 - 18 Reps",
+                workDurationSec: 40,
+                restDurationSec: 60,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 130 h260" stroke="#334155" stroke-width="4"/><circle cx="230" cy="65" r="10" stroke="#f8fafc"/><path d="M220 70 L130 85 L70 125" stroke="#10b981" stroke-width="4"/><path d="M130 85 L130 130" stroke="#f8fafc" stroke-width="3"/></svg>`,
+                steps: [
+                    "Place hands shoulder-width apart, legs straight back.",
+                    "Lower chest until 2 inches off floor.",
+                    "Push back up firmly."
+                ]
+            },
+            "standing_overhead_press": {
+                name: "Standing Dumbbell Overhead Press",
+                target: "Shoulders & Triceps",
+                equipment: "10kg Dumbbells",
+                totalSets: 3,
+                repsText: "10 - 12 Reps",
+                workDurationSec: 40,
+                restDurationSec: 60,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="30" r="10" stroke="#f8fafc"/><path d="M150 40 L150 90 M150 55 L125 25 M150 55 L175 25"/><rect x="115" y="15" width="20" height="10" rx="2" fill="#f59e0b"/><rect x="165" y="15" width="20" height="10" rx="2" fill="#f59e0b"/></svg>`,
+                steps: [
+                    "Stand tall holding 10kg dumbbells at shoulder height.",
+                    "Press overhead until arms are extended overhead.",
+                    "Lower slowly back to shoulders."
+                ]
+            },
+            "lateral_raises": {
+                name: "Dumbbell Lateral Raises",
+                target: "Side Shoulders",
+                equipment: "5kg Dumbbells",
+                totalSets: 3,
+                repsText: "15 Reps",
+                workDurationSec: 40,
+                restDurationSec: 45,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="25" r="10" stroke="#f8fafc"/><path d="M150 45 L90 45 M150 45 L210 45"/><rect x="80" y="40" width="12" height="10" rx="2" fill="#f59e0b"/><rect x="208" y="40" width="12" height="10" rx="2" fill="#f59e0b"/></svg>`,
+                steps: [
+                    "Hold 5kg dumbbells by your sides.",
+                    "Raise arms out to sides to shoulder height without swinging.",
+                    "Lower weights back down slowly."
+                ]
+            },
+            "bicep_tricep_superset": {
+                name: "Bicep Curls Superset w/ Overhead Tricep Ext.",
+                target: "Biceps & Triceps",
+                equipment: "5kg or 10kg Dumbbells",
+                totalSets: 3,
+                repsText: "12 Reps Each",
+                workDurationSec: 50,
+                restDurationSec: 45,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="100" cy="40" r="10" stroke="#f8fafc"/><path d="M100 50 L100 100 L90 140 M100 100 L110 140"/><path d="M100 65 L120 50 L110 35" stroke="#f59e0b" stroke-width="4"/><rect x="105" y="25" width="12" height="10" rx="2" fill="#f59e0b"/><circle cx="200" cy="40" r="10" stroke="#f8fafc"/><path d="M200 50 L200 100 L190 140 M200 100 L210 140"/><path d="M200 65 L190 35 L175 25" stroke="#f59e0b" stroke-width="4"/><rect x="168" y="20" width="14" height="10" rx="2" fill="#f59e0b"/></svg>`,
+                steps: [
+                    "Perform 12 reps of strict bicep curls.",
+                    "Immediately follow with 12 reps of overhead tricep extensions."
+                ]
+            },
+            "skipping_hiit": {
+                name: "Skipping Rope HIIT Finisher",
+                target: "Calves, Cardio & Fat Burn",
+                equipment: "Skipping Rope",
+                totalSets: 8,
+                repsText: "30s Sprint / 30s Rest",
+                workDurationSec: 30,
+                restDurationSec: 30,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="30" r="10" stroke="#f8fafc"/><path d="M150 40 L150 85 M150 85 L140 125 M150 85 L160 125"/><path d="M150 55 L120 65 M150 55 L180 65"/><path d="M120 65 Q150 150 180 65" stroke="#f59e0b" stroke-width="3"/></svg>`,
+                steps: [
+                    "Jump light on the balls of your feet.",
+                    "Maintain maximum skipping rope speed for full 30s."
+                ]
+            },
+            "plank_hold": {
+                name: "Plank Hold",
+                target: "Abs & Core",
+                equipment: "Bodyweight",
+                totalSets: 3,
+                repsText: "45 - 60 Seconds",
+                workDurationSec: 45,
+                restDurationSec: 45,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 135 h260" stroke="#334155" stroke-width="4"/><circle cx="240" cy="75" r="10" stroke="#f8fafc"/><path d="M230 80 L130 85 M130 85 L70 125" stroke="#10b981" stroke-width="4"/><path d="M230 80 L230 125 M210 80 L210 125" stroke="#f8fafc" stroke-width="3"/></svg>`,
+                steps: [
+                    "Hold straight line from head to heels on forearms.",
+                    "Keep abs squeezed tight."
+                ]
+            },
+            "goblet_squats": {
+                name: "Dumbbell Goblet Squats",
+                target: "Quadriceps & Glutes",
+                equipment: "10kg Dumbbell",
+                totalSets: 4,
+                repsText: "15 - 20 Reps",
+                workDurationSec: 45,
+                restDurationSec: 60,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="30" r="10" stroke="#f8fafc"/><path d="M150 40 L150 80 M150 80 L125 130 M150 80 L175 130"/><path d="M150 55 L135 60 L150 55 L165 60"/><rect x="142" y="48" width="16" height="16" rx="3" fill="#f59e0b"/></svg>`,
+                steps: [
+                    "Hold 10kg dumbbell vertically at chest.",
+                    "Squat down deep until thighs are parallel to ground."
+                ]
+            },
+            "bulgarian_split_squat": {
+                name: "Bulgarian Split Squats",
+                target: "Legs & Balance",
+                equipment: "5kg or 10kg Dumbbells",
+                totalSets: 3,
+                repsText: "10 - 12 Reps per Leg",
+                workDurationSec: 45,
+                restDurationSec: 60,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><rect x="210" y="90" width="50" height="50" rx="3" fill="#1e293b"/><circle cx="130" cy="30" r="10" stroke="#f8fafc"/><path d="M130 40 L130 85 M130 85 L105 135 M130 85 L180 90 L215 105"/><rect x="118" y="65" width="10" height="12" rx="2" fill="#f59e0b"/><rect x="135" y="65" width="10" height="12" rx="2" fill="#f59e0b"/></svg>`,
+                steps: [
+                    "Back foot elevated on chair.",
+                    "Lower front thigh parallel to floor."
+                ]
+            },
+            "single_leg_rdl": {
+                name: "Single-Leg Romanian Deadlifts",
+                target: "Hamstrings & Glutes",
+                equipment: "10kg Dumbbell",
+                totalSets: 3,
+                repsText: "12 Reps per Leg",
+                workDurationSec: 45,
+                restDurationSec: 60,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="170" cy="40" r="10" stroke="#f8fafc"/><path d="M160 45 L110 70 M110 70 L110 135 M110 70 L50 80"/><path d="M125 60 L110 95"/><rect x="103" y="95" width="14" height="12" rx="2" fill="#f59e0b"/></svg>`,
+                steps: [
+                    "Balance on one leg while extending rear leg back.",
+                    "Hinge at hips, lowering 10kg dumbbell to shin level."
+                ]
+            },
+            "calf_raises": {
+                name: "Dumbbell Calf Raises",
+                target: "Calves",
+                equipment: "10kg Dumbbells",
+                totalSets: 4,
+                repsText: "20 Reps",
+                workDurationSec: 40,
+                restDurationSec: 45,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 h260" stroke="#334155" stroke-width="4"/><circle cx="150" cy="25" r="10" stroke="#f8fafc"/><path d="M150 35 L150 85 M150 85 L140 135 M150 85 L160 135"/><path d="M150 50 L135 60 M150 50 L165 60"/><rect x="128" y="58" width="12" height="10" rx="2" fill="#f59e0b"/><rect x="160" y="58" width="12" height="10" rx="2" fill="#f59e0b"/></svg>`,
+                steps: [
+                    "Rise high onto balls of feet.",
+                    "Pause for 2 seconds at peak squeeze."
+                ]
+            },
+            "leg_raises": {
+                name: "Floor Lying Leg Raises",
+                target: "Lower Abs",
+                equipment: "Bodyweight",
+                totalSets: 3,
+                repsText: "15 - 20 Reps",
+                workDurationSec: 40,
+                restDurationSec: 45,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 135 h260" stroke="#334155" stroke-width="4"/><circle cx="60" cy="120" r="10" stroke="#f8fafc"/><path d="M70 120 L160 120 L160 40" stroke="#10b981" stroke-width="4"/></svg>`,
+                steps: [
+                    "Lie flat, raising legs straight up to ceiling.",
+                    "Lower slowly until hovering 2 inches off floor."
+                ]
+            },
+            "russian_twists": {
+                name: "Dumbbell Russian Twists",
+                target: "Obliques & Core",
+                equipment: "5kg Dumbbell",
+                totalSets: 3,
+                repsText: "20 Total Twists",
+                workDurationSec: 40,
+                restDurationSec: 45,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 135 h260" stroke="#334155" stroke-width="4"/><circle cx="120" cy="50" r="10" stroke="#f8fafc"/><path d="M120 60 L150 110 L200 110"/><path d="M135 75 L160 85"/><rect x="152" y="78" width="16" height="14" rx="2" fill="#f59e0b"/></svg>`,
+                steps: [
+                    "Sit leaning back 45 degrees holding 5kg dumbbell.",
+                    "Rotate torso side to side."
+                ]
+            },
+            "mountain_climbers": {
+                name: "Mountain Climbers",
+                target: "Belly Fat Burner & Core",
+                equipment: "Bodyweight",
+                totalSets: 3,
+                repsText: "45 Seconds",
+                workDurationSec: 45,
+                restDurationSec: 45,
+                svg: `<svg viewBox="0 0 300 150" class="w-full h-full max-h-40 text-emerald-400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 135 h260" stroke="#334155" stroke-width="4"/><circle cx="230" cy="65" r="10" stroke="#f8fafc"/><path d="M221 70 L140 85 M140 85 L130 125 M140 85 L100 100 L75 130"/><path d="M210 72 L210 130" stroke="#f8fafc" stroke-width="3"/></svg>`,
+                steps: [
+                    "Run knees rapidly in toward chest in plank position."
+                ]
+            }
+        };
+
+        const DAY_ROUTINES = {
+            "mon": { protein: "150g Paneer (Sabji / Bhurji)", exercises: ["db_floor_press", "db_bent_rows", "pushups", "standing_overhead_press", "lateral_raises", "bicep_tricep_superset", "skipping_hiit", "plank_hold"] },
+            "tue": { protein: "50g-60g Dry Soya Chunks Curry", exercises: ["goblet_squats", "bulgarian_split_squat", "single_leg_rdl", "calf_raises", "leg_raises", "russian_twists", "mountain_climbers"] },
+            "wed": { protein: "Thick Mixed Dal / Sprouts", exercises: ["skipping_hiit"] },
+            "thu": { protein: "150g Paneer (Sabji / Bhurji)", exercises: ["db_floor_press", "db_bent_rows", "pushups", "standing_overhead_press", "lateral_raises", "bicep_tricep_superset", "skipping_hiit", "plank_hold"] },
+            "fri": { protein: "50g-60g Dry Soya Chunks Curry", exercises: ["goblet_squats", "bulgarian_split_squat", "single_leg_rdl", "calf_raises", "leg_raises", "russian_twists", "mountain_climbers"] },
+            "sat": { protein: "Chicken Breast Curry OR 3-4 Eggs", exercises: ["skipping_hiit", "goblet_squats", "db_floor_press", "db_bent_rows"] },
+            "sun": { protein: "Thick Moong or Toor Dal (Rest Day)", exercises: [] }
+        };
+
+        // Execution State Variables
+        let activeDayKey = "mon";
+        let activeExIndex = 0;
+        let activeSetNum = 1;
+        let isResting = false;
+        let isRunning = true;
+        let timerSeconds = 45;
+        let timerInterval = null;
+
+        window.onload = function() {
+            // Default to today's day
+            const todayIndex = new Date().getDay();
+            const dayMap = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+            activeDayKey = dayMap[todayIndex] || "mon";
+            document.getElementById("day-select").value = activeDayKey;
+
+            loadExerciseState();
+            startTimerEngine();
+        };
+
+        function switchDay(dayKey) {
+            activeDayKey = dayKey;
+            activeExIndex = 0;
+            activeSetNum = 1;
+            isResting = false;
+            loadExerciseState();
+        }
+
+        function loadExerciseState() {
+            const routine = DAY_ROUTINES[activeDayKey];
+            document.getElementById("diet-protein-text").innerText = routine.protein;
+
+            if (!routine.exercises || routine.exercises.length === 0) {
+                // Rest Day
+                document.getElementById("current-exercise-name").innerText = "Rest & Recovery Day";
+                document.getElementById("exercise-counter-text").innerText = "No Lifting Scheduled";
+                document.getElementById("current-set-badge").innerText = "Rest";
+                document.getElementById("current-reps-text").innerText = "Recovery";
+                document.getElementById("exercise-svg-display").innerHTML = `<div class="text-amber-400 font-bold p-6 text-center">Rest & Enjoy Your Light Meals!</div>`;
+                document.getElementById("timer-display").innerText = "--:--";
+                clearInterval(timerInterval);
+                updateProgressBar(100);
+                return;
+            }
+
+            const exKey = routine.exercises[activeExIndex];
+            const exData = EXERCISES[exKey];
+
+            document.getElementById("exercise-counter-text").innerText = `Exercise ${activeExIndex + 1} of ${routine.exercises.length}`;
+            document.getElementById("current-exercise-name").innerText = exData.name;
+            document.getElementById("current-set-badge").innerText = `Set ${activeSetNum} of ${exData.totalSets}`;
+            document.getElementById("current-reps-text").innerText = exData.repsText;
+            document.getElementById("current-equipment-text").innerText = exData.equipment;
+            document.getElementById("current-target-text").innerText = exData.target;
+            document.getElementById("exercise-svg-display").innerHTML = exData.svg;
+
+            const stepsList = document.getElementById("current-steps-list");
+            stepsList.innerHTML = "";
+            exData.steps.forEach(s => {
+                const li = document.createElement("li");
+                li.innerText = s;
+                stepsList.appendChild(li);
+            });
+
+            // Set Timer
+            if (!isResting) {
+                timerSeconds = exData.workDurationSec;
+                document.getElementById("timer-status-label").innerText = "Set Work Time";
+                document.getElementById("rest-overlay").classList.add("hidden");
+            } else {
+                timerSeconds = exData.restDurationSec;
+                document.getElementById("timer-status-label").innerText = "Rest Break";
+                document.getElementById("rest-overlay").classList.remove("hidden");
+                document.getElementById("rest-timer-display").innerText = formatTime(timerSeconds);
+
+                // Set next up preview
+                let nextText = `${exData.name} (Set ${activeSetNum})`;
+                document.getElementById("next-up-text").innerText = nextText;
+            }
+
+            updateTimerDisplay();
+            calculateOverallProgress();
+        }
+
+        function startTimerEngine() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (!isRunning) return;
+
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                    if (isResting) {
+                        document.getElementById("rest-timer-display").innerText = formatTime(timerSeconds);
+                    }
+                    if (timerSeconds <= 3 && timerSeconds > 0) {
+                        playBeep(800, 0.1); // Countdown beep
+                    }
+                } else {
+                    playBeep(1200, 0.4); // Final transition beep
+                    advanceWorkoutStep();
+                }
+            }, 1000);
+        }
+
+        function advanceWorkoutStep() {
+            const routine = DAY_ROUTINES[activeDayKey];
+            if (!routine.exercises || routine.exercises.length === 0) return;
+
+            const exKey = routine.exercises[activeExIndex];
+            const exData = EXERCISES[exKey];
+
+            if (!isResting) {
+                // Completed a set -> move to Rest
+                if (activeSetNum < exData.totalSets) {
+                    isResting = true;
+                    activeSetNum++;
+                    playRestStartSound(); // Play Rest Start Audio
+                } else {
+                    // Completed all sets of this exercise -> move to Rest then next exercise
+                    if (activeExIndex < routine.exercises.length - 1) {
+                        isResting = true;
+                        activeExIndex++;
+                        activeSetNum = 1;
+                        playRestStartSound(); // Play Rest Start Audio
+                    } else {
+                        // Completed entire day's workout
+                        alert("🎉 Incredible job! You completed today's entire workout!");
+                        isRunning = false;
+                        updateProgressBar(100);
+                        return;
+                    }
+                }
+            } else {
+                // Completed Rest -> move to Active Set
+                isResting = false;
+                playExerciseStartSound(); // Play Exercise Start Audio
+            }
+
+            loadExerciseState();
+        }
+
+        function togglePlayPause() {
+            isRunning = !isRunning;
+            const btnText = document.getElementById("play-pause-text");
+            const btnIcon = document.getElementById("play-pause-icon");
+
+            if (isRunning) {
+                btnText.innerText = "Pause";
+                btnIcon.className = "fa-solid fa-pause";
+            } else {
+                btnText.innerText = "Resume";
+                btnIcon.className = "fa-solid fa-play";
+            }
+        }
+
+        function skipRestOrSet() {
+            advanceWorkoutStep();
+        }
+
+        function previousExercise() {
+            const routine = DAY_ROUTINES[activeDayKey];
+            if (!routine.exercises || routine.exercises.length === 0) return;
+
+            isResting = false;
+            if (activeSetNum > 1) {
+                activeSetNum--;
+            } else if (activeExIndex > 0) {
+                activeExIndex--;
+                const prevExKey = routine.exercises[activeExIndex];
+                activeSetNum = EXERCISES[prevExKey].totalSets;
+            }
+            loadExerciseState();
+        }
+
+        function takeLargeBreak() {
+            isRunning = false;
+            document.getElementById("play-pause-text").innerText = "Resume";
+            document.getElementById("play-pause-icon").className = "fa-solid fa-play";
+            alert("⏸ Workout Paused for a Big Break. Click Resume when you are ready to continue!");
+        }
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+
+        function updateTimerDisplay() {
+            document.getElementById("timer-display").innerText = formatTime(timerSeconds);
+        }
+
+        function calculateOverallProgress() {
+            const routine = DAY_ROUTINES[activeDayKey];
+            if (!routine.exercises || routine.exercises.length === 0) return;
+
+            let totalSetsInDay = 0;
+            let completedSets = 0;
+
+            routine.exercises.forEach((key, idx) => {
+                const ex = EXERCISES[key];
+                totalSetsInDay += ex.totalSets;
+                if (idx < activeExIndex) {
+                    completedSets += ex.totalSets;
+                } else if (idx === activeExIndex) {
+                    completedSets += (activeSetNum - 1);
+                }
+            });
+
+            const percent = Math.round((completedSets / totalSetsInDay) * 100);
+            updateProgressBar(percent);
+        }
+
+        function updateProgressBar(percent) {
+            document.getElementById("workout-progress-bar").style.width = `${percent}%`;
+            document.getElementById("workout-progress-percent").innerText = `${percent}%`;
+        }
+    </script>
+</body>
+</html>
